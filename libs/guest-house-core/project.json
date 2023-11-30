@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/guest-house-core",
+  "sourceRoot": "libs/guest-house-core/src",
+  "prefix": "general-app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/guest-house-core"],
+      "options": {
+        "jestConfig": "libs/guest-house-core/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/guest-house-core/src/**/*.ts",
+          "libs/guest-house-core/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

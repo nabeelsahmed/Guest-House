@@ -1,0 +1,158 @@
+<div class="ms-4 me-4 maxHeight">
+  <div
+    class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center pt-2 pb-2 border-bottom"
+  >
+    <button
+      mat-button
+      class="branchSetupBtn ps-1 pe-1 me-lg-auto mat-elevation-z1"
+      data-bs-toggle="modal"
+      data-bs-target="#branchModal"
+    >
+      Branch Setup List
+    </button>
+    <button mat-button class="saveBtn mat-elevation-z1" (click)="save()">
+      Save
+    </button>
+    <button mat-button class="ms-2 resetBtn mat-elevation-z1" (click)="reset()">
+      Reset
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-md-8 border-end">
+      <mat-form-field class="w-50 mt-4 pe-2" appearance="fill">
+        <mat-label>Select Company</mat-label>
+        <mat-select
+          [(ngModel)]="formFields[3].value"
+          (ngModelChange)="getBranch()"
+        >
+          <mat-option
+            *ngFor="let item of companyList"
+            [value]="item.company_id"
+          >
+            {{ item.company_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-50 mt-4 ps-2" appearance="fill">
+        <mat-label>Select Branch</mat-label>
+        <mat-select
+          [(ngModel)]="formFields[4].value"
+          (ngModelChange)="getSelectedDepartment()"
+        >
+          <mat-option *ngFor="let item of branchList" [value]="item.branch_id">
+            {{ item.branch_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <general-app-contact-info></general-app-contact-info> -->
+
+      <general-app-branch-steup-table
+        (eventEmitter)="addDepartment($event)"
+        (eventEmitterEdit)="deptContact($event)"
+      ></general-app-branch-steup-table>
+    </div>
+    <div class="col-md-4">
+      <perfect-scrollbar
+        class="bg-light-grey"
+        style="height: 39em; max-width: 100%"
+      >
+        <div *ngFor="let item of tempDepartmentList; let i = index">
+          <div class="row ms-3 mt-3 pt-1 bgSecondary">
+            <div class="col-md-10">
+              <h4 class="text-white">{{ item.branch_name }}</h4>
+            </div>
+            <div class="col-md-2">
+              <mat-icon class="text-white" (click)="removeBranch(i, item)"
+                >close</mat-icon
+              >
+            </div>
+          </div>
+          <div class="table-responsive ms-3">
+            <table class="table table-striped mat-elevation-z3">
+              <tbody>
+                <tr *ngFor="let dept of item.tempDeptList">
+                  <td class="col-9">
+                    <h6 class="grey-text ps-4">{{ dept.dept_sec_name }}</h6>
+                  </td>
+                  <td class="col-1">
+                    <mat-icon class="orange-text ps-2">circle</mat-icon>
+                  </td>
+                  <td class="col-2"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="branchModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+  <div class="modal-dialog modal-lg mat-elevation-z20">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bgSecondary">
+        <h4 class="modal-title align-self-center text-white">
+          Branch Setup List
+        </h4>
+        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="d-flex flex-column align-items-center"> -->
+        <general-app-branch-list-table
+          (eventEmitter)="edit($event)"
+          (eventEmitterDelete)="delete()"
+        ></general-app-branch-list-table>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  id="departmentContactModal"
+  class="modal fade"
+  role="dialog"
+  data-bs-backdrop="false"
+>
+  <div class="modal-dialog modal-lg mat-elevation-z20">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bgSecondary">
+        <h4 class="modal-title align-self-center text-white">
+          {{ dptHeading }}
+        </h4>
+        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+      </div>
+      <div class="modal-body">
+        <perfect-scrollbar
+          class="bg-light-grey mb-3"
+          style="height: 20em; max-width: 100%"
+        >
+          <general-app-contact-info></general-app-contact-info>
+        </perfect-scrollbar>
+        <div class="d-flex justify-content-around">
+          <button
+            mat-button
+            class="saveBtn mat-elevation-z1"
+            (click)="saveDeptContact()"
+          >
+            Save
+          </button>
+          <button
+            mat-button
+            class="ms-2 resetBtn mat-elevation-z1"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

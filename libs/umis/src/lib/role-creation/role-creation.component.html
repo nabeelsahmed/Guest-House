@@ -1,0 +1,213 @@
+<div class="ms-4 me-4 maxHeight">
+  <div
+    class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center pt-2 pb-2 border-bottom"
+  >
+    <button
+      mat-button
+      class="roleBtn ps-1 pe-1 me-lg-auto mat-elevation-z1"
+      data-bs-toggle="modal"
+      data-bs-target="#roleModal"
+    >
+      Roles List
+    </button>
+    <button mat-button class="saveBtn mat-elevation-z1" (click)="save()">
+      Save
+    </button>
+    <button mat-button class="ms-2 resetBtn mat-elevation-z1" (click)="reset()">
+      Reset
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-md-8 border-end">
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Role Title</mat-label>
+            <input matInput name="role" [(ngModel)]="formFields[3].value" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Module Title</mat-label>
+            <mat-select
+              [(ngModel)]="cmbModule"
+              (ngModelChange)="setMenuData(cmbModule)"
+            >
+              <mat-option
+                *ngFor="let item of moduleList"
+                [value]="item.applicationModuleId"
+              >
+                {{ item.applicationModuleTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" class="w-100 pe-2">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              name="description"
+              [style.height.px]="100"
+              [(ngModel)]="formFields[4].value"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <h3 *ngIf="menuList.length > 0"><b>Module Pages</b></h3>
+      <div class="row">
+        <div class="table-responsive">
+          <perfect-scrollbar
+            class="bg-light-grey"
+            style="height: 25em; max-width: 100%"
+          >
+            <table class="table table-striped border">
+              <tbody>
+                <tr *ngFor="let item of menuList">
+                  <td class="col-1">
+                    <img
+                      src="http://135.181.62.34:8070/assets/ui/noImage.png"
+                      width="50px"
+                      height="50px"
+                    />
+                  </td>
+                  <td class="col-8">
+                    <h3 class="pt-2">{{ item.menuTitle }}</h3>
+                  </td>
+                  <td class="col-1">
+                    <button
+                      *ngIf="item.read == true"
+                      class="bgOrange"
+                      mat-mini-fab
+                      (click)="addToSelectedModulesList(item, false, 'read')"
+                    >
+                      <h3>R</h3>
+                    </button>
+                    <button
+                      *ngIf="item.read == false"
+                      class="bgWhite"
+                      mat-mini-fab
+                      (click)="addToSelectedModulesList(item, true, 'read')"
+                    >
+                      <h3>R</h3>
+                    </button>
+                  </td>
+                  <td class="col-1">
+                    <button
+                      *ngIf="item.write == true"
+                      class="bgOrange"
+                      mat-mini-fab
+                      (click)="addToSelectedModulesList(item, false, 'write')"
+                    >
+                      <h3>W</h3>
+                    </button>
+                    <button
+                      *ngIf="item.write == false"
+                      class="bgWhite"
+                      mat-mini-fab
+                      (click)="addToSelectedModulesList(item, true, 'write')"
+                    >
+                      <h3>W</h3>
+                    </button>
+                  </td>
+                  <td class="col-1">
+                    <button
+                      *ngIf="item.delete == true"
+                      class="bgOrange"
+                      mat-mini-fab
+                      (click)="addToSelectedModulesList(item, false, 'delete')"
+                    >
+                      <h3>D</h3>
+                    </button>
+                    <button
+                      *ngIf="item.delete == false"
+                      class="bgWhite"
+                      mat-mini-fab
+                      (click)="addToSelectedModulesList(item, true, 'delete')"
+                    >
+                      <h3>D</h3>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <perfect-scrollbar
+        class="bg-light-grey"
+        style="height: 39em; max-width: 100%"
+      >
+        <div *ngFor="let module of tempModuleList; let i = index">
+          <div class="row ms-3 mt-3 pt-1 bgSecondary">
+            <div class="col-md-7">
+              <h4 class="text-white">{{ module.applicationModuleTitle }}</h4>
+            </div>
+            <div class="col-md-1 text-white">R</div>
+            <div class="col-md-1 text-white">W</div>
+            <div class="col-md-1 text-white">D</div>
+            <div class="col-md-1">
+              <mat-icon class="text-white" (click)="removeModule(i, module)"
+                >close</mat-icon
+              >
+            </div>
+          </div>
+          <div class="table-responsive ms-3">
+            <table class="table table-striped mat-elevation-z3">
+              <tbody>
+                <tr *ngFor="let item of module.tempMenuList">
+                  <td class="col-7">
+                    <h6 class="grey-text ps-4">{{ item.menuTitle }}</h6>
+                  </td>
+                  <td class="col-1">
+                    <!-- <h1>my data{{item.tempMenuList}}</h1> -->
+                    <mat-icon class="orange-text ps-2" *ngIf="item.read == true"
+                      >circle</mat-icon
+                    >
+                  </td>
+                  <td class="col-1">
+                    <mat-icon
+                      class="secondary-text ps-2"
+                      *ngIf="item.write == true"
+                      >circle</mat-icon
+                    >
+                  </td>
+                  <td class="col-1">
+                    <mat-icon
+                      class="orange-text ps-2"
+                      *ngIf="item.delete == true"
+                      >circle</mat-icon
+                    >
+                  </td>
+                  <td class="col-2"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="roleModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+  <div class="modal-dialog modal-lg mat-elevation-z20">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bgSecondary">
+        <h4 class="modal-title align-self-center text-white">Roles List</h4>
+        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="d-flex flex-column align-items-center"> -->
+        <general-app-role-creation-table
+          (eventEmitter)="edit($event)"
+          (eventEmitterDelete)="delete($event)"
+        ></general-app-role-creation-table>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>

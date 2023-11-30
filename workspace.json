@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "projects": {
+    "auth": "libs/auth",
+    "cmis": "libs/cmis",
+    "guest-house": "apps/guest-house",
+    "guest-house-core": "libs/guest-house-core",
+    "layouts": "libs/layouts",
+    "material": "libs/material",
+    "primeng": "libs/primeng",
+    "shared-helpers-field-validations": "libs/shared/helpers/field-validations",
+    "shared-helpers-guards": "libs/shared/helpers/guards",
+    "shared-helpers-interceptors": "libs/shared/helpers/interceptors",
+    "shared-helpers-jwt-interceptor": "libs/shared/helpers/jwt-interceptor",
+    "shared-interface": "libs/shared/interface",
+    "shared-services-auth": "libs/shared/services/auth",
+    "shared-services-data": "libs/shared/services/data",
+    "shared-services-global-data": "libs/shared/services/global-data",
+    "shared-shared-components": "libs/shared/shared-components",
+    "ui": "libs/ui",
+    "umis": "libs/umis"
+  }
+}

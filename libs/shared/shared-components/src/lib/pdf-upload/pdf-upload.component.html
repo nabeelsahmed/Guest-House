@@ -1,0 +1,25 @@
+<div class="avatar-upload">
+  <!-- <div
+      class="avatar-preview mat-elevation-z10 mb-2 border border-3 border-gray"
+    >
+      <div
+        id="imagePreview"
+        [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')' }"
+      ></div>
+    </div> -->
+  <div class="text-secondary text-center">
+    Drag/Drop Files here<br />
+    OR<br />
+    <!-- <span>File</span> -->
+  </div>
+  <div class="avatar-edit text-center">
+    <input
+      type="file"
+      id="imageUpload"
+      accept=".pdf"
+      #fileInput
+      (change)="uploadFile($event)"
+    />
+    <label for="imageUpload" class="pt-2 mb-4 text-center">Browse</label>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: url(../assets/images/login/loginbg.png);
+  background-size: cover;
+  background-position: center;
+}
+#logoImg {
+  content: url(../assets/images/login/Logo.svg);
+  width: 7em;
+  height: 5em;
+}
+.card {
+  align-items: center;
+  height: 30em;
+  width: 25em !important;
+  left: 45em;
+  border: none !important;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+}
+.font-style {
+  font-weight: 700;
+  font-family: 'lato';
+  font-size: 2.0625em;
+  color: #212121;
+  line-height: 1.1875em;
+  margin-bottom: -0.1em !important;
+}
+small {
+  font-size: 1em !important;
+}
+.Loginbtn {
+  width: 23em;
+  height: 3em;
+  background-color: var(--secondary) !important;
+}
+.loginImg {
+  z-index: 1;
+  position: absolute;
+  background-image: url('../assets/images/login/loginimg.png');
+  right: 20em;
+  width: 26em;
+  height: 25em;
+}
+.moblogo {
+  z-index: 9;
+  position: absolute;
+  background-image: url('../assets/images/login/moblogo.svg');
+  top: 6.25em;
+  right: 16em;
+  width: 5em;
+  height: 4.5em;
+}

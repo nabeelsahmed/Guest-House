@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <perfect-scrollbar
+    class="bg-light-grey"
+    style="height: 25em; max-width: 100%"
+  >
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="grey-text col-2 text-center">Sr#</th>
+          <th class="grey-text col-4">Company Name</th>
+          <th class="grey-text col-4">Branch Name</th>
+          <!-- <th class="grey-text col-4">Status</th> -->
+          <th class="grey-text col-2 text-end">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableData; let i=index;">
+          <td class="grey-text col-2 text-center">{{i+1}}</td>
+          <td class="col-4">{{item.company_name}}</td>
+          <td class="col-4">{{item.branch_name}}</td>
+          <td class="col-2">
+            <div class="d-flex flex-row ps-5">
+              <mat-slide-toggle class="pe-3" [(ngModel)]="!item.isDeleted" (click)="delete(item)"></mat-slide-toggle>
+              <div class="editIcon" (click)="edit(item)" *ngIf="item.isDeleted == 0"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </perfect-scrollbar>
+</div>

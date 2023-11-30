@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <perfect-scrollbar class="bg-light-grey">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="grey-text col-4">Department Name</th>
+          <th class="grey-text col-2 text-end pe-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableData; let i=index;">
+          <td class="col-4">{{item.dept_sec_name}}</td>
+          <td class="col-2">
+            <div class="d-flex flex-row pull-right pe-3">
+              <div class="circle me-3" *ngIf="item.status == false" (click)="addDepartment(item, true)"></div>
+              <div class="circletick me-3" *ngIf="item.status == true" (click)="addDepartment(item, false)"></div>
+              <div class="editIcon" *ngIf="item.branch_department_section_id != 0" (click)="edit(item)"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </perfect-scrollbar>
+</div>

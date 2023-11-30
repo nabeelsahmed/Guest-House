@@ -1,0 +1,66 @@
+<div class="header">
+  <mat-toolbar mat-elevation-z10>
+    <button
+      mat-icon-button
+      (click)="onToggleDrawer()"
+      aria-label="icon-button with menu icon"
+    >
+      <mat-icon>{{ menu_btn }}</mat-icon>
+    </button>
+    <!-- <img [src]="logoUrl" alt="" width="55px" height="55px" /> -->
+    <span class="title" mat-elevation-z2> {{ title }}</span>
+    <span class="example-spacer"></span>
+    <label class="h4Heading me-2 mt-2">{{ userName }}</label>
+    <button
+      mat-icon-button
+      class="example-icon favorite-icon me-4"
+      [matMenuTriggerFor]="userMenu"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon><div class="iconimg3"></div></mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Change Password</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Log out</span>
+      </button>
+    </mat-menu>
+    <button
+      mat-icon-button
+      class="example-icon me-4"
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon><div class="iconimg1"></div></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div *ngFor="let item of applicationModulesList">
+        <button mat-menu-item (click)="setSidebarMenu(item)">
+          <!-- <mat-icon>{{ item.moduleIcon }}</mat-icon> -->
+          <div class="d-flex align-items-center">
+            <div [class]="item.moduleIcon"></div>
+            <span class="ms-2">{{ item.applicationModuleTitle }}</span>
+          </div>
+        </button>
+      </div>
+    </mat-menu>
+    <!-- <button
+      mat-icon-button
+      class="example-icon me-4"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon><div class="iconimg2"></div></mat-icon>
+    </button> -->
+    <!-- user menu -->
+    <!-- <span class="usernameTxt">
+        {{ userName }}
+      </span> -->
+
+    <!-- end user menu -->
+  </mat-toolbar>
+</div>

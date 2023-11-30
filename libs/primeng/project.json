@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/primeng",
+  "sourceRoot": "libs/primeng/src",
+  "prefix": "general-app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/primeng"],
+      "options": {
+        "jestConfig": "libs/primeng/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/primeng/src/**/*.ts",
+          "libs/primeng/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

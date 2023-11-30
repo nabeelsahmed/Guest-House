@@ -1,0 +1,83 @@
+<div class="h-100 side-nav-default" mat-elevation-z10>
+  <!-- nav header -->
+  <div class="companyLogo"></div>
+  <div class="nav-header d-flex flex-column justify-content-end">
+    <div
+      class="border-top border-bottom nav-menu-heading ps-3 pt-1 pb-1 mb-3 mt-3"
+    >
+      {{ lblModuleTitle }}
+    </div>
+  </div>
+  <perfect-scrollbar
+    class="bg-light-grey"
+    style="height: 32em; max-width: 100%"
+  >
+    <div class="nav-item-container">
+      <!-- /************* New Code *************/ -->
+      <ul
+        *ngFor="let item of menuList; let i = index"
+        class="nav flex-column flex-nowrap overflow-hidden"
+      >
+        <li class="nav-item" *ngIf="item.children.length == 0">
+          <a
+            class="nav-link text-truncate"
+            href=""
+            routerLinkActive="active"
+            routerLink="/{{ item.parentRoute }}/{{ item.routeTitle }}"
+            (click)="openLink(item.menuTitle)"
+          >
+            <div class="row">
+              <div class="col-md-2">
+                <div [class]="item.menuIcon"></div>
+              </div>
+              <div class="col-md-3">
+                <span class="d-none d-sm-inline"
+                  ><b>{{ item.menuTitle }}</b></span
+                >
+              </div>
+            </div>
+            <!-- <div class="d-flex flex-row">
+              </div> -->
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="item.children.length != 0">
+          <a
+            class="nav-link collapsed text-truncate"
+            data-bs-toggle="collapse"
+            [href]="'#collapseExample' + i"
+            role="button"
+            aria-expanded="false"
+            aria-controls="subMenuConfig"
+            ><span class="d-none d-sm-inline">{{ item.menuTitle }}</span></a
+          >
+          <div class="collapse" [id]="'collapseExample' + i">
+            <ul
+              class="nav flex-column dark-bg ps-4"
+              *ngFor="let data of item.children"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link text-truncate"
+                  href=""
+                  routerLinkActive="active"
+                  routerLink="/{{ data.parentRoute }}/{{ data.routeTitle }}"
+                  (click)="openLink(data.routeTitle)"
+                  ><div class="row">
+                    <div class="col-md-2">
+                      <div [class]="data.menuIcon"></div>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="d-none d-sm-inline"
+                        ><b>{{ data.menuTitle }}</b></span
+                      >
+                    </div>
+                  </div></a
+                >
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </perfect-scrollbar>
+</div>

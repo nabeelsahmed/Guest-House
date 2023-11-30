@@ -1,0 +1,85 @@
+<div class="login-page">
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4 mt-5 text-center">
+      <div class="d-flex flex-column card pt-4 pb-4 light-bg">
+        <div>
+          <div class="text-center">
+            <img id="logoImg" [src]="logoImg" />
+          </div>
+          <p class="font-style">Login to your account</p>
+          <small> Enter your credentials to enter account </small>
+        </div>
+        <div class="text-center mt-4">
+          <form #loginForm="ngForm">
+            <div class="d-flex flex-column gap-2 text-start">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                pInputText
+                aria-describedby="email-help"
+                [(ngModel)]="email"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="d-flex flex-column gap-2 text-start mt-2">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                pInputText
+                aria-describedby="email-help"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="txtPassword"
+              />
+            </div>
+            <button
+              mat-raised-button
+              class="mt-3 savebtn Loginbtn rounded-pill"
+              (click)="login()"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Forget PassWord Modal -->
+<!-- <div
+  id="forgetpasswordModal"
+  class="modal fade w-100"
+  role="dialog"
+  data-bs-backdrop="false"
+>
+  <div class="modal-dialog modal-md mat-elevation-z20"> -->
+<!-- Modal content-->
+<!-- <div class="modal-content">
+      <div class="modal-header bgSecondary">
+        <h4 class="modal-title align-self-center text-white">
+          Forget Password
+        </h4>
+        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img id="logoImg" [src]="logoImg" />
+          <div class="py-2 fs-5 fw-bold">Recover Your Password</div>
+          <div class="grey-text">
+            <span class="sunred-text">Enter the email</span> that you used when
+            register <br />
+            to recover your password. You will receive a <br />
+            <span class="sunred-text"> password reset link.</span>
+          </div>
+          <mat-form-field appearance="fill" class="w-100 px-5 mt-4">
+            <mat-label>Enter Email</mat-label>
+            <input matInput name="email" />
+          </mat-form-field>
+          <button mat-raised-button class="savebtn Loginbtn">Send Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,137 @@
+<div class="ms-4 me-4 maxHeight">
+  <div
+    class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center pt-2 pb-2 border-bottom"
+  >
+    <button
+      mat-button
+      class="companyBtn ps-1 pe-1 me-lg-auto mat-elevation-z1"
+      data-bs-toggle="modal"
+      data-bs-target="#companyModal"
+    >
+      Companies List
+    </button>
+    <button mat-button class="saveBtn mat-elevation-z1" (click)="save()">Save</button>
+    <button mat-button class="ms-2 resetBtn mat-elevation-z1" (click)="reset()">Reset</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 text-center p-4">
+    <mat-card class="example-card w-100 mx-md-5">
+      <div class="text-start py-4 fw-bold fs-5">Company Profile</div>
+      <general-app-image-upload [imageUrl]="productPic"></general-app-image-upload>
+      <mat-divider class="w-75 text-center  ms-5"></mat-divider>
+      <div class="mt-4">Company Name</div>
+      <label class="text-secondary text-start font-sm-1">
+        Enter your company full name and short name
+      </label>
+      <mat-form-field class="w-100 mt-4" appearance="fill">
+        <mat-label>Full Name</mat-label>
+        <input matInput [(ngModel)]="formFields[3].value" />
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Short Name</mat-label>
+        <input matInput [(ngModel)]="formFields[4].value" />
+      </mat-form-field>
+    </mat-card>
+  </div>
+  <div class="col-md-6 border-end">
+    <div class="col-md-12 mt-3 ps-lg-5 pe-lg-5 ps-md-3 pe-md-3">
+      <div class="mb-4 fw-bold fs-5">Registration Info</div>
+
+      <mat-form-field class="w-50 pe-2" appearance="fill">
+        <mat-label>Enter registration no.</mat-label>
+        <input matInput [(ngModel)]="formFields[5].value" />
+      </mat-form-field>
+      <mat-form-field class="w-50 ps-2" appearance="fill">
+        <mat-label>Enter a date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="formFields[6].value" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="w-50 pe-2" appearance="fill">
+        <mat-label>Enter NTN no.</mat-label>
+        <input matInput [(ngModel)]="formFields[7].value" />
+      </mat-form-field>
+      <mat-form-field class="w-50 ps-2" appearance="fill">
+        <mat-label>Enter STRN no.</mat-label>
+        <input matInput [(ngModel)]="formFields[8].value" />
+      </mat-form-field>
+      <perfect-scrollbar class="bg-light-grey mb-3" style="height: 26em; max-width: 100%;">
+        <general-app-contact-info></general-app-contact-info>
+      </perfect-scrollbar>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="col-md-12 mt-5 ps-3 pe-3">
+      <div class="d-flex justify-content-between mb-4">
+        <div class="fw-bold fs-5">Management</div>
+        <div>
+          <button mat-button class="saveBtn mat-elevation-z1l"  data-bs-toggle="modal"
+          data-bs-target="#managmentModal">
+            <mat-icon>add</mat-icon> Add
+          </button>
+        </div>
+      </div>
+      <div class="text-center">Select Company Category</div>
+      <mat-form-field class="w-100 mt-4" appearance="fill">
+        <mat-label>Select Company Type</mat-label>
+        <mat-select [(ngModel)]="formFields[9].value">
+          <mat-option *ngFor="let item of companyTypeList" [value]="item.company_type_id">{{item.company_type_title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div id="companyModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+  <div class="modal-dialog modal-lg mat-elevation-z20">
+  <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header bgSecondary">
+              <h4 class="modal-title align-self-center text-white">Companies List</h4>
+              <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+              <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+          </div>
+          <div class="modal-body">
+              <!-- <div class="d-flex flex-column align-items-center"> -->
+              <general-app-company-list-table (eventEmitter)="edit($event)" (eventEmitterDelete)="delete($event)"></general-app-company-list-table>
+              <!-- </div> -->
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Modal -->
+<div id="managmentModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+  <div class="modal-dialog modal-md mat-elevation-z20">
+  <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header bgSecondary">
+              <h4 class="modal-title align-self-center text-white">Managment Body</h4>
+              <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+              <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 mt-4 ps-4 pe-4">
+              <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Full Name</mat-label>
+                <input matInput />
+              </mat-form-field>
+              <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Designation</mat-label>
+                <mat-select>
+                  <mat-option value="one">First option</mat-option>
+                  <mat-option value="two">Second option</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Date of Joining</mat-label>
+                <input matInput />
+              </mat-form-field>
+            </div>
+              <!-- <div class="d-flex flex-column align-items-center"> -->
+              <!-- <general-app-company-list-table></general-app-company-list-table> -->
+              <!-- </div> -->
+          </div>
+      </div>
+  </div>
+</div>

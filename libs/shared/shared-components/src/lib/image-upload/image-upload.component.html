@@ -1,0 +1,24 @@
+<div class="avatar-upload">
+  <div
+    class="avatar-preview mat-elevation-z10 mb-2 border border-3 border-gray"
+  >
+    <div
+      id="imagePreview"
+      [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')' }"
+    ></div>
+  </div>
+  <div class="text-secondary">
+    Upload your image here <br />
+    OR
+  </div>
+  <div class="avatar-edit">
+    <input
+      type="file"
+      id="imageUpload"
+      accept=".png, .jpg, .jpeg"
+      #fileInput
+      (change)="uploadFile($event)"
+    />
+    <label for="imageUpload" class="pt-2 mb-4">Browse</label>
+  </div>
+</div>

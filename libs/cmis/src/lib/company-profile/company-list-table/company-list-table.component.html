@@ -1,0 +1,28 @@
+<div class="table-responsivev ms-4 me-3">
+    <perfect-scrollbar class="bg-light-grey">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="grey-text col-3">Company Name</th>
+            <th class="grey-text col-3">Reg. No.</th>
+            <th class="grey-text col-4">Company Type</th>
+            <th class="grey-text col-2 text-end pe-4">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tableData; let i=index;">
+            <td class="col-3">{{item.company_name}}</td>
+            <td class="grey-text col-3">{{item.company_registeration_no}}</td>
+            <td class="grey-text col-4">{{item.company_type_title}}</td>
+            <td class="col-2">
+              <div class="d-flex flex-row pull-right pe-3">
+                <div class="deleteIcon me-3" (click)="delete(item)"></div>
+                <div class="editIcon" (click)="edit(item)"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+  
