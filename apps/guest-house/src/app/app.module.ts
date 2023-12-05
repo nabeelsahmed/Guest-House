@@ -51,7 +51,7 @@ export const appRoutes: Route[] = [
       import('@general-app/guest-house-core').then(
         (m) => m.GuestHouseCoreModule
       ),
-    canLoad: [AuthGuard],
+    // canLoad: [AuthGuard],
   },
   { path: '**', redirectTo: 'auth', pathMatch: 'full' },
 ];

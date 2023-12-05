@@ -1,0 +1,342 @@
+<!--------Personal Information------------->
+
+<div class="ms-5 me-5">
+  <div class="mt-3 bg-white rounded-2 p-3">
+    <h4 class="fw-bold fs-3 mb-3 ms-4">Personal Information</h4>
+    <div class="d-flex justify-content-center align-items-center">
+      <!-- <div class="col-md-2"> -->
+      <!-- <div class="input-group mb-3"> -->
+      <!-- <input
+          type="text"
+          class="form-control profile-input rounded-2"
+          style="border-color: #000000; border-width: 1px"
+          aria-label="Text input with icon"
+          placeholder="First Name"
+        /> -->
+      <!-- </div> -->
+      <span class="p-input-icon-left text-black me-4">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="First Name" />
+      </span>
+      <span class="p-input-icon-left text-black me-4">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Last Name" />
+      </span>
+      <span class="p-input-icon-left text-black me-4">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="CNIC" />
+      </span>
+      <span class="p-input-icon-left text-black me-4">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Mobile" />
+      </span>
+      <span class="p-input-icon-left text-black">
+        <i class="pi pi-search"></i>
+        <input type="email" pInputText placeholder="Email" />
+      </span>
+      <!-- </div> -->
+      <!-- <div class="col-lg-2">
+      <input
+        type="text"
+        class="form-control profile-input rounded-2"
+        style="border-color: #000000; border-width: 1px"
+        aria-label="Text input with icon"
+        placeholder="Last Name"
+      />
+    </div>
+    <div class="col-lg-2">
+      <input
+        type="text"
+        class="form-control idCard-input rounded-2"
+        style="border-color: #000000; border-width: 1px"
+        aria-label="Text input with icon"
+        placeholder="Id Card Number"
+      />
+    </div>
+    <div class="col-lg-2">
+      <input
+        type="text"
+        class="form-control mobile-input rounded-2"
+        style="border-color: #000000; border-width: 1px"
+        aria-label="Text input with icon"
+        placeholder="Mobile Number"
+      />
+    </div>
+    <div class="col-lg-4">
+      <input
+        type="text"
+        class="form-control email-input rounded-2"
+        style="border-color: #000000; border-width: 1px"
+        aria-label="Text input with icon"
+        placeholder="Email Address"
+      />
+    </div> -->
+    </div>
+  </div>
+
+  <!--------Rooms + Availibility------------->
+
+  <div class="mt-3 bg-white rounded-2 p-3">
+    <div class="row">
+      <!-----Rooms----->
+      <div class="col-lg-3 border-end">
+        <h4 class="fw-bold fs-3 mb-lg-3">Rooms</h4>
+        <div
+          class="d-flex flex-lg-row justify-content-between align-items-center align-content-lg-start"
+        >
+          <h4 class="fw-bold fs-3 mb-lg-3">Toilet</h4>
+          <div class="d-flex align-items-center">
+            <p-radioButton
+              name="pizza"
+              value="Cheese"
+              [(ngModel)]="ingredient"
+              inputId="ingredient1"
+            ></p-radioButton>
+            <label for="ingredient1" class="ms-2 me-2"> icon-t </label>
+
+            <p-radioButton
+              name="pizza"
+              value="Cheese"
+              [(ngModel)]="ingredient"
+              inputId="ingredient1"
+            ></p-radioButton>
+            <label for="ingredient1" class="ms-2 me-2">icon-t</label>
+          </div>
+        </div>
+        <!--AC-->
+        <div
+          class="d-flex flex-lg-row justify-content-between align-items-center align-content-lg-start"
+        >
+          <h4 class="fw-bold fs-3 mb-lg-3">AC</h4>
+          <div class="d-flex align-items-center">
+            <p-radioButton
+              name="pizza"
+              value="Cheese"
+              [(ngModel)]="ingredient"
+              inputId="ingredient1"
+            ></p-radioButton>
+            <label for="ingredient1" class="ms-2 me-2"> Yes </label>
+
+            <p-radioButton
+              name="pizza"
+              value="Cheese"
+              [(ngModel)]="ingredient"
+              inputId="ingredient1"
+            ></p-radioButton>
+            <label for="ingredient1" class="ms-2 me-2">No</label>
+          </div>
+        </div>
+
+        <div class="input-group input-group-md mb-3">
+          <select
+            class="form-select"
+            id="inputGroupSelect01"
+            style="border-color: #000000; border-width: 1px"
+          >
+            <option selected>Room Type</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+      <!--------Availibility-->
+      <div class="col-lg-9">
+        <h4 class="fw-bold fs-3 mb-lg-3">Availibility</h4>
+      </div>
+    </div>
+  </div>
+
+  <!---------Booking + Aditional Services----------->
+  <div class="mt-3 bg-white rounded-2 p-3">
+    <div class="row">
+      <div class="col-lg-4">
+        <h4 class="fw-bold fs-3">Booking</h4>
+        <div class="row">
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control border border-1 border-black"
+                aria-label="Amount (to the nearest dollar)"
+                placeholder="Check-In"
+              />
+              <span
+                class="input-group-text border border-1 border-black"
+                style="background-color: #2a2a2a"
+              >
+                <img
+                  src="../../../../../apps/guest-house/src/assets/tableClock.svg"
+                  alt=""
+                />
+              </span>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control border border-1 border-black"
+                aria-label="Amount (to the nearest dollar)"
+                placeholder="Check-Out"
+              />
+              <span
+                class="input-group-text border border-1 border-black"
+                style="background-color: #2a2a2a"
+              >
+                <img src="../../../assets/uim_calender.svg" alt="" />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control border border-1 border-black"
+                aria-label="Amount (to the nearest dollar)"
+                placeholder="Check-In Time"
+              />
+              <span
+                class="input-group-text border border-1 border-black"
+                style="background-color: #2a2a2a"
+              >
+                <img src="../../../assets/tabler_clock-filled.svg" alt="" />
+              </span>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control border border-1 border-black"
+                aria-label="Amount (to the nearest dollar)"
+                placeholder="Check-Out Time"
+              />
+              <span
+                class="input-group-text border border-1 border-black"
+                style="background-color: #2a2a2a"
+              >
+                <img src="../../../assets/tabler_clock-filled.svg" alt="" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="d-flex flex-row gap-3 align-items-center">
+          <h4 class="fw-bold fs-3 text-start">Aditional Services</h4>
+          <div class="form-check d-lg-flex flex-row align-items-center gap-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label
+              class="form-check-label fw-normal fs-5 text-start"
+              for="flexCheckDefault"
+            >
+              Select All
+            </label>
+          </div>
+        </div>
+        <div class="row gap-lg-2 mx-auto">
+          <button
+            class="col btn shadow"
+            style="background-color: #c5b786"
+            type="submit"
+          >
+            Food
+          </button>
+
+          <button
+            class="col btn shadow"
+            style="background-color: #c5b786"
+            type="submit"
+          >
+            Cab
+          </button>
+          <button
+            class="col btn shadow"
+            style="background-color: #ffffff"
+            type="submit"
+          >
+            Laundary
+          </button>
+
+          <button
+            class="col btn shadow"
+            style="background-color: #ffffff"
+            type="submit"
+          >
+            Laundary
+          </button>
+          <button
+            class="col btn shadow"
+            style="background-color: #ffffff"
+            type="submit"
+          >
+            Laundary
+          </button>
+          <button
+            class="col btn shadow"
+            style="background-color: #ffffff"
+            type="submit"
+          >
+            Laundary
+          </button>
+          <button
+            class="col btn shadow"
+            style="background-color: #ffffff"
+            type="submit"
+          >
+            Laundary
+          </button>
+          <button
+            class="col btn shadow"
+            style="background-color: #ffffff"
+            type="submit"
+          >
+            Laundary
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-----Payment Method----->
+  <div class="mt-3 bg-white rounded-2 p-3">
+    <h4 class="fw-bold fs-3">Payment Method</h4>
+    <div class="d-flex flex-row gap-4 mx-auto mt-lg-2">
+      <div class="d-flex align-items-center">
+        <p-radioButton
+          name="pizza"
+          value="Cheese"
+          [(ngModel)]="ingredient"
+          inputId="ingredient1"
+        ></p-radioButton>
+        <label for="ingredient1" class="ms-2">Cash</label>
+      </div>
+      <div class="d-flex align-items-center">
+        <p-radioButton
+          name="pizza"
+          value="Cheese"
+          [(ngModel)]="ingredient"
+          inputId="ingredient1"
+        ></p-radioButton>
+        <label for="ingredient1" class="ms-2">Bank Transfer</label>
+      </div>
+      <div class="d-flex align-items-center">
+        <p-radioButton
+          name="pizza"
+          value="Cheese"
+          [(ngModel)]="ingredient"
+          inputId="ingredient1"
+        ></p-radioButton>
+        <label for="ingredient1" class="ms-2">Card Payment</label>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1144,3 +1144,16 @@ legend {
 .mt-n3 {
   margin-top: -1rem !important;
 }
+
+
+span > .p-inputtext{
+  border-color: var(--secondary) !important;
+}
+span > .p-inputtext:enabled:focus{
+  border-color: var(--secondary) !important;
+}
+
+
+span > .p-inputtext:hover{
+  border-color: var(--secondary) !important;
+}

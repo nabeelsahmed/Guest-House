@@ -26,6 +26,10 @@ import { BranchListTableComponent } from './branch-steup/branch-list-table/branc
 import { CompanyListTableComponent } from './company-profile/company-list-table/company-list-table.component';
 import { TextMaskModule } from 'angular2-text-mask';
 
+//PrimeNg Component
+import { InputTextModule } from 'primeng/inputtext';
+////
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -48,6 +52,8 @@ export const cmisRoutes: Route[] = [
     SharedSharedComponentsModule,
     Ng2SearchPipeModule,
     TextMaskModule,
+    InputTextModule
+
   ],
   declarations: [
     CompanyProfileComponent,
