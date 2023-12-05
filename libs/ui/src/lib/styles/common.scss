@@ -555,6 +555,18 @@ button.mat-raised-button.uploadbtn {
   background-color: var(--primary) !important;
   color: black;
   border-radius: 0 !important;
+  border: none;
+}
+.emptyBtn {
+  // position: fixed;
+  right: 0;
+  height: 2.5em;
+  // width: 6em;
+  min-width: 8em;
+  background-color: white !important;
+  color: black;
+  border-radius: 0 !important;
+  border: none;
 }
 .addBtn {
   // position: fixed;
@@ -1145,15 +1157,13 @@ legend {
   margin-top: -1rem !important;
 }
 
-
-span > .p-inputtext{
+span > .p-inputtext {
   border-color: var(--secondary) !important;
 }
-span > .p-inputtext:enabled:focus{
+span > .p-inputtext:enabled:focus {
   border-color: var(--secondary) !important;
 }
 
-
-span > .p-inputtext:hover{
+span > .p-inputtext:hover {
   border-color: var(--secondary) !important;
 }

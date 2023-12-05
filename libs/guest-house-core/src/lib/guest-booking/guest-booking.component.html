@@ -2,7 +2,7 @@
 
 <div class="ms-5 me-5">
   <div class="mt-3 bg-white rounded-2 p-3">
-    <h4 class="fw-bold fs-3 mb-3 ms-4">Personal Information</h4>
+    <h4 class="fw-bold fs-3 mb-3">Personal Information</h4>
     <div class="d-flex justify-content-center align-items-center">
       <!-- <div class="col-md-2"> -->
       <!-- <div class="input-group mb-3"> -->
@@ -14,28 +14,28 @@
           placeholder="First Name"
         /> -->
       <!-- </div> -->
-      <span class="p-input-icon-left text-black me-4">
-        <i class="pi pi-search"></i>
+      <span class="p-input-icon-left text-black me-2">
+        <i class="pi pi-user"></i>
         <input type="text" pInputText placeholder="First Name" />
       </span>
-      <span class="p-input-icon-left text-black me-4">
-        <i class="pi pi-search"></i>
+      <span class="p-input-icon-left text-black me-2">
+        <i class="pi pi-user"></i>
         <input type="text" pInputText placeholder="Last Name" />
       </span>
-      <span class="p-input-icon-left text-black me-4">
-        <i class="pi pi-search"></i>
+      <span class="p-input-icon-left text-black me-2">
+        <i class="pi pi-id-card"></i>
         <input type="text" pInputText placeholder="CNIC" />
       </span>
-      <span class="p-input-icon-left text-black me-4">
-        <i class="pi pi-search"></i>
+      <span class="p-input-icon-left text-black me-2">
+        <i class="pi pi-mobile"></i>
         <input type="text" pInputText placeholder="Mobile" />
       </span>
       <span class="p-input-icon-left text-black">
-        <i class="pi pi-search"></i>
+        <i class="pi pi-envelope"></i>
         <input type="email" pInputText placeholder="Email" />
       </span>
       <!-- </div> -->
-      <!-- <div class="col-lg-2">
+      <!-- <div class="col-md-2">
       <input
         type="text"
         class="form-control profile-input rounded-2"
@@ -44,7 +44,7 @@
         placeholder="Last Name"
       />
     </div>
-    <div class="col-lg-2">
+    <div class="col-md-2">
       <input
         type="text"
         class="form-control idCard-input rounded-2"
@@ -53,7 +53,7 @@
         placeholder="Id Card Number"
       />
     </div>
-    <div class="col-lg-2">
+    <div class="col-md-2">
       <input
         type="text"
         class="form-control mobile-input rounded-2"
@@ -62,7 +62,7 @@
         placeholder="Mobile Number"
       />
     </div>
-    <div class="col-lg-4">
+    <div class="col-md-4">
       <input
         type="text"
         class="form-control email-input rounded-2"
@@ -79,35 +79,25 @@
   <div class="mt-3 bg-white rounded-2 p-3">
     <div class="row">
       <!-----Rooms----->
-      <div class="col-lg-3 border-end">
-        <h4 class="fw-bold fs-3 mb-lg-3">Rooms</h4>
+      <div class="col-md-3">
+        <h4 class="fw-bold fs-3 mb-3">Rooms</h4>
         <div
-          class="d-flex flex-lg-row justify-content-between align-items-center align-content-lg-start"
+          class="d-flex flex-row justify-content-between align-items-center align-content-start mb-2"
         >
-          <h4 class="fw-bold fs-3 mb-lg-3">Toilet</h4>
+          <h4 class="fs-5">Toilet</h4>
           <div class="d-flex align-items-center">
-            <p-radioButton
-              name="pizza"
-              value="Cheese"
-              [(ngModel)]="ingredient"
-              inputId="ingredient1"
-            ></p-radioButton>
-            <label for="ingredient1" class="ms-2 me-2"> icon-t </label>
+            <p-radioButton inputId="ingredient1"></p-radioButton>
+            <div for="ingredient1" class="ms-2 me-2 toiletIcon"></div>
 
-            <p-radioButton
-              name="pizza"
-              value="Cheese"
-              [(ngModel)]="ingredient"
-              inputId="ingredient1"
-            ></p-radioButton>
-            <label for="ingredient1" class="ms-2 me-2">icon-t</label>
+            <p-radioButton inputId="ingredient1"></p-radioButton>
+            <div for="ingredient1" class="ms-2 me-2 wcIcon"></div>
           </div>
         </div>
         <!--AC-->
         <div
-          class="d-flex flex-lg-row justify-content-between align-items-center align-content-lg-start"
+          class="d-flex flex-row justify-content-between align-items-center align-content-start mb-2"
         >
-          <h4 class="fw-bold fs-3 mb-lg-3">AC</h4>
+          <h4 class="fs-5">AC</h4>
           <div class="d-flex align-items-center">
             <p-radioButton
               name="pizza"
@@ -128,11 +118,7 @@
         </div>
 
         <div class="input-group input-group-md mb-3">
-          <select
-            class="form-select"
-            id="inputGroupSelect01"
-            style="border-color: #000000; border-width: 1px"
-          >
+          <select class="form-select" id="inputGroupSelect01">
             <option selected>Room Type</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -141,8 +127,8 @@
         </div>
       </div>
       <!--------Availibility-->
-      <div class="col-lg-9">
-        <h4 class="fw-bold fs-3 mb-lg-3">Availibility</h4>
+      <div class="col-md-9">
+        <h4 class="fw-bold fs-3 mb-3">Availibility</h4>
       </div>
     </div>
   </div>
@@ -150,43 +136,30 @@
   <!---------Booking + Aditional Services----------->
   <div class="mt-3 bg-white rounded-2 p-3">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-md-4">
         <h4 class="fw-bold fs-3">Booking</h4>
-        <div class="row">
-          <div class="col-6">
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control border border-1 border-black"
-                aria-label="Amount (to the nearest dollar)"
-                placeholder="Check-In"
+        <div class="d-flex">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control border border-1 border-black"
+              aria-label="Amount (to the nearest dollar)"
+              placeholder="Check-In"
+            />
+            <span class="input-group-text border border-1 border-black">
+              <img
+                src="../../../../../apps/guest-house/src/assets/tableClock.svg"
+                alt=""
               />
-              <span
-                class="input-group-text border border-1 border-black"
-                style="background-color: #2a2a2a"
-              >
-                <img
-                  src="../../../../../apps/guest-house/src/assets/tableClock.svg"
-                  alt=""
-                />
-              </span>
-            </div>
+            </span>
           </div>
-          <div class="col-6">
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control border border-1 border-black"
-                aria-label="Amount (to the nearest dollar)"
-                placeholder="Check-Out"
-              />
-              <span
-                class="input-group-text border border-1 border-black"
-                style="background-color: #2a2a2a"
-              >
-                <img src="../../../assets/uim_calender.svg" alt="" />
-              </span>
-            </div>
+          <div class="input-group mb-3 ms-2">
+            <input
+              type="text"
+              class="form-control border border-1 border-black"
+              aria-label="Amount (to the nearest dollar)"
+              placeholder="Check-Out"
+            />
           </div>
         </div>
         <div class="row">
@@ -198,10 +171,7 @@
                 aria-label="Amount (to the nearest dollar)"
                 placeholder="Check-In Time"
               />
-              <span
-                class="input-group-text border border-1 border-black"
-                style="background-color: #2a2a2a"
-              >
+              <span class="input-group-text border border-1 border-black">
                 <img src="../../../assets/tabler_clock-filled.svg" alt="" />
               </span>
             </div>
@@ -214,19 +184,16 @@
                 aria-label="Amount (to the nearest dollar)"
                 placeholder="Check-Out Time"
               />
-              <span
-                class="input-group-text border border-1 border-black"
-                style="background-color: #2a2a2a"
-              >
+              <span class="input-group-text border border-1 border-black">
                 <img src="../../../assets/tabler_clock-filled.svg" alt="" />
               </span>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-md-8">
         <div class="d-flex flex-row gap-3 align-items-center">
-          <h4 class="fw-bold fs-3 text-start">Aditional Services</h4>
+          <h4 class="fw-bold fs-3 text-start">Additional Services</h4>
           <div class="form-check d-lg-flex flex-row align-items-center gap-2">
             <input
               class="form-check-input"
@@ -242,62 +209,40 @@
             </label>
           </div>
         </div>
-        <div class="row gap-lg-2 mx-auto">
+        <div class="d-flex flex-wrap">
           <button
-            class="col btn shadow"
-            style="background-color: #c5b786"
-            type="submit"
+            mat-button
+            class="resetBtn mat-elevation-z4 rounded-2 me-2 mt-2"
           >
             Food
           </button>
-
           <button
-            class="col btn shadow"
-            style="background-color: #c5b786"
-            type="submit"
+            mat-button
+            class="resetBtn mat-elevation-z4 rounded-2 me-2 mt-2"
           >
             Cab
           </button>
           <button
-            class="col btn shadow"
-            style="background-color: #ffffff"
-            type="submit"
-          >
-            Laundary
-          </button>
-
-          <button
-            class="col btn shadow"
-            style="background-color: #ffffff"
-            type="submit"
+            mat-button
+            class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2"
           >
             Laundary
           </button>
           <button
-            class="col btn shadow"
-            style="background-color: #ffffff"
-            type="submit"
+            mat-button
+            class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2"
           >
             Laundary
           </button>
           <button
-            class="col btn shadow"
-            style="background-color: #ffffff"
-            type="submit"
+            mat-button
+            class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2"
           >
             Laundary
           </button>
           <button
-            class="col btn shadow"
-            style="background-color: #ffffff"
-            type="submit"
-          >
-            Laundary
-          </button>
-          <button
-            class="col btn shadow"
-            style="background-color: #ffffff"
-            type="submit"
+            mat-button
+            class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2"
           >
             Laundary
           </button>
