@@ -1,0 +1,56 @@
+<div>
+    <div class="col-6">
+        <div class="d-flex flex-row mt-3 gap-2 align-items-center" *ngFor="let item of detailsRow;">
+            <h3 class="fw-bold">{{item}}</h3>
+            <div class="col">
+                <div class="border border-dark rounded-3">
+                    <input pInputText type="text" class="p-inputtext-sm w-100 bg-transparent" placeholder="Room Name" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="border border-dark rounded-3">
+                    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" class="p-inputtext-sm" optionLabel="name"
+                        [style]="{width: '100%', background:'transparent'}"
+                        placeholder="Bilal Group of Society"></p-dropdown>
+                </div>
+            </div>
+            <ng-container *ngIf="!(item === detailsRow[detailsRow.length-1])">
+                <div class="deleteIcon" (click)="deleteItem(item)"></div>
+                <div class="saveIcon"></div>
+            </ng-container>
+            <ng-container *ngIf="item === detailsRow[detailsRow.length-1]">
+                <div class="plusCircle" (click)="addItem(item)"></div>
+            </ng-container>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="userModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+    <div class="modal-dialog modal-md mat-elevation-z20">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bgSecondary">
+                <h4 class="modal-title align-self-center text-white">Add Room Type</h4>
+                <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+                <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+            </div>
+            <div class="modal-body d-flex flex-row gap-2 align-items-center">
+                <h3 class="fw-bold"> Room Type</h3>
+                <input type="text" pInputText placeholder="Enter Type" />
+
+            </div>
+            <div class="modal-footer bg-darktone1">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <button mat-button class="saveBtn rounded-2 mat-elevation-z5">
+                            Add Room
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

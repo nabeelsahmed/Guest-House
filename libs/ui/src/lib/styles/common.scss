@@ -23,6 +23,7 @@
   // --nha-light-blue: #DFF2FA;
   --nha-light-blue: black;
 }
+
 body,
 html {
   width: 100%;
@@ -142,9 +143,11 @@ h5 {
 .fullWidth {
   width: 100% !important;
 }
+
 .vw-5 {
   width: 5vw !important;
 }
+
 button {
   outline: none !important;
 }
@@ -160,6 +163,7 @@ button {
   font-family: 'Raleway';
   font-size: 1.7em;
 }
+
 .font-sm-1 {
   font-size: 0.8em;
 }
@@ -168,6 +172,7 @@ button {
 .bg-dark-light {
   background-color: var(--dark-light);
 }
+
 .bg-dark-light-grey {
   background-color: var(--light-grey);
 }
@@ -175,12 +180,15 @@ button {
 .bg-darktone1 {
   background-color: var(--footer-color) !important;
 }
+
 .bgOrange {
   background-color: var(--primary) !important;
 }
+
 .bgSecondary {
   background-color: var(--secondary) !important;
 }
+
 .bgLightGrey {
   background-color: var(--text-secondary) !important;
 }
@@ -198,24 +206,31 @@ button {
 .border-bottom-page-header {
   border-bottom: 2px solid var(--white);
 }
+
 .border-right-dark {
   border-right: 1px solid var(--dark-light);
 }
+
 .border-right-black {
   border-right: 2px solid black;
 }
+
 .border-left-dark {
   border-left: 2px solid var(--dark-light);
 }
+
 .border-top-light {
   border-top: var(--dark-light) !important;
 }
+
 .border-bottom-light {
   border-bottom: var(--dark-light) !important;
 }
+
 .border-bottom-dark {
   border-bottom: 1px solid var(--dark-light) !important;
 }
+
 .border-bottom-black {
   border-bottom: 2px solid black !important;
 }
@@ -223,16 +238,20 @@ button {
 .border-bottom-grey {
   border-bottom: 2px solid var(--text-secondary) !important;
 }
+
 .border-bottom-text-secondary {
   border-bottom: 2px solid var(--text-secondary) !important;
 }
+
 .border-bottom-secondary {
   border-bottom: 2px solid var(--secondary) !important;
 }
+
 /****************** buttons ***********************/
 .cursorPointer {
   cursor: pointer !important;
 }
+
 // .cursorPointer:hover{
 //   transform: scale(1.2);
 //   transition: transform .5s ease;
@@ -251,6 +270,7 @@ button {
 .button-page-header.type2 {
   color: var(--dark);
 }
+
 .button-page-header.type2.type2:after,
 .button-page-header.type2.type2:before {
   content: '';
@@ -264,10 +284,12 @@ button {
   transition: all 0.3s ease;
   transform: scale(0.85);
 }
+
 .button-page-header.type2.type2:hover:before {
   top: 0;
   transform: scale(1);
 }
+
 .button-page-header.type2.type2:hover:after {
   transform: scale(1);
 }
@@ -282,6 +304,7 @@ button {
   font-family: 'Montserrat';
   letter-spacing: 0.2em;
 }
+
 .btn-half::before {
   -webkit-transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -293,10 +316,12 @@ button {
   top: 0;
   left: 0;
 }
+
 .btn-half .btn-text {
   color: var(--white);
   mix-blend-mode: difference;
 }
+
 .btn-half:hover::before {
   background: var(--dark);
   width: 100%;
@@ -310,18 +335,21 @@ button {
   height: 40px;
   cursor: pointer;
 }
+
 .btn__text {
   font-size: 14px;
   // text-transform: uppercase;
   font-weight: 700;
   color: #fff;
 }
+
 /**
  * Button 03
  */
 .btn--3 {
   background: transparent;
 }
+
 .btn--3 .btn__text {
   position: relative;
   z-index: 1;
@@ -329,6 +357,7 @@ button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
+
 .btn--3::after {
   position: absolute;
   top: calc(100% - 2px);
@@ -341,10 +370,12 @@ button {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
+
 .btn--3:hover::after {
   top: 0;
   height: 100%;
 }
+
 .btn--3:hover .btn__text {
   color: #fff;
 }
@@ -358,6 +389,7 @@ button {
   padding: 0;
   margin: 0;
 }
+
 .scroll-verticle {
   overflow-x: hidden !important;
   overflow-y: scroll;
@@ -367,11 +399,13 @@ button {
   overflow-x: auto;
   overflow-y: hidden !important;
 }
+
 .no-scroll {
   width: 100% !important;
   height: 100% !important;
   overflow: hidden !important;
 }
+
 /*
  *  STYLE 3
  */
@@ -430,9 +464,11 @@ button {
   overflow-x: hidden !important;
   overflow-y: auto !important;
 }
+
 .mat-tab-body {
   flex-grow: 1 !important;
 }
+
 .mat-panel-title {
   letter-spacing: 0.1em !important;
   font-weight: 800 !important;
@@ -482,6 +518,7 @@ button.mat-raised-button.uploadbtn {
   color: white;
   border-radius: 0 !important;
 }
+
 .companyBtn {
   // position: fixed;
   right: 0;
@@ -527,6 +564,7 @@ button.mat-raised-button.uploadbtn {
   border: var(--secondary) 2px solid;
   border-radius: 0 !important;
 }
+
 .deleteBtn {
   right: 0;
   height: 2.5em;
@@ -536,6 +574,7 @@ button.mat-raised-button.uploadbtn {
   font-size: 14px;
   border-radius: 0 !important;
 }
+
 .printBtn {
   right: 0;
   height: 3em;
@@ -546,6 +585,7 @@ button.mat-raised-button.uploadbtn {
   border: var(--secondary) 2px solid;
   border-radius: 0 !important;
 }
+
 .resetBtn {
   // position: fixed;
   right: 0;
@@ -557,6 +597,7 @@ button.mat-raised-button.uploadbtn {
   border-radius: 0 !important;
   border: none;
 }
+
 .emptyBtn {
   // position: fixed;
   right: 0;
@@ -568,6 +609,7 @@ button.mat-raised-button.uploadbtn {
   border-radius: 0 !important;
   border: none;
 }
+
 .addBtn {
   // position: fixed;
   right: 0;
@@ -577,15 +619,18 @@ button.mat-raised-button.uploadbtn {
   color: white;
   border-radius: 0 !important;
 }
+
 /************* Image Avatars ***************/
 .avatar-border {
   border: 3px solid var(--white);
 }
+
 .picFrame {
   border: 10px solid white;
   width: 300px;
   height: auto;
 }
+
 /*********** end Image Avatars *************/
 
 /***************** bootstrap classes ***************/
@@ -603,6 +648,7 @@ button.mat-raised-button.uploadbtn {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 /************* end div images ***************/
 
 /************* text & background colors ****************/
@@ -621,9 +667,11 @@ button.mat-raised-button.uploadbtn {
 .secondary-text {
   color: var(--secondary) !important;
 }
+
 .blue-text {
   color: #3a2d91 !important;
 }
+
 .grey-text {
   color: var(--darktone1) !important;
 }
@@ -648,6 +696,7 @@ button.mat-raised-button.uploadbtn {
 .sun-red-bg {
   background-color: var(--sun-red) !important;
 }
+
 .nha-orange-bg {
   background-color: var(--nha-orange) !important;
 }
@@ -663,6 +712,7 @@ button.mat-raised-button.uploadbtn {
 .yellow-text {
   color: yellow !important;
 }
+
 .dark-light-bg {
   background-color: var(--dark-light) !important;
 }
@@ -674,9 +724,11 @@ button.mat-raised-button.uploadbtn {
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background-color: #19e526;
 }
+
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: var(--light);
 }
+
 /****************** side Nav css ********************/
 .side-nav-container {
   // max-width: 200px;
@@ -690,6 +742,7 @@ button.mat-raised-button.uploadbtn {
   border-radius: 0px;
   // box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.75);
 }
+
 .side-nav-container-white {
   // max-width: 200px;
   // min-width: 200px;
@@ -702,6 +755,7 @@ button.mat-raised-button.uploadbtn {
   border-radius: 0px;
   // box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.75);
 }
+
 .side-nav-link {
   font-size: 16px;
   font-weight: 350;
@@ -715,6 +769,7 @@ button.mat-raised-button.uploadbtn {
   margin-left: 5%;
   cursor: pointer;
 }
+
 .side-nav-link:after {
   content: '';
   position: absolute;
@@ -726,16 +781,19 @@ button.mat-raised-button.uploadbtn {
   transition-delay: all 0.5s;
   transition: all 0.5s;
 }
+
 .side-nav-link:hover:after,
 .side-nav-link.hover:after {
   left: 100%;
 }
+
 .side-nav-link .text {
   text-shadow: 0px -40px 0px rgba(0, 0, 0, 1);
   transition: all 0.75s;
   transform: translateY(100%) translateZ(0);
   transition-delay: all 0.25s;
 }
+
 .side-nav-link:hover .text,
 .side-nav-link.hover .text {
   text-shadow: 0px -40px 0px rgba(255, 255, 255, 1);
@@ -743,6 +801,7 @@ button.mat-raised-button.uploadbtn {
   transform: translateY(0%) translateZ(0) scale(1.1);
   font-weight: 600;
 }
+
 /*************** End side Nav css *******************/
 
 /************** Module Box Div *********************/
@@ -752,6 +811,7 @@ button.mat-raised-button.uploadbtn {
   color: var(--dark);
   font-size: 1em;
 }
+
 .cardTxtGreen {
   background-color: green;
   border-radius: 30px;
@@ -777,6 +837,18 @@ button.mat-raised-button.uploadbtn {
   max-height: 43em;
 }
 
+// .cardHeading {
+//   align-items: center;
+//   align-content: center;
+//   height: 1.5em;
+//   width: 100%;
+// }
+
+.cardHeight {
+  height: 7em;
+}
+
+
 /***************** Home Page ************************/
 .homePage {
   background-image: url(../assets/images/home/homebg.png);
@@ -786,6 +858,7 @@ button.mat-raised-button.uploadbtn {
   background-size: center;
   border-top: 1px solid var(--text-secondary);
 }
+
 // .homecontainer {
 //   margin-left: 15%;
 //   margin-top: 30%;
@@ -796,25 +869,30 @@ button.mat-raised-button.uploadbtn {
   font-weight: 500;
   color: var(--secondary);
 }
+
 .homePageHeading span {
   color: var(--primary);
   font-weight: 900;
 }
+
 .homePageText {
   font-family: 'lato';
   font-size: 1.4em;
   font-weight: 500;
   color: var(--text-secondary);
 }
+
 .homePageText span {
   color: var(--primary);
   font-weight: 700;
 }
+
 .homepagebtn {
   background-color: var(--primary) !important;
   color: #fff !important;
   width: 9em;
 }
+
 .homepageImg {
   background-image: url(../assets/images/home/homeImg.svg);
   width: 47em;
@@ -823,6 +901,7 @@ button.mat-raised-button.uploadbtn {
   background-position: bottom right;
   // margin-top: 20%;
 }
+
 .welcomeImg {
   background-image: url(../assets/images/home/welcome.png);
   width: 47em;
@@ -864,11 +943,13 @@ button.mat-raised-button.uploadbtn {
   width: auto;
   background-color: #4270b5;
 }
+
 .feeBoxBlueOrange1 {
   height: 7em;
   width: 8em;
   background: #c26818;
 }
+
 .feeBoxBlueOrange2 {
   height: 7em;
   width: auto;
@@ -880,6 +961,7 @@ button.mat-raised-button.uploadbtn {
   width: 8em;
   background: #22313c;
 }
+
 .feeBoxBlueWood2 {
   height: 7em;
   width: auto;
@@ -924,9 +1006,11 @@ button.mat-raised-button.uploadbtn {
 .FeeTableHead {
   background-color: #d7d7d7;
 }
+
 .PayHistTabHead {
   background-color: #d7d7d7;
 }
+
 //For SLC report
 .watermark {
   position: absolute;
@@ -944,12 +1028,15 @@ button.mat-raised-button.uploadbtn {
   font-weight: bold;
   font-size: large;
 }
+
 .mat-tab-label {
   color: #090909;
 }
+
 .mat-tab-group.mat-primary .mat-tab-header .mat-ink-bar {
   background-color: #ff8d29 !important;
 }
+
 // button.mat-raised-button.printbtn {
 //   // background-color: #ff8d29;
 //   color: #ff8d29 !important;
@@ -963,6 +1050,7 @@ button.mat-raised-button.uploadbtn {
   width: 8em;
   background: #186484;
 }
+
 .feesBoxBlue2 {
   height: 8em;
   width: auto;
@@ -974,6 +1062,7 @@ button.mat-raised-button.uploadbtn {
   width: 8em;
   background: #c26818;
 }
+
 .feesBoxBlueOrange2 {
   height: 8em;
   width: auto;
@@ -985,6 +1074,7 @@ button.mat-raised-button.uploadbtn {
   width: 8em;
   background: #22313c;
 }
+
 .feesBoxBlueWood2 {
   height: 8em;
   width: auto;
@@ -999,24 +1089,28 @@ button.mat-raised-button.uploadbtn {
   margin-left: 40px;
   background-color: rgba(51, 71, 86, 1);
 }
+
 .chartBox2 {
   height: 4em;
   width: 20em;
   margin-left: 40px;
   background: rgba(51, 71, 86, 0.95);
 }
+
 .chartBox3 {
   height: 4em;
   width: 20em;
   margin-left: 40px;
   background: rgba(51, 71, 86, 0.9);
 }
+
 .chartBox4 {
   height: 4em;
   width: 20em;
   margin-left: 40px;
   background: rgba(51, 71, 86, 0.85);
 }
+
 .chartBox5 {
   height: 4em;
   width: 20em;
@@ -1052,6 +1146,7 @@ button.mat-raised-button.uploadbtn {
 .branchBox:active {
   background-color: var(--secondary);
 }
+
 .branchBox:focus {
   background-color: var(--secondary);
 }
@@ -1081,6 +1176,7 @@ button.mat-raised-button.uploadbtn {
   background-color: var(--primary);
   color: white;
 }
+
 .weekBox:focus {
   background-color: var(--primary);
   color: white;
@@ -1111,6 +1207,7 @@ button.mat-raised-button.uploadbtn {
   color: white;
   background-color: var(--secondary);
 }
+
 .sectionBox:focus {
   color: white;
   background-color: var(--secondary);
@@ -1119,6 +1216,7 @@ button.mat-raised-button.uploadbtn {
 .btnWrapper {
   border: 2px solid red;
 }
+
 /********************* Shakeel's Css ends ***************************/
 
 .custom-box {
@@ -1153,17 +1251,19 @@ legend {
 .borderTopBlack {
   border-top: thin solid #000 !important;
 }
+
 .mt-n3 {
   margin-top: -1rem !important;
 }
 
-span > .p-inputtext {
-  border-color: var(--secondary) !important;
-}
-span > .p-inputtext:enabled:focus {
+span>.p-inputtext {
   border-color: var(--secondary) !important;
 }
 
-span > .p-inputtext:hover {
+span>.p-inputtext:enabled:focus {
+  border-color: var(--secondary) !important;
+}
+
+span>.p-inputtext:hover {
   border-color: var(--secondary) !important;
 }

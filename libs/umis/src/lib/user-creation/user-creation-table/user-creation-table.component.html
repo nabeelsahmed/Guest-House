@@ -14,20 +14,13 @@
       </thead>
       <tbody class="align-middle">
         <!-- <tr *ngFor="let item of tableData; let i = index"> -->
-        <tr
-          *ngFor="
+        <tr *ngFor="
             let item of tableData | search: 'firstName, lastName':tblSearch;
             let i = index
-          "
-        >
+          ">
           <td class="col-2">
             <div class="d-flex flex-row ps-4">
-              <img
-                class="me-3"
-                src="http://135.181.62.34:8070/assets/ui/noImage.png"
-                width="50px"
-                height="50px"
-              />
+              <img class="me-3" src="http://135.181.62.34:8070/assets/ui/noImage.png" width="50px" height="50px" />
               <div class="align-self-center">
                 {{ item.firstName }} {{ item.lastName }}
               </div>
@@ -43,9 +36,7 @@
           <td class="col-2">{{ item.roleTitle }}</td>
           <td class="col-2">{{ item.userCNIC }}</td>
           <td class="grey-text col-1 text-end">
-            <mat-icon class="text-black" (click)="addBranch(item)"
-              >domain</mat-icon
-            >
+            <mat-icon class="text-black" (click)="addBranch(item)">domain</mat-icon>
           </td>
           <td class="col-2 ps-5">
             <div class="d-flex flex-row ps-5">
@@ -77,12 +68,8 @@
           </div>
           <label class="fs-5 fw-bold me-2">Select Branch</label>
           <div *ngFor="let item of branchList; let i = index">
-            <mat-checkbox
-              class="example-margin"
-              [(ngModel)]="item.status"
-              (change)="branchChange($event, item, i)"
-              >{{ item.branch_name }}</mat-checkbox
-            >
+            <mat-checkbox class="example-margin" [(ngModel)]="item.status" (change)="branchChange($event, item, i)">{{
+              item.branch_name }}</mat-checkbox>
           </div>
         </div>
       </div>
@@ -90,20 +77,12 @@
       <div class="modal-footer bg-darktone1">
         <div class="row mt-2">
           <div class="col-6 text-center">
-            <button
-              mat-button
-              class="saveBtn mat-elevation-z1"
-              (click)="saveBranch()"
-            >
+            <button mat-button class="saveBtn mat-elevation-z1" (click)="saveBranch()">
               Save
             </button>
           </div>
           <div class="col-6 text-center">
-            <button
-              mat-button
-              class="resetBtn mat-elevation-z1"
-              (click)="reset()"
-            >
+            <button mat-button class="resetBtn mat-elevation-z1" (click)="reset()">
               Reset
             </button>
           </div>

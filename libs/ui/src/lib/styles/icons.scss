@@ -11,6 +11,7 @@
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
 }
+
 .userprofile {
   background: url(../assets/images/icons/Members.svg);
   width: 2em;
@@ -19,6 +20,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .menuIcon {
   background: url(../assets/images/icons/menuIcon.svg);
   width: 1.4em;
@@ -27,6 +29,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .userprofile:focus {
   background: url(../assets/images/icons/memberOrange.svg);
   width: 2em;
@@ -35,6 +38,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .forwardArrowIcon {
   background: url(../assets/images/home/arrow-forward.svg);
   width: 2em;
@@ -43,6 +47,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .role {
   background: url(../assets/images/icons/roleCreate.svg);
   width: 1.5em;
@@ -51,6 +56,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .role:focus {
   background: url(../assets/images/icons/roleOrange.svg);
   width: 1.5em;
@@ -59,6 +65,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .dashboard {
   background: url(../assets/images/icons/dashboardWhite.svg);
   width: 1.4em;
@@ -67,6 +74,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .dashboard:focus {
   background: url(../assets/images/icons/dashboard.svg);
   width: 1.4em;
@@ -75,6 +83,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .notifications {
   background: url(../assets/images/icons/notifications.svg);
   width: auto;
@@ -82,6 +91,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .modules {
   background: url(../assets/images/icons/modules.svg);
   width: auto;
@@ -89,6 +99,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .myprofile {
   background: url(../assets/images/icons/myprofile.svg);
   height: 2em;
@@ -96,6 +107,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .settings {
   background: url(../assets/images/icons/settings.svg);
   height: 2em;
@@ -103,6 +115,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .logout {
   background: url(../assets/images/icons/logout.svg);
   height: 2em;
@@ -110,6 +123,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .homemodule {
   background: url(../assets/images/icons/homemodule.svg);
   height: 2em;
@@ -117,6 +131,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .usermodule {
   background: url(../assets/images/icons/usermodule.svg);
   height: 2em;
@@ -124,6 +139,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .companymodule {
   background: url(../assets/images/icons/companymodule.svg);
   height: 2em;
@@ -139,6 +155,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .financemodule {
   background: url(../assets/images/icons/financemodule.svg);
   height: 2em;
@@ -146,6 +163,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .branchTblIcon {
   background: url(../assets/images/icons/branch.svg);
   height: 1.2em;
@@ -154,6 +172,7 @@
   background-size: cover;
   color: black !important;
 }
+
 .editIcon {
   background: url(../assets/images/icons/edit.svg);
   height: 1.2em;
@@ -161,6 +180,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .editIcon:hover {
   background: url(../assets/images/icons/editBlue.svg);
   height: 1.2em;
@@ -171,6 +191,7 @@
   transform: scale(1.2);
   transition: transform 0.5s ease;
 }
+
 .deleteIcon {
   background: url(../assets/images/icons/delete.svg);
   height: 1.2em;
@@ -178,16 +199,18 @@
   background-position: center;
   background-size: cover;
 }
+
 .deleteIcon:hover {
   background: url(../assets/images/icons/deleteRed.svg);
-  height: 1.2em;
-  width: 1em;
+  height: 1.5em;
+  width: 1.2em;
   background-position: center;
   background-size: cover;
   cursor: pointer;
   transform: scale(1.2);
   transition: transform 0.5s ease;
 }
+
 .filterIcon {
   background: url(../assets/images/icons/filter.svg);
   height: 1.2em;
@@ -195,6 +218,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .detailIcon {
   background: url(../assets/images/icons/detail.svg);
   height: 1.2em;
@@ -202,6 +226,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .stdDetailIcon {
   background: url(../assets/images/icons/stdDetail.svg);
   height: 1.2em;
@@ -209,6 +234,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .detailhistoryIcon {
   background: url(../assets/images/icons/detailhistory.svg);
   height: 1.2em;
@@ -216,6 +242,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .malepersonIcon {
   background: url(../assets/images/icons/maleperson.svg);
   height: 5em;
@@ -223,6 +250,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .geneated1Icon {
   background: url(../assets/images/icons/generated1.svg);
   height: 2em;
@@ -230,6 +258,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .geneated2Icon {
   background: url(../assets/images/icons/generated2.svg);
   height: 2em;
@@ -245,6 +274,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .totalIcon {
   background: url(../assets/images/icons/totalIcon.svg);
   height: 2em;
@@ -252,6 +282,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .publishIcon {
   background: url(../assets/images/icons/publishIcon.svg);
   height: 2em;
@@ -267,6 +298,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .remainingpersonIcon {
   background: url(../assets/images/icons/remainingperson.svg);
   height: 5em;
@@ -274,6 +306,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .vectorpersonIcon {
   background: url(../assets/images/icons/Vectorperson.svg);
   height: 5em;
@@ -281,6 +314,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .remainingperson2Icon {
   background: url(../assets/images/icons/remainingperson.svg);
   height: 3.5em;
@@ -288,6 +322,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .vectorperson2Icon {
   background: url(../assets/images/icons/Vectorperson.svg);
   height: 3.5em;
@@ -295,6 +330,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .saveIcon {
   background: url(../assets/images/icons/Save.svg);
   height: 1.2em;
@@ -302,6 +338,18 @@
   background-position: center;
   background-size: cover;
 }
+
+.saveIcon:hover {
+  background: url(../assets/images/icons/Save.svg);
+  height: 1.2em;
+  width: 1.2em;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: transform 0.5s ease;
+}
+
 .saveIcons {
   background: url(../assets/images/icons/Save.svg);
   height: 1em;
@@ -310,6 +358,7 @@
   background-repeat: no-repeat;
   // background-size: cover;
 }
+
 .filterSliderIcon {
   background: url(../assets/images/icons/filterSlider.svg);
   height: 1.2em;
@@ -317,6 +366,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .ruleIcon {
   background: url(../assets/images/icons/Rule.svg);
   height: 12em;
@@ -332,6 +382,7 @@
   // background-position: center;
   background-size: cover;
 }
+
 .eventCalenderIcon2 {
   background: url(../assets/images/icons/eventCalender2.svg);
   height: 15em;
@@ -355,6 +406,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .slcCertificate {
   background: url(../assets/images/icons/SLC-Certificate.svg);
   height: 1.2em;
@@ -362,6 +414,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .slcCertificate:hover {
   background: url(../assets/images/icons/SLC-Certificate.svg);
   height: 1.2em;
@@ -372,6 +425,7 @@
   transform: scale(1.2);
   transition: transform 0.5s ease;
 }
+
 .feeReceipt {
   background: url(../assets/images/icons/fees-receipt-icon.svg);
   height: 1.2em;
@@ -379,6 +433,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .feeReceipt:hover {
   background: url(../assets/images/icons/fees-receipt-icon.svg);
   height: 1.2em;
@@ -389,6 +444,7 @@
   transform: scale(1.2);
   transition: transform 0.5s ease;
 }
+
 .printIcon {
   background: url(../assets/images/icons/print.svg);
   height: 1.2em;
@@ -396,6 +452,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .printCardIcon {
   background: url(../assets/images/icons/printCard.svg);
   height: 1.2em;
@@ -403,6 +460,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .resultCardIcon {
   background: url(../assets/images/icons/resultCard.svg);
   height: 1.2em;
@@ -410,6 +468,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .studentProfileIcon {
   background: url(../assets/images/icons/studentProfile.svg);
   height: 12em;
@@ -427,6 +486,7 @@
 
   // background-size: cover;
 }
+
 .offlineIcon {
   background: url(../assets/images/icons/offline.svg);
   height: 0.4em;
@@ -435,6 +495,7 @@
   background-repeat: no-repeat;
   // background-size: cover;
 }
+
 .circle {
   // background:url(../assets/images/icons/circle.svg);
   background: url(../assets/images/icons/circle.png);
@@ -444,6 +505,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .circletick {
   background: url(../assets/images/icons/circletick.svg);
   height: 2em;
@@ -452,6 +514,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .viewIcon {
   background: url(../assets/images/icons/view.svg);
   height: 1.18em;
@@ -460,6 +523,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .registration {
   background: url(../assets/images/icons/registration.svg);
   height: 16em;
@@ -468,6 +532,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .books {
   background: url(../assets/images/icons/books.svg);
   height: 16em;
@@ -476,6 +541,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .registrationillustration {
   background: url(../assets/images/icons/registration-illustration.svg);
   height: 36em;
@@ -484,6 +550,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .present {
   background: url(../assets/images/icons/present.svg);
   height: 2.5em;
@@ -492,6 +559,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .absent {
   background: url(../assets/images/icons/absent.svg);
   height: 2.5em;
@@ -500,6 +568,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .presentWhite {
   background: url(../assets/images/icons/presentWhite.svg);
   height: 2.5em;
@@ -508,6 +577,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .absentWhite {
   background: url(../assets/images/icons/absentWhite.svg);
   height: 2.5em;
@@ -516,6 +586,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .leave {
   background: url(../assets/images/icons/leave.svg);
   height: 2.5em;
@@ -524,6 +595,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .leaveWhite {
   background: url(../assets/images/icons/leaveWhite.svg);
   height: 2.5em;
@@ -532,6 +604,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .searchIcon {
   background: url(../assets/images/icons/searchIcon.svg);
   height: 1.4em;
@@ -550,6 +623,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .presentAttDIcon {
   background: url(../assets/images/icons/presentAttDashboard.svg);
   height: 7em;
@@ -558,6 +632,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .absentAttDIcon {
   background: url(../assets/images/icons/absentAttDashboard.svg);
   height: 7em;
@@ -566,6 +641,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .leaveAttDIcon {
   background: url(../assets/images/icons/leaveAttDashboard.svg);
   height: 7em;
@@ -618,6 +694,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .vectorIcon:hover {
   background: url(../assets/images/icons/solidvector.svg);
   height: 1.2em;
@@ -628,6 +705,7 @@
   transform: scale(1.2);
   transition: transform 0.5s ease;
 }
+
 .downIcon {
   background: url(../assets/images/icons/down.svg);
   height: 0.8em;
@@ -653,6 +731,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .departmentIcon {
   background: url(../assets/images/icons/departmentIcon.svg);
   width: 1.4em;
@@ -661,6 +740,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .branchSetupIcon {
   background: url(../assets/images/icons/branchSetupIcon.svg);
   width: 1.5em;
@@ -696,6 +776,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .bBoxIcon {
   background: url(../assets/images/icons/BBox.svg);
   height: 4em;
@@ -704,6 +785,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .cBoxIcon {
   background: url(../assets/images/icons/CBox.svg);
   height: 4em;
@@ -712,6 +794,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .dBoxIcon {
   background: url(../assets/images/icons/DBox.svg);
   height: 4em;
@@ -720,6 +803,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .eBoxIcon {
   background: url(../assets/images/icons/EBox.svg);
   height: 4em;
@@ -728,6 +812,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .fBoxIcon {
   background: url(../assets/images/icons/FBox.svg);
   height: 4em;
@@ -745,6 +830,7 @@
   background-position: center;
   background-size: cover;
 }
+
 .wcIcon {
   background: url(../assets/images/icons/indianToilet.svg);
   width: 1.5em;
@@ -752,4 +838,95 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.redBedIcon {
+  background: url(../assets/images/icons/redBed.svg);
+  width: 1.5em;
+  height: 2.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.editBlueIcon {
+  background: url(../assets/images/icons/edit-icon.svg);
+  width: 3em;
+  height: 2em;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+
+}
+
+.tabularPlusIcon {
+  background: url(../assets/images/icons/tabler_plus.svg);
+  width: 3em;
+  height: 2em;
+  background-repeat: no-repeat;
+  background-position: start;
+  background-size: cover;
+
+}
+
+.outlineDelete {
+  background: url(../assets/images/icons/ic_outline-delete.svg);
+  width: 1.3em;
+  height: 1.5em;
+  background-repeat: no-repeat;
+  background-position: start;
+  background-size: contain;
+
+}
+
+.dropIcon {
+  background: url(../assets/images/icons/dropIconVector.svg);
+  width: 1.3em;
+  height: 1.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+}
+
+.upIcon {
+  background: url(../assets/images/icons/upIconVector.svg);
+  width: 1.3em;
+  height: 1.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+}
+
+.plusCircle {
+  background: url(../assets/images/icons/plusCircle.svg);
+  width: 2.5em;
+  height: 2.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+
+
+}
+
+.circleImg {
+  background: url(../assets/images/icons/circle-img.svg);
+  width: 5em;
+  height: 5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.backArrow {
+  background: url(../assets/images/icons/backArrow.svg);
+  width: 2.5em;
+  height: 3em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
 }

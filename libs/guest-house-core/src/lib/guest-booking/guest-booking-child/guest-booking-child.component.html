@@ -1,0 +1,216 @@
+<div class="ms-5 me-5">
+    <div class=" mt-3 bg-white rounded-2 px-3 py-2">
+        <general-app-guest-info></general-app-guest-info>
+    </div>
+    <!--------Rooms + Availibility------------->
+
+    <div class="mt-3 bg-white rounded-2 p-3">
+        <div class="row">
+            <!-----Rooms----->
+            <div class="col-md-2">
+                <h4 class="fw-bold fs-3 mb-3">Rooms</h4>
+                <div class="d-flex flex-row justify-content-between align-items-center align-content-start mb-2">
+                    <h4 class="fs-5">Toilet</h4>
+                    <div class="d-flex align-items-center">
+                        <p-radioButton inputId="toiletSelect"></p-radioButton>
+                        <div for="toiletSelect" class="ms-2 me-2 toiletIcon"></div>
+
+                        <p-radioButton inputId="wcSelect"></p-radioButton>
+                        <div for="wcSelect" class="ms-2 me-2 wcIcon"></div>
+                    </div>
+                </div>
+                <!--AC-->
+                <div class="d-flex flex-row justify-content-between align-items-center align-content-start mb-2">
+                    <h4 class="fs-5">AC</h4>
+                    <div class="d-flex align-items-center">
+                        <p-radioButton name="pizza" value="Cheese" [(ngModel)]="selection"
+                            inputId="ingredient1"></p-radioButton>
+                        <label for="ingredient1" class="ms-2 me-2"> Yes </label>
+
+                        <p-radioButton name="pizza" value="Cheese" [(ngModel)]="selection"
+                            inputId="ingredient1"></p-radioButton>
+                        <label for="ingredient1" class="ms-2 me-2">No</label>
+                    </div>
+                </div>
+                <div class="">
+                    <p-calendar [showIcon]="true" [(ngModel)]="formFields[4].value" placeholder="Date"
+                        class="border-dark"></p-calendar>
+                </div>
+                <div class="mt-1">
+                    <p-calendar [showTime]="true" [(ngModel)]="formFields[5].value" placeholder="Time" [showIcon]="true"
+                        class="border-dark "></p-calendar>
+                </div>
+            </div>
+            <!--------Availibility-->
+            <div class="col-md-10">
+                <div class="border border-dark w-25 mb-2 rounded-3">
+                    <p-dropdown [options]="rooms" optionLabel="name" [style]="{width:'100%'}" [showClear]="false"
+                        [(ngModel)]="formFields[3].value" placeholder="Room Type"></p-dropdown>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <div class="border rounded-2 border-dark">
+                            <div class="bg-black d-flex flex-row justify-content-between text-light align-items-center">
+                                <label class="fs-6 fw-semibold pt-1 ps-1">Ground Floor</label>
+                                <label class="fs-6 fw-semibold pt-1 pe-1">
+                                    Availibility:{{ 30 }}
+                                </label>
+                            </div>
+                            <perfect-scrollbar class="bg-light-grey" style="height: 7em">
+                                <div class="d-flex flex-wrap p-1 justify-content-start overflow-auto w-100">
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                    <div class="redBedIcon ms-1 me-1"></div>
+                                </div>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="border rounded-2 border-dark">
+                            <div class="bg-black d-flex flex-row justify-content-between text-light align-items-center">
+                                <label class="fs-6 fw-semibold pt-1 ps-1">Ground Floor</label>
+                                <label class="fs-6 fw-semibold pt-1 pe-1">Availibility:{{ 30 }}</label>
+                            </div>
+                            <perfect-scrollbar class="bg-light-grey" style="height: 7em">
+                                <div class="d-flex flex-wrap p-1 justify-content-center overflow-auto w-100">
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                    Maxime quod repudiandae nulla iure sed quam explicabo optio
+                                    quibusdam! Iure cumque ducimus inventore animi quaerat
+                                    accusamus beatae non amet esse repudiandae? Lorem, ipsum dolor
+                                    sit amet consectetur adipisicing elit. Maxime quod repudiandae
+                                    nulla iure sed quam explicabo optio quibusdam! Iure cumque
+                                    ducimus inventore animi quaerat accusamus beatae non amet esse
+                                    repudiandae?
+                                </div>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="border rounded-2 border-dark">
+                            <div
+                                class="bg-black my-auto rounded-2 cardHeading d-flex flex-row justify-content-between text-light align-items-center">
+                                <label class="fs-6 fw-semibold pt-1 ps-1">Ground Floor</label>
+                                <label class="fs-6 fw-semibold pt-1 pe-1">Availibility:{{ 30 }}</label>
+                            </div>
+                            <perfect-scrollbar class="bg-light-grey" style="height: 7em">
+                                <div class="d-flex flex-wrap p-1 justify-content-center overflow-auto w-100">
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                    Maxime quod repudiandae nulla iure sed quam explicabo optio
+                                    quibusdam! Iure cumque ducimus inventore animi quaerat
+                                    accusamus beatae non amet esse repudiandae? Lorem, ipsum dolor
+                                    sit amet consectetur adipisicing elit. Maxime quod repudiandae
+                                    nulla iure sed quam explicabo optio quibusdam! Iure cumque
+                                    ducimus inventore animi quaerat accusamus beatae non amet esse
+                                    repudiandae?
+                                </div>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!---------Booking + Aditional Services----------->
+    <!-- <div class="mt-3 bg-white rounded-2 p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="fw-bold fs-3">Booking</h4>
+                <div class="d-flex flex-row mt-1 gap-1">
+                    <p-calendar [(ngModel)]="checkInDate" placeholder="Check-In" [showIcon]="true"></p-calendar>
+                    <p-calendar [(ngModel)]="checkOutDate" placeholder="Check-Out" [showIcon]="true"></p-calendar>
+                </div>
+                <div class="d-flex flex-row gap-1 mt-1">
+                    <p-calendar [(ngModel)]="checkInTime" [showTime]="true" placeholder="Check-In Time"
+                        [showSeconds]="true" [timeOnly]="true" hourFormat="12" [showIcon]="true">
+                        ></p-calendar>
+
+                    <p-calendar [(ngModel)]="checkOutTime" [showTime]="true" placeholder="Check-Out Time"
+                        [showIcon]="true" [showSeconds]="true" [timeOnly]="true" hourFormat="12"
+                        class="p-calendar-w-btn">
+                        ></p-calendar>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex flex-row gap-3 align-items-center">
+                    <h4 class="fw-bold fs-3 text-start">Additional Services</h4>
+                    <div class="form-check d-lg-flex flex-row align-items-center gap-2">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        <label class="form-check-label fw-normal fs-5 text-start" for="flexCheckDefault">
+                            Select All
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <button mat-button class="resetBtn mat-elevation-z4 rounded-2 me-2 mt-2">
+                        Food
+                    </button>
+                    <button mat-button class="resetBtn mat-elevation-z4 rounded-2 me-2 mt-2">
+                        Cab
+                    </button>
+                    <button mat-button class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2">
+                        Laundary
+                    </button>
+                    <button mat-button class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2">
+                        Laundary
+                    </button>
+                    <button mat-button class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2">
+                        Laundary
+                    </button>
+                    <button mat-button class="emptyBtn mat-elevation-z4 rounded-2 me-2 mt-2">
+                        Laundary
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-----Payment Method----->
+    <!-- <div class="mt-3 bg-white rounded-2 p-3">
+        <h4 class="fw-bold fs-3">Payment Method</h4>
+        <div class="d-flex flex-row gap-4 mx-auto mt-lg-2">
+            <div class="d-flex align-items-center">
+                <p-radioButton name="Cash" value="Cheese" [(ngModel)]="cash" inputId="cash"></p-radioButton>
+                <label for="cash" class="ms-2">Cash</label>
+            </div>
+            <div class="d-flex align-items-center">
+                <p-radioButton name="Bank Transfer" value="payment_bank" [(ngModel)]="bankTransfer"
+                    inputId="bankTransfer"></p-radioButton>
+                <label for="bankTransfer" class="ms-2">Bank Transfer</label>
+            </div>
+            <div class="d-flex align-items-center">
+                <p-radioButton name="Card Payment" value="payment_card" [(ngModel)]="cardPayment"
+                    inputId="cardPayment"></p-radioButton>
+                <label for="cardPayment" class="ms-2">Card Payment</label>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="d-flex justify-content-end">
+        <button mat-button (click)="save()" class="saveBtn mat-elevation-z4 fw-bold   rounded-2 me-3 mt-2" mat-button>
+            Save
+        </button>
+
+        <button mat-button (click)="reset()" class="resetBtn mat-elevation-z4 fw-bold  rounded-2 me-3 mt-2" mat-button>
+            Reset
+        </button>
+    </div>
+
+</div>

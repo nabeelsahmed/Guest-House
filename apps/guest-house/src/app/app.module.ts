@@ -53,7 +53,7 @@ export const appRoutes: Route[] = [
       ),
     // canLoad: [AuthGuard],
   },
-  { path: '**', redirectTo: 'auth', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'auth', pathMatch: 'full' },
 ];
 @NgModule({
   declarations: [AppComponent, TopSideNavComponent],
