@@ -3,19 +3,20 @@
         <!---left col dropdowns--->
         <div class="col-3 px-2 border-end ">
             <div class="border border-dark rounded-3 mt-3">
-                <p-dropdown [(ngModel)]="formFields[3].value" optionLabel="name"
-                    [style]="{width: '100%', background:'transparent'}" placeholder="Select Company"></p-dropdown>
+                <p-dropdown [(ngModel)]="formFields[3].value" optionLabel="name" [options]="companyList"
+                    (onChange)="onCompanyChange()" [style]="{width: '100%', background:'transparent'}"
+                    placeholder="Select Company"></p-dropdown>
             </div>
 
             <div class="border border-dark rounded-3 mt-3">
-                <p-dropdown [(ngModel)]="formFields[4].value" optionLabel="name"
+                <p-dropdown [(ngModel)]="formFields[4].value" optionLabel="name" [options]="branchList"
                     [style]="{width: '100%', background:'transparent'}" placeholder="Select Guest House"></p-dropdown>
             </div>
 
             <div class="d-flex flex-row mt-3 gap-4 pe-4">
                 <div class="col-6">
                     <div class="border border-dark rounded-3">
-                        <p-dropdown [(ngModel)]="formFields[5].value" optionLabel="name"
+                        <p-dropdown [(ngModel)]="formFields[5].value" optionLabel="name" [options]="floorsList"
                             [style]="{width: '100%', background:'transparent'}" placeholder="Floor"></p-dropdown>
                     </div>
                 </div>
@@ -23,17 +24,20 @@
                     <div class="border border-dark rounded-3 p-input-icon-left">
                         <i class="pi pi-building"></i>
                         <input pInputText type="text" class="p-inputtext-md w-100 bg-transparent" placeholder="Room"
-                            [(ngModel)]="formFields[6].value" />
+                            [(ngModel)]="userInput" />
+                        <!-- [(ngModel)]="formFields[6].value" -->
                     </div>
                 </div>
+
+
             </div>
 
             <div class="d-flex flex-row justify-content-end mt-3">
 
                 <ng-container *ngIf="featureSaved">
-
-                    <button mat-button class="saveBtn mat-elevation-z4 w-25  rounded-2 me-3 mt-2" mat-button
+                    <button mat-button class="saveBtn mat-elevation-z4 w-25 fw-bold  rounded-2 me-3 mt-2" mat-button
                         (click)="generateRows()">
+                        <!-- ; -->
                         Add
                     </button>
                 </ng-container>
@@ -72,15 +76,14 @@
                             </button>
                         </ng-container>
                         <button mat-button
-                            class="fw-bold fs-6 justify-content-center align-content-center  saveBtn mat-elevation-z3 rounded-2 ms-2"
-                            (click)="next()">
+                            class="fw-bold fs-6 justify-content-center align-content-center  saveBtn mat-elevation-z3 rounded-2 ms-2">
                             Save
                         </button>
                     </div>
                 </div>
             </ng-container>
             <ng-container *ngIf="featureSaved">
-                <general-app-floor-room-sub [totalRows]="rows"></general-app-floor-room-sub>
+                <general-app-floor-room-sub [roomList]="roomList"></general-app-floor-room-sub>
             </ng-container>
             <ng-container *ngIf="!featureSaved">
                 <general-app-room-features></general-app-room-features>
@@ -88,3 +91,5 @@
         </div>
     </div>
 </div>
+
+<general-app-add-room-modal></general-app-add-room-modal>

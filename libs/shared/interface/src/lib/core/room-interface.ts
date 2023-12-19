@@ -1,9 +1,11 @@
 export class RoomInterface {
-    newUserBranchID = '0';
+    floorRoomID = '0';
+    userID = '0';
     spType = '';
-    userID = '';
-    companyID = '';
-    guestHouseID = '';
-    floor = '';
-    room = '';
+    floorID = '0';
+    branch_id = '0';
+    json = '';
+    companyId? = '';
+    room? = '';
+
 }

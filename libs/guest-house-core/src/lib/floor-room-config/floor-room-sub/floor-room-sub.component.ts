@@ -5,8 +5,9 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './floor-room-sub.component.html',
   styleUrls: ['./floor-room-sub.component.scss']
 })
-export class FloorRoomSubComponent implements OnInit {
 
+
+export class FloorRoomSubComponent implements OnInit {
 
 
 
@@ -19,27 +20,33 @@ export class FloorRoomSubComponent implements OnInit {
     { name: 'Paris', code: 'PRS' }
   ];
 
+
   selectedCity = 'Islamabad';
 
   constructor() { }
 
+  @Input() roomList: any = []
 
-  @Input() totalRows = [1, 2];
+
+
 
 
   detailsRow: any[] = [1, 2, 3, 4]
 
 
   deleteItem(item: number): void {
-    this.detailsRow.splice(item, 1);
+    if (this.roomList != null || []) {
+      this.roomList.splice(item, 1);
+    }
   }
 
   addItem(item: number): void {
-    this.detailsRow.push(item + 1);
+    this.roomList.push(item + 1);
   }
 
 
   ngOnInit(): void {
   }
+
 
 }

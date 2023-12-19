@@ -15,6 +15,8 @@ import { RoomFeaturesComponent } from './floor-room-config/room-features/room-fe
 import { GuestBookingChildComponent } from './guest-booking/guest-booking-child/guest-booking-child.component';
 import { GuestRecordsComponent } from './guest-records/guest-records.component';
 import { GuestInfoComponent } from './guest-booking/guest-info/guest-info.component';
+import { RoomServicesComponent } from './room-services/room-services.component';
+import { AddRoomModalComponent } from './floor-room-config/add-room-modal/add-room-modal.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -26,6 +28,8 @@ export const coreRoutes: Route[] = [
   { path: 'guest-profile', component: GuestHouseProfileComponent },
   { path: 'floor-room-config', component: FloorRoomConfigComponent },
   { path: 'guest-records', component: GuestRecordsComponent },
+  { path: 'room-services', component: RoomServicesComponent },
+
 
 
 
@@ -51,6 +55,8 @@ export const coreRoutes: Route[] = [
     GuestBookingChildComponent,
     GuestRecordsComponent,
     GuestInfoComponent,
+    RoomServicesComponent,
+    AddRoomModalComponent,
 
 
 

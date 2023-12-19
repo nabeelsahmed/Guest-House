@@ -9,9 +9,9 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TabViewModule } from 'primeng/tabview';
-
+import { FileUploadModule } from 'primeng/fileupload';
 @NgModule({
-  imports: [CommonModule, TableModule, TabViewModule, InputTextareaModule, InputMaskModule, CalendarModule, InputTextModule, PasswordModule, RadioButtonModule, DropdownModule],
-  exports: [InputTextModule, TableModule, TabViewModule, InputTextareaModule, InputMaskModule, CalendarModule, PasswordModule, RadioButtonModule, DropdownModule],
+  imports: [CommonModule, TableModule, TabViewModule, InputTextareaModule, InputMaskModule, CalendarModule, InputTextModule, FileUploadModule, PasswordModule, RadioButtonModule, DropdownModule],
+  exports: [InputTextModule, TableModule, TabViewModule, InputTextareaModule, InputMaskModule, CalendarModule, PasswordModule, FileUploadModule, RadioButtonModule, DropdownModule],
 })
 export class PrimengModule { }

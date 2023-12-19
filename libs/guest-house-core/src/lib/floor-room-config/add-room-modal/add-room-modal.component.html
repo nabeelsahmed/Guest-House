@@ -1,0 +1,27 @@
+<div id="userModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+    <div class="modal-dialog modal-md mat-elevation-z20">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bgSecondary">
+                <h4 class="modal-title align-self-center text-white">Add Room Type</h4>
+                <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+                <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+            </div>
+            <div class="modal-body d-flex flex-row gap-2 align-items-center">
+                <h3 class="fw-bold"> Room Type</h3>
+                <input type="text" pInputText placeholder="Enter Type" [(ngModel)]="this.formFields[3].value" />
+
+            </div>
+            <div class="modal-footer bg-darktone1">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <button mat-button class="saveBtn rounded-2 mat-elevation-z5" (click)="save()">
+                            Add Room
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

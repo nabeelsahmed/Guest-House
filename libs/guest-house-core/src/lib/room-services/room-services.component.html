@@ -1,0 +1,36 @@
+<!--main div--->
+<div class="mx-5 mt-3">
+    <div class="row">
+        <div class="col-3 border-end px-3">
+            <div class="mb-2 border rounded-2 text-black border-dark">
+                <p-dropdown [showClear]="false" [style]="{background: 'transparent', width: '100%'}"
+                    placeholder="Select Company"></p-dropdown>
+            </div>
+            <div class="mb-2 border rounded-2 text-black border-dark">
+                <p-dropdown [showClear]="false" class="mb-3" [style]="{background: 'transparent', width: '100%'}"
+                    placeholder="Select Guest House"></p-dropdown>
+            </div>
+            <h3 class="fw-bold mt-3 mb-2">Add Room Services</h3>
+            <div class="mb-2 border rounded-2 text-black border-dark">
+                <p-dropdown [showClear]="false" class="mb-3" [style]="{background: 'transparent', width: '100%'}"
+                    placeholder="Services"></p-dropdown>
+            </div>
+            <div class="mb-2 border rounded-2 text-black border-dark">
+                <p-dropdown [showClear]="false" [style]="{background: 'transparent', width: '100%'}"
+                    placeholder="Parent Services"></p-dropdown>
+            </div>
+            <div class="mb-2 border rounded-2  border-dark w-100">
+                <input type="text" pInputText class="w-100 text-black bg-transparent" placeholder="Service Title" />
+            </div>
+
+            <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
+        </div>
+        <div class="col-8"></div>
+    </div>
+</div>

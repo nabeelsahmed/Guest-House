@@ -112,11 +112,10 @@ export class UserCreationComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.global.setHeaderTitle('User Creation');
-
     this.getRoles();
     this.getUser();
     this.getTeacher();
