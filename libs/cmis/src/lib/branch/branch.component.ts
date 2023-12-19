@@ -9,24 +9,23 @@ import { BranchTableComponent } from './branch-table/branch-table.component';
 @Component({
   selector: 'general-app-branch',
   templateUrl: './branch.component.html',
-  styleUrls: ['./branch.component.scss']
+  styleUrls: ['./branch.component.scss'],
 })
 export class BranchComponent implements OnInit {
-
   @ViewChild(BranchTableComponent) branchTable: any;
   @ViewChild(ContactInfoComponent) contactInfo: any;
 
   cmbCountry: any = '';
 
   pageFields: BranchInterface = {
-    new_branch_id: '0',
-    spType: '',
-    userID: '0',
-    branch_name: '',
-    branch_type_id: '',
-    branch_address: '',
-    city_id: '',
-    json: [],
+    new_branch_id: '0', //0
+    spType: '', //1
+    userID: '0', //2
+    company_id: '', //3
+    branch_name: '', //4
+    branch_address: '', //5
+    city_id: '', //6
+    json: [], //7
   };
 
   formFields: MyFormField[] = [
@@ -49,15 +48,15 @@ export class BranchComponent implements OnInit {
       required: false,
     },
     {
-      value: this.pageFields.branch_name,
-      msg: 'enter branch name',
-      type: 'textBox',
+      value: this.pageFields.company_id,
+      msg: 'select company',
+      type: 'selectbox',
       required: true,
     },
     {
-      value: this.pageFields.branch_type_id,
-      msg: 'select branch type',
-      type: 'selectbox',
+      value: this.pageFields.branch_name,
+      msg: 'enter branch name',
+      type: 'textBox',
       required: true,
     },
     {
@@ -80,6 +79,7 @@ export class BranchComponent implements OnInit {
     },
   ];
 
+  companyList: any = [];
   branchTypeList: any = [];
   countryList: any = [];
   cityList: any = [];
@@ -94,43 +94,41 @@ export class BranchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.global.setHeaderTitle("Branch Registration");
-    
+    this.global.setHeaderTitle('Branch Registration');
+
     this.formFields[2].value = this.global.getUserId().toString();
 
-    this.getBranchType();
     this.getCountry();
+    this.getCompany();
   }
 
-  getBranchType(){
-    this.dataService
-      .getHttp('cmis-api/Branch/getBranchType', '')
-      .subscribe(
-        (response: any) => {
-          this.branchTypeList = response;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+  getCompany() {
+    this.dataService.getHttp('cmis-api/Company/getCompanyList', '').subscribe(
+      (response: any) => {
+        this.companyList = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
-  getBranchDetail(item: any){
+  getBranchDetail(item: any) {
     this.dataService
       .getHttp('cmis-api/Branch/getBranchDetail?branchID=' + item, '')
       .subscribe(
         (response: any) => {
           // this.branchDetailList = response;
           this.contactInfo.contactDataList = [];
-          for(var i = 0; i < response.length; i++){
+          for (var i = 0; i < response.length; i++) {
             this.contactInfo.contactDataList.push({
               contact_type_id: response[i].contact_type_id,
               contact_type_title: response[i].contact_type_title,
               contact_info_title: response[i].contact_info_title,
             });
           }
-          
-          // console.log(response)
+
+          console.log(response);
         },
         (error: any) => {
           console.log(error);
@@ -138,20 +136,18 @@ export class BranchComponent implements OnInit {
       );
   }
 
-  getCountry(){
-    this.dataService
-      .getHttp('cmis-api/Company/getCountry', '')
-      .subscribe(
-        (response: any) => {
-          this.countryList = response;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+  getCountry() {
+    this.dataService.getHttp('cmis-api/Company/getCountry', '').subscribe(
+      (response: any) => {
+        this.countryList = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
-  
-  getCity(item: any){
+
+  getCity(item: any) {
     this.dataService
       .getHttp('cmis-api/Company/getCity?countryID=' + item, '')
       .subscribe(
@@ -163,18 +159,18 @@ export class BranchComponent implements OnInit {
         }
       );
   }
-  
-  save(){
-    if(this.contactInfo.contactDataList.length > 0){
-      // console.log(this.contactInfo.contactDataList);
-      this.formFields[7].value = JSON.stringify(this.contactInfo.contactDataList);
+
+  save() {
+    if (this.contactInfo.contactDataList.length > 0) {
+      this.formFields[7].value = JSON.stringify(
+        this.contactInfo.contactDataList
+      );
     }
     this.dataService
       .savetHttp(this.pageFields, this.formFields, 'cmis-api/Branch/saveBranch')
       .subscribe(
         (response: any[]) => {
-
-          if(response[0].includes('Success') == true){
+          if (response[0].includes('Success') == true) {
             if (this.formFields[0].value > 0) {
               this.valid.apiInfoResponse('Branch updated successfully');
             } else {
@@ -182,10 +178,9 @@ export class BranchComponent implements OnInit {
             }
             this.branchTable.getBranch();
             this.reset();
-          }else{
+          } else {
             this.valid.apiErrorResponse(response[0]);
           }
-          
         },
         (error: any) => {
           this.error = error;
@@ -193,29 +188,27 @@ export class BranchComponent implements OnInit {
         }
       );
   }
-  
+
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
-    this.cmbCountry = '';  
-    this.contactInfo.contactDataList = [];  
+    this.cmbCountry = '';
+    this.contactInfo.contactDataList = [];
   }
 
-  edit(item: any){
-    console.log(item);
+  edit(item: any) {
     this.getBranchDetail(item.branch_id);
     this.cmbCountry = item.countory_id;
     this.getCity(item.countory_id);
 
     this.formFields[0].value = item.branch_id;
-    this.formFields[3].value = item.branch_name;
-    this.formFields[4].value = item.branch_type_id;
+    this.formFields[3].value = item.company_id;
+    this.formFields[4].value = item.branch_name;
     this.formFields[5].value = item.address;
     this.formFields[6].value = item.city_id;
-    
   }
-  
-  delete(item: any){
+
+  delete(item: any) {
     this.reset();
   }
 }

@@ -1,34 +1,42 @@
 <!-- <perfect-scrollbar class="bg-light-grey mb-3" style="height: 10em; max-width: 100%;"> -->
 
-  <div class="d-flex justify-content-between mb-4">
-    <div class="fw-bold fs-5">Contact Info</div>
-    <div>
-      <button mat-button class="saveBtn mat-elevation-z1l" (click)="addContact()">
-        <mat-icon>add</mat-icon> Add
-      </button>
-    </div>
+<div class="d-flex justify-content-between mb-4">
+  <div class="fw-bold fs-5">Contact Info</div>
+  <div>
+    <button mat-button class="saveBtn mat-elevation-z1l" (click)="addContact()">
+      <mat-icon>add</mat-icon> Add
+    </button>
   </div>
+</div>
 
-  <mat-form-field class="w-50 mt-4 pe-2" appearance="fill">
-    <mat-label>Select Contact Type</mat-label>
-    <mat-select [(ngModel)]="cmbContactType">
-      <mat-option *ngFor="let item of contactList" [value]="item.contact_type_id">
-        {{item.contact_type_title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field class="w-50 ps-2" appearance="fill">
-    <mat-label *ngIf="cmbContactType == '1'">Email</mat-label>
-    <mat-label *ngIf="cmbContactType == '2'">Mobile</mat-label>
-    <mat-label *ngIf="cmbContactType == '3'">Landline</mat-label>
-    <input matInput [(ngModel)]="txtContactType" *ngIf="cmbContactType == '2'" [textMask]="{mask: mobileMask }"/>
-    <input matInput [(ngModel)]="txtContactType" *ngIf="cmbContactType != '2'"/>
-  </mat-form-field>
-  <div class="row border pt-2 pb-1" *ngFor="let item of contactDataList; let i=index">
-    <div class="col-md-1">
-      <mat-icon (click)="remove(i)">close</mat-icon>
-    </div>
-    <div class="col-md-5">{{item.contact_type_title}}</div>
-    <div class="col-md-6">{{item.contact_info_title}}</div>
+<mat-form-field class="w-50 mt-4 pe-2" appearance="outline">
+  <mat-label>Select Contact Type</mat-label>
+  <mat-select [(ngModel)]="cmbContactType">
+    <mat-option *ngFor="let item of contactList" [value]="item.contact_type_id">
+      {{ item.contact_type_title }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="w-50 ps-2" appearance="outline">
+  <mat-label *ngIf="cmbContactType == '1'">Email</mat-label>
+  <mat-label *ngIf="cmbContactType == '2'">Mobile</mat-label>
+  <mat-label *ngIf="cmbContactType == '3'">Landline</mat-label>
+  <input
+    matInput
+    [(ngModel)]="txtContactType"
+    *ngIf="cmbContactType == '2'"
+    [textMask]="{ mask: mobileMask }"
+  />
+  <input matInput [(ngModel)]="txtContactType" *ngIf="cmbContactType != '2'" />
+</mat-form-field>
+<div
+  class="row border pt-2 pb-1"
+  *ngFor="let item of contactDataList; let i = index"
+>
+  <div class="col-md-1">
+    <mat-icon (click)="remove(i)">close</mat-icon>
   </div>
+  <div class="col-md-5">{{ item.contact_type_title }}</div>
+  <div class="col-md-6">{{ item.contact_info_title }}</div>
+</div>
 <!-- </perfect-scrollbar> -->

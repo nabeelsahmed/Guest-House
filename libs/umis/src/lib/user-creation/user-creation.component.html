@@ -1,7 +1,7 @@
 <div
   class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center pt-2 border-bottom ms-4 me-5"
 >
-  <mat-form-field class="example-full-width" appearance="fill">
+  <mat-form-field class="example-full-width" appearance="outline">
     <input type="tel" matInput placeholder="Search" [(ngModel)]="txtSearch" />
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
@@ -31,52 +31,21 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
-              <mat-label>User Type</mat-label>
-              <mat-select [(ngModel)]="formFields[2].value">
-                <mat-option value="user">User</mat-option>
-                <mat-option value="teacher">Teacher</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field
-              class="w-100"
-              appearance="fill"
-              *ngIf="formFields[2].value == 'teacher'"
-            >
-              <mat-label>Teacher</mat-label>
-              <mat-select
-                [(ngModel)]="formFields[3].value"
-                (ngModelChange)="onTeacherSelect(this.formFields[3].value)"
-              >
-                <mat-option
-                  *ngFor="let item of teacherList"
-                  [value]="item.teacherID"
-                  >{{ item.teacherFirstName }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
+            <mat-form-field class="w-100" appearance="outline">
               <mat-label>First Name</mat-label>
               <input
                 matInput
-                [(ngModel)]="formFields[4].value"
+                [(ngModel)]="formFields[2].value"
                 maxlength="20"
               />
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
+            <mat-form-field class="w-100" appearance="outline">
               <mat-label>Last Name</mat-label>
               <input
                 matInput
-                [(ngModel)]="formFields[5].value"
+                [(ngModel)]="formFields[3].value"
                 maxlength="20"
               />
             </mat-form-field>
@@ -85,21 +54,21 @@
 
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
+            <mat-form-field class="w-100" appearance="outline">
               <mat-label>Email</mat-label>
               <input
                 matInput
                 placeholder="pat@example.com"
-                [(ngModel)]="formFields[6].value"
+                [(ngModel)]="formFields[4].value"
                 maxlength="50"
                 required
               />
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
+            <mat-form-field class="w-100" appearance="outline">
               <mat-label>Role Name</mat-label>
-              <mat-select [(ngModel)]="formFields[7].value">
+              <mat-select [(ngModel)]="formFields[5].value">
                 <mat-option
                   *ngFor="let item of roleList"
                   [value]="item.roleId"
@@ -112,11 +81,11 @@
 
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
+            <mat-form-field class="w-100" appearance="outline">
               <mat-label>Password</mat-label>
               <input
                 matInput
-                [(ngModel)]="formFields[8].value"
+                [(ngModel)]="formFields[6].value"
                 maxlength="15"
                 [type]="hide ? 'password' : 'text'"
               />
@@ -129,7 +98,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100" appearance="fill">
+            <mat-form-field class="w-100" appearance="outline">
               <mat-label>Confirm Password</mat-label>
               <input
                 matInput
@@ -149,17 +118,17 @@
 
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field class="w-100 me-3" appearance="fill">
+            <mat-form-field class="w-100 me-3" appearance="outline">
               <mat-label>CNIC No.</mat-label>
               <input
                 matInput
-                [(ngModel)]="formFields[9].value"
+                [(ngModel)]="formFields[7].value"
                 [textMask]="{ mask: cnicMask }"
               />
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <!-- <mat-form-field class="w-100" appearance="fill">
+            <!-- <mat-form-field class="w-100" appearance="outline">
               <mat-label>Role Name</mat-label>
               <mat-select [(ngModel)]="formFields[7].value">
                 <mat-option

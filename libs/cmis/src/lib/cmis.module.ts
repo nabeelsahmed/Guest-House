@@ -6,11 +6,14 @@ import { MaterialModule } from '@general-app/material';
 import { FormsModule } from '@angular/forms';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PrimengModule } from '@general-app/primeng';
+
 // import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SearchPipe } from '@general-app/shared/interface';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { BranchComponent } from './branch/branch.component';
 import { DepartmentComponent } from './department/department.component';
@@ -52,8 +55,8 @@ export const cmisRoutes: Route[] = [
     SharedSharedComponentsModule,
     Ng2SearchPipeModule,
     TextMaskModule,
-    InputTextModule
-
+    PrimengModule,
+    InputTextModule,
   ],
   declarations: [
     CompanyProfileComponent,

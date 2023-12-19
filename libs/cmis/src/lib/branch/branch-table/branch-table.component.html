@@ -4,17 +4,19 @@
       <thead>
         <tr>
           <th class="grey-text col-1">Sr#</th>
-          <th class="grey-text col-5">Branch Name</th>
+          <th class="grey-text col-3">Company Name</th>
+          <th class="grey-text col-4">Branch Name</th>
           <!-- <th class="grey-text col-3">Phone No</th> -->
-          <th class="grey-text col-4">City/Country</th>
+          <th class="grey-text col-2">City</th>
           <th class="grey-text col-2 text-end pe-4">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of tableData; let i=index;">
-          <td class="col-1">{{i+1}}</td>
-          <td class="col-5">{{item.branch_name}}</td>
-          <td class="grey-text col-4">{{item.city_name}}</td>
+        <tr *ngFor="let item of tableData; let i = index">
+          <td class="col-1">{{ i + 1 }}</td>
+          <td class="col-3">{{ item.company_name }}</td>
+          <td class="col-4">{{ item.branch_name }}</td>
+          <td class="grey-text col-2">{{ item.city_name }}</td>
           <td class="col-2">
             <div class="d-flex flex-row pull-right pe-3">
               <div class="deleteIcon me-3" (click)="delete(item)"></div>

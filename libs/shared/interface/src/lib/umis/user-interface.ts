@@ -6,7 +6,5 @@ export class UserCreateInterface {
   email = '';
   password = '';
   roleID = '';
-  teacherID = '';
-  userType = '';
   userCNIC = '';
 }

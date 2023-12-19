@@ -848,7 +848,6 @@ button.mat-raised-button.uploadbtn {
   height: 7em;
 }
 
-
 /***************** Home Page ************************/
 .homePage {
   background-image: url(../assets/images/home/homebg.png);
@@ -1256,14 +1255,26 @@ legend {
   margin-top: -1rem !important;
 }
 
-span>.p-inputtext {
+span > .p-inputtext {
   border-color: var(--secondary) !important;
 }
 
-span>.p-inputtext:enabled:focus {
+span > .p-inputtext:enabled:focus {
   border-color: var(--secondary) !important;
 }
 
-span>.p-inputtext:hover {
+span > .p-inputtext:hover {
+  border-color: var(--secondary) !important;
+}
+
+span > .p-dropdown {
+  border-color: var(--secondary) !important;
+}
+
+span > .p-dropdown:enabled:focus {
+  border-color: var(--secondary) !important;
+}
+
+span > .p-dropdown:hover {
   border-color: var(--secondary) !important;
 }

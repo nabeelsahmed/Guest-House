@@ -3,41 +3,39 @@
     <table class="table table-striped">
       <thead class="ps-5 pe-5">
         <tr>
-          <th class="col-2 ps-5">Name</th>
+          <th class="col-4 ps-5">Name</th>
           <!-- <th class="grey-text col-2">Status</th> -->
           <th class="col-2">Email</th>
           <th class="col-2">Role</th>
           <th class="col-2">CNIC</th>
-          <th class="col-2 text-end">Branch</th>
           <th class="col-2 text-center">Actions</th>
         </tr>
       </thead>
       <tbody class="align-middle">
         <!-- <tr *ngFor="let item of tableData; let i = index"> -->
-        <tr *ngFor="
+        <tr
+          *ngFor="
             let item of tableData | search: 'firstName, lastName':tblSearch;
             let i = index
-          ">
-          <td class="col-2">
+          "
+        >
+          <td class="col-4">
             <div class="d-flex flex-row ps-4">
-              <img class="me-3" src="http://135.181.62.34:8070/assets/ui/noImage.png" width="50px" height="50px" />
+              <img
+                class="me-3"
+                src="http://135.181.62.34:8070/assets/ui/noImage.png"
+                width="50px"
+                height="50px"
+              />
               <div class="align-self-center">
                 {{ item.firstName }} {{ item.lastName }}
               </div>
             </div>
           </td>
-          <!-- <td class="col-2">
-              <div class="d-flex flex-row">
-                <div class="offlineIcon align-self-center me-2"></div>
-                <div>online</div>
-                </div>
-            </td> -->
           <td class="col-2">{{ item.email }}</td>
           <td class="col-2">{{ item.roleTitle }}</td>
           <td class="col-2">{{ item.userCNIC }}</td>
-          <td class="grey-text col-1 text-end">
-            <mat-icon class="text-black" (click)="addBranch(item)">domain</mat-icon>
-          </td>
+
           <td class="col-2 ps-5">
             <div class="d-flex flex-row ps-5">
               <div class="deleteIcon me-4" (click)="delete(item)"></div>
@@ -48,46 +46,4 @@
       </tbody>
     </table>
   </perfect-scrollbar>
-</div>
-
-<!-- Modal -->
-<div id="branchModal" class="modal fade" role="dialog" data-bs-backdrop="false">
-  <div class="modal-dialog modal-lg mat-elevation-z20">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header bgSecondary">
-        <h4 class="modal-title align-self-center text-white">Add Branch</h4>
-        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
-        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
-      </div>
-      <div class="modal-body">
-        <div class="d-flex flex-column">
-          <div class="d-flex flex-row mt-2">
-            <label class="fs-5 fw-bold me-2 mt-1">userName: </label>
-            <label class="fs-4">{{ lblUserName }}</label>
-          </div>
-          <label class="fs-5 fw-bold me-2">Select Branch</label>
-          <div *ngFor="let item of branchList; let i = index">
-            <mat-checkbox class="example-margin" [(ngModel)]="item.status" (change)="branchChange($event, item, i)">{{
-              item.branch_name }}</mat-checkbox>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer bg-darktone1">
-        <div class="row mt-2">
-          <div class="col-6 text-center">
-            <button mat-button class="saveBtn mat-elevation-z1" (click)="saveBranch()">
-              Save
-            </button>
-          </div>
-          <div class="col-6 text-center">
-            <button mat-button class="resetBtn mat-elevation-z1" (click)="reset()">
-              Reset
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

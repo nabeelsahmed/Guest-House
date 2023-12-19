@@ -25,16 +25,14 @@ export class UserCreationComponent implements OnInit {
   hidecp = true;
 
   pageFields: UserCreateInterface = {
-    userID: '0',
-    spType: '',
-    userType: '',
-    teacherID: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    roleID: '',
-    password: '',
-    userCNIC: '',
+    userID: '0', //0
+    spType: '', //1
+    firstName: '', //2
+    lastName: '', //3
+    email: '', //4
+    roleID: '', //5
+    password: '', //6
+    userCNIC: '', //7
   };
 
   formFields: MyFormField[] = [
@@ -48,18 +46,6 @@ export class UserCreationComponent implements OnInit {
       value: this.pageFields.spType,
       msg: '',
       type: 'hidden',
-      required: false,
-    },
-    {
-      value: this.pageFields.userType,
-      msg: 'select user type',
-      type: 'selectbox',
-      required: true,
-    },
-    {
-      value: this.pageFields.teacherID,
-      msg: 'select teacher',
-      type: 'selectbox',
       required: false,
     },
     {
@@ -118,19 +104,6 @@ export class UserCreationComponent implements OnInit {
     this.global.setHeaderTitle('User Creation');
     this.getRoles();
     this.getUser();
-    this.getTeacher();
-  }
-
-  getTeacher() {
-    this.dataService.getHttp('school-api/Teacher/getTeacher', '').subscribe(
-      (response: any) => {
-        this.teacherList = response;
-        // console.log(response);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
   }
 
   getUser() {
@@ -147,15 +120,6 @@ export class UserCreationComponent implements OnInit {
     );
   }
 
-  onTeacherSelect(item: any) {
-    var data = this.teacherList.filter(
-      (m: { teacherID: any }) => m.teacherID == item
-    );
-    this.formFields[4].value = data[0].teacherFirstName;
-    this.formFields[5].value = data[0].teacherLastName;
-    this.formFields[6].value = data[0].teacherEmail;
-  }
-
   getRoles() {
     this.dataService.getHttp('user-api/Role/getAllRole', '').subscribe(
       (response: any) => {
@@ -168,16 +132,7 @@ export class UserCreationComponent implements OnInit {
   }
 
   save() {
-    if (this.formFields[2].value == 'teacher') {
-      if (this.formFields[3].value == '') {
-        this.valid.apiInfoResponse('select teacher');
-        return;
-      }
-    } else {
-      this.formFields[3].value = '0';
-    }
-
-    if (this.formFields[8].value.length < 8) {
+    if (this.formFields[6].value.length < 8) {
       this.valid.apiInfoResponse('password length is less than 8');
       return;
     }
@@ -185,7 +140,7 @@ export class UserCreationComponent implements OnInit {
       this.valid.apiInfoResponse('enter confirm password');
       return;
     }
-    if (this.formFields[8].value != this.txtConfirmPw) {
+    if (this.formFields[6].value != this.txtConfirmPw) {
       this.valid.apiInfoResponse('password not matched');
       return;
     }
@@ -216,20 +171,18 @@ export class UserCreationComponent implements OnInit {
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
+    this.formFields[7].value = '';
     this.txtConfirmPw = '';
   }
 
   edit(item: any) {
     $('#userModal').modal('show');
     this.formFields[0].value = item.userID;
-    this.formFields[2].value = item.userType;
-    this.formFields[3].value = item.teacherID;
-    this.formFields[4].value = item.firstName;
-    this.formFields[5].value = item.lastName;
-    this.formFields[6].value = item.email;
-    this.formFields[7].value = item.roleId;
-    this.formFields[9].value = item.userCNIC;
-    // this.formFields[6].value = item.roleId;
+    this.formFields[2].value = item.firstName;
+    this.formFields[3].value = item.lastName;
+    this.formFields[4].value = item.email;
+    this.formFields[5].value = item.roleId;
+    this.formFields[7].value = item.userCNIC;
   }
 
   delete(item: any) {

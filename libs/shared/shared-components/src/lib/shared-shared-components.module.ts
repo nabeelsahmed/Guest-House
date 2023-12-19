@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { PrimengModule } from '@general-app/primeng';
 
 import { TextMaskModule } from 'angular2-text-mask';
 import { MaterialModule } from '@general-app/material';
@@ -24,6 +25,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     PerfectScrollbarModule,
     TextMaskModule,
+    PrimengModule,
   ],
   declarations: [
     ContactInfoComponent,
