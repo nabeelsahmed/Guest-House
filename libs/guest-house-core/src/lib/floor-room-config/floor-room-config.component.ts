@@ -5,6 +5,8 @@ import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 import { map } from 'rxjs';
 import { AddRoomModalComponent } from './add-room-modal/add-room-modal.component';
+import { FloorRoomSubComponent } from './floor-room-sub/floor-room-sub.component';
+import { RoomFeaturesComponent } from './room-features/room-features.component';
 
 
 @Component({
@@ -15,20 +17,23 @@ import { AddRoomModalComponent } from './add-room-modal/add-room-modal.component
 
 
 export class FloorRoomConfigComponent implements OnInit {
+  @ViewChild(AddRoomModalComponent) addRoomModal: any;
+  @ViewChild(FloorRoomSubComponent) floorRoomSub: any;
+  @ViewChild(RoomFeaturesComponent) roomFeaturesChild: any;
 
-  @ViewChild(AddRoomModalComponent) addRoomModal: AddRoomModalComponent | undefined;
 
   pageFields: RoomInterface = {
     floorRoomID: '0', //0
     spType: '', //1
-    userID: '', //2
-    companyId: '', //3
-    branch_id: '', //4
-    floorID: '', //5
-    room: '', //6
-    json: '', //7
-
+    userID: '0', //2
+    branch_id: '', //3
+    floorID: '', //4
+    json: '', //5
+    floorRoomFeatureID: '0'//6
   };
+
+
+
 
   formFields: MyFormField[] = [
     {
@@ -50,17 +55,12 @@ export class FloorRoomConfigComponent implements OnInit {
       required: false,
     },
     {
-      value: this.pageFields.companyId,
-      msg: 'select company',
-      type: 'selectbox',
-      required: true,
-    },
-    {
       value: this.pageFields.branch_id,
       msg: 'select guest house',
       type: 'selectbox',
       required: true,
     },
+
     {
       value: this.pageFields.floorID,
       msg: 'select floor',
@@ -68,31 +68,22 @@ export class FloorRoomConfigComponent implements OnInit {
       required: true,
     },
     {
-      value: this.pageFields.room,
-      msg: 'enter total room',
-      type: 'number',
-      required: true,
-    },
-    {
-      value: this.pageFields.room,
-      msg: '',
+      value: this.pageFields.json,
+      msg: 'select room details',
       type: 'hidden',
       required: true,
     },
+    {
+      value: this.pageFields.floorRoomFeatureID,
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
   ];
-
-  selectedCity = 'Islamabad';
 
   featureSaved = true;
   selectedBranch: number = 0;
-
-  next() {
-    this.featureSaved = !this.featureSaved;
-  }
-
-
   userInput: number = 0;
-
   roomList: any = [];
 
 
@@ -100,24 +91,18 @@ export class FloorRoomConfigComponent implements OnInit {
   branchList: any = [];
   floorsList: any = [];
 
-  generateRows() {
-    if (this.userInput === this.roomList.length) {
-      alert('enter different number of rooms');
-    }
-    if (this.userInput > this.roomList.length) {
-      let j = Math.abs(this.userInput - this.roomList.length)
-      for (let i = 0; i < j; i++) {
-        this.roomList.push({
-          'Room Name': '',
-          'Room Type': ''
-        });
-      }
-    }
-    else {
-      alert('add more rooms than previously entered');
-    }
-    // console.log(this.roomList)
-  }
+  selectedBranchId: number = 0;
+
+
+  checksave: boolean = false;
+  next: boolean = false;
+  hideField: boolean = false;
+
+
+  roomsNumList: any[] = []
+  featuresScreen: boolean = false;
+  error: any = '';
+
 
   constructor(
 
@@ -129,67 +114,56 @@ export class FloorRoomConfigComponent implements OnInit {
   ngOnInit(): void {
     this.global.setHeaderTitle('Room Floor Configuration');
     this.formFields[2].value = this.global.getUserId().toString();
-    this.getCompanyList()
     this.getRoomType()
+    this.getCompanyList()
     this.getFloors()
-    // this.getBranch()
+    // this.getFloorRoomFeatures()
   }
 
-  save() {
-    this.dataService
-      .savetHttp(this.pageFields, this.formFields, 'user-api/User/createUser')
-      .subscribe(
-        (response: any[]) => {
-          if (response[0].includes('Success') == true) {
-            this.valid.apiInfoResponse('Rooms created successfully');
-            this.reset();
-          } else {
-            this.valid.apiErrorResponse(response[0]);
-          }
-        },
-        (error: any) => {
-          this.valid.apiErrorResponse(error);
-        }
-      );
+  nextFunc(): void {
+    if (this.checksave === false) {
+      this.next = false;
+    } else {
+      this.next = true;
+      this.reset();
+    }
+
   }
-
-  reset() {
-    this.formFields = this.valid.resetFormFields(this.formFields);
-    this.formFields[0].value = '0';
+  generateRows() {
+    if (this.userInput === 0) {
+      this.valid.apiInfoResponse('Rooms can not be 0');
+    }
+    if (this.userInput > this.floorRoomSub.roomList.length) {
+      let j = Math.abs(this.userInput - this.roomList.length)
+      for (let i = 0; i < j; i++) {
+        this.floorRoomSub.roomList.push({
+          floorRoomNo: '',
+          roomTypeID: '',
+        });
+      }
+    }
+    else {
+      this.valid.apiErrorResponse('Add Rooms')
+    }
   }
-
-
-
   getCompanyList() {
     this.dataService.getHttp('cmis-api/Company/getCompanyList', '').subscribe(
       (response: any[]) => {
-        this.companyList = response.map(company => ({
-          name: company.company_name,
-          code: company.company_id
-        }))
-        console.log(response)
+        this.companyList = response
+        // console.log(this.companyList)
       },
       (error: any) => {
         console.log(error)
       }
     )
   }
-
+  selectedCompany: number = 0;
   getBranch() {
-    this.selectedBranch = this.formFields[3].value?.code;
-    if (this.selectedBranch > 0) {
-      this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=${this.selectedBranch}`, '').subscribe(
+    if (this.selectedCompany > 0) {
+      this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=${this.selectedCompany}`, '').subscribe(
         (response: any[]) => {
-          this.branchList = response.map(branch => ({
-            name: branch.branch_name,
-            code: branch.branch_id
-          }))
-
-          this.formFields[4].value = response[0].branch_id
-          if (this.addRoomModal) {
-            this.addRoomModal.branchId = response[0].branch_id;
-          }
-          console.log(response[0].branch_id)
+          this.branchList = response
+          // console.log(this.branchList)
         },
         (error: any) => {
           console.log(error)
@@ -202,15 +176,13 @@ export class FloorRoomConfigComponent implements OnInit {
   }
 
   onCompanyChange() {
-    // let id = this.formFields[3].value.code
-    // console.log(typeof (id))
     this.getBranch()
   }
 
   getRoomType() {
-    this.dataService.getHttp(`guestms-api/FloorRoom/getRoomType?branchID=${this.formFields[0].value}`, '').subscribe(
+    this.dataService.getHttp(`guestms-api/FloorRoom/getRoomType`, '').subscribe(
       (response: any[]) => {
-        // console.log('room-types', response)
+        this.floorRoomSub.roomType = response;
       },
       (error: any) => {
         console.log(error)
@@ -218,18 +190,14 @@ export class FloorRoomConfigComponent implements OnInit {
     )
   }
 
-  onBranchChange() {
-
-  }
 
   getFloors() {
+    // this.getDbFloors()
     this.dataService.getHttp('guestms-api/FloorRoom/getAllFloor', '').subscribe(
       (response: any[]) => {
-        this.floorsList = response.map(floors => ({
-          name: floors.floorNo,
-          code: floors.floorID
-        }))
-        // console.log(response)
+        this.floorsList = response
+
+
       },
       (error: any) => {
         console.log(error)
@@ -237,29 +205,135 @@ export class FloorRoomConfigComponent implements OnInit {
     )
   }
 
-  error: any = '';
 
-  // saveRoom() {
-  //   this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/FloorRoom/saveRoomTypes')
-  //     .subscribe(
-  //       (response: any[]) => {
-  //         if (response[0].includes('Success') == true) {
-  //           if (this.formFields[0].value > 0) {
-  //             this.valid.apiInfoResponse('User updated successfully');
-  //           } else {
-  //             this.valid.apiInfoResponse('User created successfully');
-  //           }
 
-  //         } else {
-  //           this.valid.apiErrorResponse(response[0]);
-  //         }
-  //       },
-  //       (error: any) => {
-  //         this.error = error;
-  //         this.valid.apiErrorResponse(this.error);
-  //       }
-  //     );
-  // }
+  save() {
+    // this.formFields[4].value = 2
+    // this.formFields[5].value = 2
+    for (var i = 0; i < this.floorRoomSub.roomList.length; i++) {
+      if (this.floorRoomSub.roomList[i].floorRoomNo == '') {
+        this.valid.apiInfoResponse('enter room name');
+        return;
+      } else if (this.floorRoomSub.roomList[i].roomTypeID == '') {
+        this.valid.apiInfoResponse('select room type');
+        return
+      }
+    }
+    this.formFields[5].value = JSON.stringify(this.floorRoomSub.roomList)
+    this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/FloorRoom/saveFloorRoom').subscribe(
+      (response: any[]) => {
+        if (response[0].includes('Success') == true) {
+          if (this.formFields[0].value > 0) {
+            this.valid.apiInfoResponse('Saved Successfully');
+          } else {
+            this.valid.apiInfoResponse('Room Created successfully');
+            this.checksave = true;
+          }
+        } else {
+          this.valid.apiErrorResponse(response[0]);
+        }
+      },
+      (error: any) => {
+        this.error = error;
+        this.valid.apiErrorResponse(this.error);
+      }
+    );
+  }
+
+  reset() {
+    this.formFields = this.valid.resetFormFields(this.formFields);
+    this.formFields[0].value = '0';
+  }
+
+
+  onDbChange() {
+    this.getDbFloors()
+    this.getRooms()
+  }
+
+  getDbFloors() {
+    this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRooms?branchID=${this.formFields[3].value}&floorID=${this.formFields[4].value}`, '').subscribe(
+      (response: any[]) => {
+        // console.log(response);
+        var roomList = JSON.parse(response[0].rooms)
+        // this.floorRoomSub.roomType = response[0].rooms
+        if (response[0].num > 0) {
+          this.hideField = true
+          this.floorRoomSub.roomList = [];
+          for (let i = 0; i < roomList.length; i++) {
+            this.floorRoomSub.roomList.push({
+              floorRoomNo: roomList[i].floorRoomNO,
+              roomTypeID: roomList[i].roomTypeID,
+            });
+          }
+        }
+      })
+  }
+
+
+
+  getRooms() {
+    this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRoomsName?branchID=${this.formFields[3].value}&floorID=${this.formFields[4].value}`, '').subscribe(
+      (response: any[]) => {
+        // console.log('------', response);
+        this.roomsNumList = response
+
+      })
+  }
+
+  featureChange() {
+    this.getFloorRoomFeatures()
+  }
+
+  getFloorRoomFeatures() {
+    this.dataService.getHttp(`guestms-api/RoomFeatures/getFloorRoomFeatures`, '').subscribe(
+      (response: any[]) => {
+
+        this.roomFeaturesChild.roomFeatures = [];
+
+        for (var i = 0; i < response.length; i++) {
+          var jsonList = [];
+          jsonList = JSON.parse(response[i].roomFeatureSubTitle)
+
+          this.roomFeaturesChild.roomFeaturesList.push({
+            roomFeatureID: response[i].roomFeatureID,
+            roomFeatureTitle: response[i].roomFeatureTitle,
+            status: 0,
+            roomFeatureJson: jsonList
+          })
+        }
+        console.log(this.roomFeaturesChild.roomFeatures);
+
+      }
+    );
+  }
+
+  saveFeatures() {
+    this.formFields[5].value = JSON.stringify(this.roomFeaturesChild.roomFeaturesList);
+    this.formFields[1].value = 'insert';
+    this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/RoomFeatures/saveFloorRoomFeatures').subscribe(
+      (response: any[]) => {
+        console.log('response', response)
+        if (response[0].includes('Success') == true) {
+          if (this.formFields[0].value > 0) {
+            this.valid.apiInfoResponse('Saved Successfully');
+
+          } else {
+            this.valid.apiInfoResponse('Room Created successfully');
+            this.checksave = true;
+          }
+        } else {
+          this.valid.apiErrorResponse(response[0]);
+        }
+      },
+      (error: any) => {
+        this.error = error;
+        this.valid.apiErrorResponse(this.error);
+      }
+    );
+  }
+
+
 }
 
 

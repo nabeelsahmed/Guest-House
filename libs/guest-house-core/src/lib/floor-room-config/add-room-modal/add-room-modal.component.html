@@ -1,4 +1,4 @@
-<div id="userModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+<div id="addRoomType" class="modal fade" role="dialog" data-bs-backdrop="false">
     <div class="modal-dialog modal-md mat-elevation-z20">
         <!-- Modal content-->
         <div class="modal-content">
@@ -10,8 +10,34 @@
             <div class="modal-body d-flex flex-row gap-2 align-items-center">
                 <h3 class="fw-bold"> Room Type</h3>
                 <input type="text" pInputText placeholder="Enter Type" [(ngModel)]="this.formFields[3].value" />
-
             </div>
+            <div class="px-4">
+                <perfect-scrollbar class="bg-light-grey mb-3" style="height: 10em; max-width: 100%;">
+                    <table class="table table-sm  border-dark border-bottom">
+                        <thead class="bg-black text-white">
+                            <tr>
+                                <th class="ps-5">Room Type</th>
+                                <th class="">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of roomtypes; let i = index">
+                                <td class="ps-5">
+                                    {{item.roomTypeTitle}}
+                                </td>
+                                <td class="">
+                                    <div class="d-flex flex-row">
+                                        <div class="smallEdit me-1" (click)="edit(item)"></div>
+                                        <div class="mdiDelete" (click)="deleteItem(item)"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+
+
             <div class="modal-footer bg-darktone1">
                 <div class="row">
                     <div class="col-6 text-center">

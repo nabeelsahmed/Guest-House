@@ -1,35 +1,63 @@
 <!--main div--->
 <div class="mx-5 mt-3">
     <div class="row">
-        <div class="col-3 border-end px-3">
-            <div class="mb-2 border rounded-2 text-black border-dark">
-                <p-dropdown [showClear]="false" [style]="{background: 'transparent', width: '100%'}"
-                    placeholder="Select Company"></p-dropdown>
-            </div>
-            <div class="mb-2 border rounded-2 text-black border-dark">
-                <p-dropdown [showClear]="false" class="mb-3" [style]="{background: 'transparent', width: '100%'}"
-                    placeholder="Select Guest House"></p-dropdown>
-            </div>
-            <h3 class="fw-bold mt-3 mb-2">Add Room Services</h3>
-            <div class="mb-2 border rounded-2 text-black border-dark">
-                <p-dropdown [showClear]="false" class="mb-3" [style]="{background: 'transparent', width: '100%'}"
-                    placeholder="Services"></p-dropdown>
-            </div>
-            <div class="mb-2 border rounded-2 text-black border-dark">
-                <p-dropdown [showClear]="false" [style]="{background: 'transparent', width: '100%'}"
-                    placeholder="Parent Services"></p-dropdown>
-            </div>
-            <div class="mb-2 border rounded-2  border-dark w-100">
-                <input type="text" pInputText class="w-100 text-black bg-transparent" placeholder="Service Title" />
+        <div class="col-3  border-3 border-dark border-end ">
+            <mat-form-field class="w-100 m-0" appearance="outline">
+                <mat-label>Select Company Name</mat-label>
+                <mat-select [(ngModel)]="companyId" (ngModelChange)="onCompanySelect()">
+                    <mat-option *ngFor="let item of companyList"
+                        [value]="item.company_id">{{item.company_name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100 m-0" appearance="outline">
+                <mat-label>Select Branch Name</mat-label>
+                <mat-select [(ngModel)]="this.formFields[6].value">
+                    <mat-option>
+
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <h3 class="fw-bold">Add Room Services</h3>
+            <mat-form-field class="w-100 " appearance="outline">
+                <mat-label>Services</mat-label>
+                <mat-select>
+                    <mat-option></mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100 " appearance="outline">
+                <mat-label>Parent Services</mat-label>
+                <mat-select>
+                    <mat-option></mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100 " appearance="outline">
+                <mat-label>
+                    Servcie Title
+                </mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-card class="bg-transparent border">
+                <!-- <general-app-image-upload></general-app-image-upload> -->
+                <!-- <general-app-image-uploads-component></general-app-image-uploads-component> -->
+            </mat-card>
+            <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Unit</mat-label>
+                <mat-select>
+                    <mat-option></mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100 " appearance="outline">
+                <mat-label>
+                    Servcie Title
+                </mat-label>
+                <input matInput>
+            </mat-form-field>
+            <div class="d-flex flex-row justify-content-end">
+                <button mat-button class="ms-2 saveBtn fw-bold fs-6 rounded-2 mat-elevation-z1">
+                    Save
+                </button>
             </div>
 
-            <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true">
-                <ng-template pTemplate="content">
-                    <ul *ngIf="uploadedFiles.length">
-                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                    </ul>
-                </ng-template>
-            </p-fileUpload>
         </div>
         <div class="col-8"></div>
     </div>

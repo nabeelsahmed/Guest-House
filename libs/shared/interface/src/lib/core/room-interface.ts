@@ -5,7 +5,8 @@ export class RoomInterface {
     floorID = '0';
     branch_id = '0';
     json = '';
-    companyId? = '';
-    room? = '';
+    floorRoomFeatureID? = '0'
+    // companyId? = '';
+    // room? = '';
 
 }

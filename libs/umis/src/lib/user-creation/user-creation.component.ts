@@ -184,10 +184,9 @@ export class UserCreationComponent implements OnInit {
     this.formFields[5].value = item.roleId;
     this.formFields[7].value = item.userCNIC;
   }
-
   delete(item: any) {
     this.reset();
-
     setTimeout(() => this.getUser(), 200);
   }
 }
+

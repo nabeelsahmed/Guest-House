@@ -1,0 +1,73 @@
+<div id="addRoomServices" class="modal fade" role="dialog" data-bs-backdrop="false">
+    <div class="modal-dialog modal-md mat-elevation-z20">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bgSecondary">
+                <h4 class="modal-title align-self-center text-white">Add Room Type</h4>
+                <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+                <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-row gap-3 align-items-center">
+                    <div>
+                        <h3>Parent Title</h3>
+                    </div>
+                    <mat-form-field class="w-50" appearance="outline" placeholder="Title Name">
+                        <mat-select [(ngModel)]="this.formFields[4].value">
+                            <mat-option *ngFor="let item of roomFeatures"
+                                [value]="item.roomFeatureID">{{item.roomFeatureTitle}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="d-flex flex-row gap-3 align-items-center">
+                    <div>
+                        <h3>Feature Name</h3>
+                    </div>
+                    <mat-form-field class="w-50" appearance="outline">
+                        <input [(ngModel)]="this.formFields[3].value" matInput placeholder="Title Name">
+                    </mat-form-field>
+                </div>
+
+                <div class="px-4">
+                    <perfect-scrollbar class="bg-light-grey mb-3" style="height: 10em; max-width: 100%;">
+                        <table class="table table-sm  border-dark border-bottom">
+                            <thead class="bg-black text-white">
+                                <tr>
+                                    <th class="ps-5">Room Type</th>
+                                    <th class="">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of roomFeatures;">
+                                    <td class="ps-5">
+                                        {{item.roomFeatureTitle}}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <div class="smallEdit me-1" (click)="edit(item)"></div>
+                                            <div class="mdiDelete" (click)="deleteItem(item)"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer bg-darktone1">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <button mat-button class="saveBtn rounded-2 mat-elevation-z5" (click)="save()">
+                            Add Room
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

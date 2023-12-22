@@ -1,68 +1,34 @@
 <div>
-
-
     <div class="row">
-        <div class="col-8">
-            <div class="d-flex flex-row mt-3 gap-3 align-items-center bg-white p-3 rounded-2"
-                *ngFor="let feature of roomFeatures">
-                <div class="col-3">
-                    <label class="fw-semibold fs-4">{{ feature.label }}</label>
-                </div>
-                <div class="col-9">
-                    <div class="d-flex">
-                        <mat-radio-group aria-label="Select an option" [(ngModel)]="feature.name">
+        <div class="col-9">
+            <perfect-scrollbar class="bg-light-grey" style="height: 45em; max-width: 100%">
+                <div class="d-flex flex-row mt-3 gap-3 align-items-center bg-white p-3 rounded-2"
+                    *ngFor="let item of roomFeaturesList; let i = index">
+                    <div class="col-3">
+                        <div class="d-flex flex-row">
+                            <label class="fw-semibold fs-4">{{ item.roomFeatureTitle }}</label>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex align-items-center">
+                        <mat-radio-group aria-label="Select an option" [(ngModel)]="item.status">
                             <mat-radio-button value="1">Yes</mat-radio-button>
                             <mat-radio-button class="ms-2" value="2">No</mat-radio-button>
                         </mat-radio-group>
-
+                        <ng-container>
+                            <div *ngFor="let obj of item.roomFeatureJson; let i = index" class="d-flex">
+                                <div class=" ms-3 d-flex flex-row gap-2 align-items-center">
+                                    <label class="fw-semibold fs-5">{{ obj.roomFeatureTitle }}</label>
+                                </div>
+                            </div>
+                        </ng-container>
                     </div>
-                </div>
-            </div>
 
-            <!-- Attach Bath -->
-            <!-- <div class="d-flex flex-row mt-3 gap-3 align-items-center bg-white p-3 rounded-2">
-                <div class="col-3">
-                    <label class="fw-semibold fs-4">Attach Bath</label>
                 </div>
-                <div class="col-9">
-                    <div class="d-flex gap-3">
-                        <div *ngFor="let option of attachBathOptions" class="d-flex flex-row align-items-center">
-                            <p-radioButton name="attachBath" [value]="option.value"
-                                [inputId]="option.id"></p-radioButton>
-                            <label [for]="option.id" class="ms-2 fw-semibold fs-5">{{ option.label }}</label>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+            </perfect-scrollbar>
+
         </div>
-    </div>
-</div>
 
-
-<div id="userModal" class="modal fade" role="dialog" data-bs-backdrop="false">
-    <div class="modal-dialog modal-md mat-elevation-z20">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header bgSecondary">
-                <h4 class="modal-title align-self-center text-white">Add Room Features</h4>
-                <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
-                <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
-            </div>
-            <div class="modal-body d-flex flex-row gap-2 align-items-center">
-                <h3 class="fw-bold"> Feature Name</h3>
-                <input type="text" pInputText placeholder="Enter Type" />
-
-            </div>
-            <div class="modal-footer bg-darktone1">
-                <div class="row">
-                    <div class="col-6 text-center">
-                        <button mat-button class="saveBtn rounded-2 mat-elevation-z5">
-                            Add
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 </div>

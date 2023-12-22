@@ -1,22 +1,18 @@
 <div>
     <div class="col-6">
-        <div class="d-flex flex-row mt-3 align-items-center" *ngFor="let item of roomList; let i = index">
-            <div class="col-1">
-                <label class="fw-bold fs-5">{{i+1}}</label>
-            </div>
-            <div class="col-4 me-3">
-                <div class="border border-dark rounded-3">
-                    <input pInputText type="text" class="p-inputtext-sm w-100 bg-transparent"
-                        [(ngModel)]="item['Room Name']" />
-                </div>
-            </div>
-            <div class="col-4 me-2">
-                <div class="border border-dark rounded-3">
-                    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" class="p-inputtext-sm" optionLabel="name"
-                        [ngModel]="item['Room Type']" [style]="{width: '100%', background:'transparent'}"
-                        placeholder="Type"></p-dropdown>
-                </div>
-            </div>
+        <div class="d-flex flex-row align-items-center" *ngFor="let item of roomList; let i = index">
+            <h5 class="text-black me-2">{{i+1}}</h5>
+            <mat-form-field class="w-100 me-2" appearance="outline">
+                <mat-label>Room Name</mat-label>
+                <input matInput [(ngModel)]="item.floorRoomNo">
+            </mat-form-field>
+            <mat-form-field class="w-100 me-2" appearance="outline">
+                <mat-label>Select branch type</mat-label>
+                <mat-select [(ngModel)]="item.roomTypeID">
+                    <mat-option *ngFor="let item of roomType"
+                        [value]="item.roomTypeID">{{item.roomTypeTitle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
             <div class="col-2">
                 <ng-container *ngIf="!(i === roomList.length-1)">
                     <div class="deleteIcon" (click)="deleteItem(item)"></div>
@@ -27,6 +23,4 @@
             </div>
         </div>
     </div>
-
-
 </div>

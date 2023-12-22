@@ -928,3 +928,24 @@
   background-size: contain;
   cursor: pointer;
 }
+
+
+.smallEdit {
+  background: url(../assets/images/icons/tbl-edit.svg);
+  width: 1.5em;
+  height: 1.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.mdiDelete {
+  background: url(../assets/images/icons/mdi_delete.svg);
+  width: 1.5em;
+  height: 1.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}
