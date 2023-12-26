@@ -30,6 +30,7 @@ import { ServicesDetailsComponent } from './room-services/services-details/servi
 // import { ImageUploadsComponentComponent } from './image-uploads-component/image-uploads-component.component';
 
 import { MenuItemsComponent } from './menu-items/menu-items.component';
+import { EditGuestProfileComponent } from './guest-house-profile/edit-guest-profile/edit-guest-profile.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -73,6 +74,7 @@ export const coreRoutes: Route[] = [
     // ImageUploadsComponentComponent,
 
     MenuItemsComponent,
+    EditGuestProfileComponent,
   ],
   providers: [
     {

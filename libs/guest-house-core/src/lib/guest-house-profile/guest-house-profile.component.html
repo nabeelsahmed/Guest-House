@@ -54,19 +54,16 @@
     </div>
     <div class="mt-3 row align-top justify-content-between">
       <div class="col-md-3">
-        <div class="d-flex flex-row gap-2">
+        <div class="d-flex flex-row">
           <h6 class="fw-bold mt-2">Services</h6>
-          <button mat-button data-bs-toggle="modal" data-bs-target="#addCab"
-            class="fw-bold fs-6 justify-content-center align-content-center resetBtn mat-elevation-z3 rounded-2 ms-2">
-            Cab
-            <mat-icon class="ms-3">add</mat-icon>
-          </button>
-          <button mat-button
-            class="fw-bold fs-6 justify-content-center align-content-center resetBtn mat-elevation-z3 rounded-2 ms-2"
-            mat-button data-bs-toggle="modal" data-bs-target="#addFood">
+          <button mat-button class="resetBtn fw-bold fs-6 rounded-2 border-0 ms-2 mat-elevation-z1">
             Food
-            <mat-icon class="ms-3">add</mat-icon>
           </button>
+          <button mat-button class="resetBtn fw-bold fs-6 rounded-2 border-0 ms-2 mat-elevation-z1">
+            Cab
+          </button>
+          <div class=" ms-2 plusCircle" data-bs-toggle="modal" data-bs-target="#editGuestProfile"></div>
+
         </div>
       </div>
       <div class="col-1">
@@ -247,131 +244,7 @@
     </div>
 
   </div>
-
 </div>
 
 
-<div id="addCab" class="modal fade" role="dialog" data-bs-backdrop="false">
-  <div class="modal-dialog modal-lg mat-elevation-z20">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header bgSecondary">
-        <h4 class="modal-title align-self-center text-white">Add New User</h4>
-        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
-        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
-      </div>
-      <div class="px-3">
-        <div class="row">
-          <div class="col">
-            <label class="fw-bold fs-6 text-black">Guest Name</label>
-            <p>Waqar Ali</p>
-          </div>
-          <div class="col">
-            <label class="fw-bold fs-6 text-black">Room Number</label>
-            <p>26</p>
-          </div>
-          <div class="col">
-            <label class="fw-bold fs-6 text-black">Mobile Number</label>
-            <p>0307-2124478</p>
-          </div>
-        </div>
-
-        <div class="d-flex flex-wrap justify-content-start gap-4 mb-2 ">
-          <span class="d-flex align-items-center gap-2 ">
-            <h4 class="fw-bold">From</h4>
-            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="value" />
-          </span>
-          <span class="d-flex align-items-center gap-2">
-            <h4 class="fw-bold">To</h4>
-            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="value" />
-          </span>
-        </div>
-        <div class="d-flex flex-wrap justify-content-start gap-4 mb-2 ">
-          <span class="d-flex align-items-center gap-2">
-            <h4 class="fw-bold">Date</h4>
-            <p-calendar class="p-inputtext-sm" [showIcon]="true"></p-calendar>
-          </span>
-          <span class="d-flex align-items-center gap-2">
-            <h4 class="fw-bold">Cost</h4>
-            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="value" />
-          </span>
-        </div>
-      </div>
-      <div class="modal-footer bg-darktone1">
-        <div class="row">
-          <div class="col-6 text-center">
-            <button mat-button class="saveBtn rounded-2 mat-elevation-z5">
-              Save
-            </button>
-          </div>
-          <div class="col-6 text-center">
-            <button mat-button class="resetBtn rounded-2 mat-elevation-z5">
-              Reset
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="addFood" class="modal fade" role="dialog" data-bs-backdrop="false">
-  <div class="modal-dialog modal-lg mat-elevation-z20">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header bgSecondary">
-        <h4 class="modal-title align-self-center text-white">Add New User</h4>
-        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
-        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
-      </div>
-      <div class="d-flex flex-column align-items-between
-      ">
-        <div class="d-flex flex-row ps-3">
-          <div class="col">
-            <label class="fw-bold fs-6 text-black">Guest Name</label>
-            <p>Waqar Ali</p>
-          </div>
-          <div class="col">
-            <label class="fw-bold fs-6 text-black">Room Number</label>
-            <p>26</p>
-          </div>
-          <div class="col">
-            <label class="fw-bold fs-6 text-black">Mobile Number</label>
-            <p>0307-2124478</p>
-          </div>
-        </div>
-
-        <div class="d-flex flex-row gap-3 ps-3 mb-2 ">
-          <span class="d-flex align-items-center gap-2 ">
-            <h4 class="fw-bold">Type</h4>
-            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="value" />
-          </span>
-          <span class="d-flex align-items-center gap-2">
-            <h4 class="fw-bold">Charges</h4>
-            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="value" />
-          </span>
-
-        </div>
-        <div class="d-flex flex-row ps-3 mb-2 ">
-
-
-          <span class="d-flex align-items-center gap-2">
-            <h4 class="fw-bold">Date</h4>
-            <p-calendar class="p-inputtext-sm" [showIcon]="true"></p-calendar>
-          </span>
-
-        </div>
-      </div>
-      <div class="modal-footer bg-transparent">
-        <div class="row">
-          <div class="col-6 text-center">
-            <button mat-button class="saveBtn rounded-2 mat-elevation-z5">
-              Save
-            </button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<general-app-edit-guest-profile></general-app-edit-guest-profile>

@@ -1,73 +1,64 @@
 <!--main div--->
 <div class="mx-5 mt-3">
-  <div class="row">
-    <div class="col-md-3 border-3 border-dark border-end">
-      <mat-form-field class="w-100 m-0" appearance="outline">
-        <mat-label>Select Company Name</mat-label>
-        <mat-select [(ngModel)]="companyId" (ngModelChange)="onCompanySelect()">
-          <mat-option
-            *ngFor="let item of companyList"
-            [value]="item.company_id"
-            >{{ item.company_name }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="w-100 m-0" appearance="outline">
-        <mat-label>Select Branch Name</mat-label>
-        <mat-select
-          [(ngModel)]="this.formFields[6].value"
-          (ngModelChange)="getTabledata()"
-        >
-          <mat-option *ngFor="let item of branchLists" [value]="item.branch_id"
-            >{{ item.branch_name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <h3 class="fw-bold">Add Room Services</h3>
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Services</mat-label>
-        <mat-select [(ngModel)]="this.formFields[4].value">
-          <mat-option *ngFor="let item of services" [value]="item.serviceTypeID"
-            >{{ item.serviceTypeTitle }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Parent Services</mat-label>
-        <mat-select>
-          <mat-option></mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label> Servcie Title </mat-label>
-        <input matInput [(ngModel)]="this.formFields[5].value" />
-      </mat-form-field>
-      <mat-card class="text-center border">
-        <general-app-image-upload></general-app-image-upload>
-        <!-- <general-app-image-upload></general-app-image-upload> -->
-        <!-- <general-app-image-uploads-component></general-app-image-uploads-component> -->
-      </mat-card>
-      <mat-form-field class="w-100 mt-3" appearance="outline">
-        <mat-label>Unit</mat-label>
-        <mat-select [(ngModel)]="this.formFields[8].value">
-          <mat-option *ngFor="let item of measurements"></mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label> Servcie Title </mat-label>
-        <input matInput />
-      </mat-form-field>
-      <div class="d-flex flex-row justify-content-end">
-        <button
-          mat-button
-          class="ms-2 saveBtn fw-bold fs-6 rounded-2 mat-elevation-z1"
-        >
-          Save
-        </button>
-      </div>
+    <div class="row">
+        <div class="col-md-3 border-3 border-dark border-end">
+            <mat-form-field class="w-100 m-0" appearance="outline">
+                <mat-label>Select Company Name</mat-label>
+                <mat-select [(ngModel)]="companyId" (ngModelChange)="onCompanySelect()">
+                    <mat-option *ngFor="let item of companyList" [value]="item.company_id">{{ item.company_name
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100 m-0" appearance="outline">
+                <mat-label>Select Branch Name</mat-label>
+                <mat-select [(ngModel)]="this.formFields[6].value" (ngModelChange)="getTabledata()">
+                    <mat-option *ngFor="let item of branchLists" [value]="item.branch_id">{{ item.branch_name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <h3 class="fw-bold">Add Room Services</h3>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Services</mat-label>
+                <mat-select [(ngModel)]="this.formFields[4].value" (ngModelChange)="getParentType()">
+                    <mat-option *ngFor="let item of services" [value]="item.serviceTypeID">{{ item.serviceTypeTitle }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Parent Services</mat-label>
+                <mat-select [(ngModel)]="this.formFields[3].value">
+                    <mat-option *ngFor="let item of parentServices" [value]="item.parentServiceID">{{item.serviceTitle}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label> Servcie Title </mat-label>
+                <input matInput [(ngModel)]="this.formFields[5].value" />
+            </mat-form-field>
+            <mat-card class="text-center border">
+                <general-app-image-upload></general-app-image-upload>
+                <!-- <general-app-image-upload></general-app-image-upload> -->
+                <!-- <general-app-image-uploads-component></general-app-image-uploads-component> -->
+            </mat-card>
+            <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Unit</mat-label>
+                <mat-select [(ngModel)]="this.formFields[8].value">
+                    <mat-option *ngFor="let item of measurements"
+                        [value]="item.measurementUnitID">{{item.measurementUnitTitle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label> Amount </mat-label>
+                <input matInput [(ngModel)]="this.formFields[7].value" />
+            </mat-form-field>
+            <div class="d-flex flex-row justify-content-end">
+                <button mat-button class="ms-2 saveBtn fw-bold fs-6 rounded-2 mat-elevation-z1" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <general-app-services-details (eventEmitterEdit)="edit($event)"></general-app-services-details>
+        </div>
     </div>
-    <div class="col-md-9">
-      <general-app-services-details></general-app-services-details>
-    </div>
-  </div>
 </div>

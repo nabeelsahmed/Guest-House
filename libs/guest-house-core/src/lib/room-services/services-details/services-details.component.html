@@ -1,4 +1,4 @@
-<table class="table border-1 border-dark text-md-center ">
+<table class="table border-1 border-dark text-md-center" *ngIf="tableList.length != 0">
     <thead class="bg-black text-white">
         <tr>
             <th>Service Type</th>
@@ -6,19 +6,18 @@
             <th>Unit</th>
             <th>Amount</th>
             <th>Action</th>
-
-
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Vehicle</td>
-            <td>Bike</td>
-            <td>1Km</td>
-            <td>25Rs</td>
+        <tr *ngFor="let item of tableList">
+            <td>{{item.serviceTypeTitle}}</td>
+            <td>{{item.serviceTitle}}</td>
+            <td>{{item.measurementUnitTitle}}</td>
+            <td>{{item.amount}}</td>
+
             <td>
                 <div class="d-flex flex-row justify-content-center">
-                    <div class="editBlueIcon"></div>
+                    <div class="editBlueIcon" (click)="edit(item)"></div>
                 </div>
             </td>
 

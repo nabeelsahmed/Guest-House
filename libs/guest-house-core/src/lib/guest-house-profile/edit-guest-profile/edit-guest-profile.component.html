@@ -1,0 +1,66 @@
+<div id="editGuestProfile" class="modal fade" role="dialog" data-bs-backdrop="false">
+    <div class="modal-dialog modal-lg mat-elevation-z20">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bgSecondary">
+                <h4 class="modal-title align-self-center text-white">Edit Profile</h4>
+                <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+                <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-row gap-1 align-items-center">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Service Type</mat-label>
+                        <mat-select>
+                            <mat-option></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Service Title</mat-label>
+                        <mat-select>
+                            <mat-option></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label> Quantity </mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <button mat-button class="saveBtn fw-bold fs-6 rounded-2 border-0 ms-3 mat-elevation-z1">
+                        Add
+                    </button>
+                </div>
+
+                <table class="table border-1 border-dark text-md-center">
+                    <thead class="bg-black text-white">
+                        <tr>
+                            <th>Service Type</th>
+                            <th>Service Title</th>
+                            <th>Unit</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                            <td>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div class="editBlueIcon"></div>
+                                </div>
+                            </td>
+
+
+
+                            <!--editBlueIcon-->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

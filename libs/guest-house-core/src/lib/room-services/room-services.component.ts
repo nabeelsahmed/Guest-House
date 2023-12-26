@@ -7,9 +7,13 @@ import { MyFormField, RoomServicesInterface } from '@general-app/shared/interfac
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 import { ServicesDetailsComponent } from './services-details/services-details.component';
+import { environment } from 'apps/guest-house/src/environments/environment';
 
 
 
+
+
+declare var $: any;
 
 
 
@@ -20,17 +24,18 @@ import { ServicesDetailsComponent } from './services-details/services-details.co
 })
 export class RoomServicesComponent implements OnInit {
   @ViewChild(ServicesDetailsComponent) servicesDetails: any;
+  @ViewChild(ImageUploadComponent) imageUpload: any;
 
   pageFields: RoomServicesInterface = {
     serviceID: '0', //0
     spType: '', //1
-    userID: '0', //2
+    userID: '', //2
     serviceParentID: '', //3
     serviceTypeID: '', //4
     serviceTitle: '', //5
-    branch_id: '0',//6
-    serviceCharges: '0', //7
-    measurementUnitID: '0', //8
+    branch_id: '',//6
+    serviceCharges: '', //7
+    measurementUnitID: '', //8
     serviceImagePath: '', //9
     serviceImageExt: '', //10
   };
@@ -68,9 +73,9 @@ export class RoomServicesComponent implements OnInit {
     },
     {
       value: this.pageFields.serviceTitle, //5
-      msg: '',
-      type: 'hidden',
-      required: false,
+      msg: 'enter service title',
+      type: 'selectbox',
+      required: true,
     },
     {
       value: this.pageFields.branch_id, //6
@@ -80,9 +85,9 @@ export class RoomServicesComponent implements OnInit {
     },
     {
       value: this.pageFields.serviceCharges, //7
-      msg: '',
-      type: 'hidden',
-      required: false,
+      msg: 'enter amount',
+      type: 'input',
+      required: true,
     },
     {
       value: this.pageFields.measurementUnitID, //8
@@ -92,15 +97,15 @@ export class RoomServicesComponent implements OnInit {
     },
     {
       value: this.pageFields.serviceImagePath, //9
-      msg: '',
+      msg: 'select image path',
       type: 'hidden',
-      required: false,
+      required: true,
     },
     {
       value: this.pageFields.serviceImageExt, //10
-      msg: '',
+      msg: 'select correct image type',
       type: 'hidden',
-      required: false,
+      required: true,
     },
   ]
 
@@ -130,6 +135,7 @@ export class RoomServicesComponent implements OnInit {
     this.getMeasurementUnit()
     this.getServiceType()
     this.getCompanyLists()
+    // this.getBranchServices()
   }
 
 
@@ -183,19 +189,20 @@ export class RoomServicesComponent implements OnInit {
   getServiceType() {
     this.dataService.getHttp('guestms-api/Service/getServiceType', '').subscribe(
       (response: any[]) => {
-        console.log(response)
+        // console.log(response)
         this.services = response
       })
 
   }
 
-  /////
+
+
 
   onServicesChange() {
     this.getParentType();
   }
   getParentType() {
-    this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=3&serviceTypeID=1`, '').subscribe(
+    this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=${this.formFields[6].value}&serviceTypeID=${this.formFields[4].value}`, '').subscribe(
       (response: any[]) => {
         console.log(response)
         this.parentServices = response;
@@ -204,26 +211,66 @@ export class RoomServicesComponent implements OnInit {
   }
 
 
+
+
+
+
   getTabledata() {
     this.getBranchServices()
   }
   getBranchServices() {
     this.dataService.getHttp(`guestms-api/Service/getServices?branchID=${this.formFields[6].value}`, '').subscribe(
       (response: any[]) => {
-        console.log('Branch Services', response)
-        this.servicesDetails.tableList = [];
-
-        for (let i = 0; i < response.length; i++) {
-          this.servicesDetails.tableList.push({
-            serviceID: response[i].serviceID,
-            serviceTypeID: response[i].serviceTypeID,
-            serviceTitle: response[i].serviceTitle,
-            serviceTypeTitle: response[i].serviceTypeTitle,
-          })
-        }
-
+        // console.log('Branch Services', response)
+        this.servicesDetails.tableList = response
       })
 
+  }
+
+
+  save() {
+    this.formFields[9].value = this.imageUpload.image;
+    this.formFields[10].value = this.imageUpload.imageExt;
+
+    if (
+      this.formFields[9].value != undefined &&
+      this.formFields[10].value != ''
+    ) {
+      this.formFields[10].value = environment.imageUrl + 'companyPictures';
+    }
+
+    if (this.formFields[10].value != undefined)
+
+      this.dataService
+        .savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveServices')
+        .subscribe(
+          (response: any[]) => {
+            if (response[0].includes('Success') == true) {
+              if (this.formFields[0].value > 0) {
+                this.valid.apiInfoResponse('Services saved successfully');
+              } else {
+                this.valid.apiInfoResponse('Services Saved');
+              }
+              this.reset();
+            } else {
+              this.valid.apiErrorResponse(response[0]);
+            }
+          });
+  }
+
+
+  edit(item: any) {
+    this.formFields[0].value = item.serviceID;
+    this.formFields[4].value = item.serviceTypeID;
+    this.formFields[5].value = item.serviceTitle;
+    this.formFields[7].value = item.serviceCharges;
+    this.formFields[8].value = item.measurementUnitID;
+  }
+
+  reset() {
+    this.formFields = this.valid.resetFormFields(this.formFields);
+    this.formFields[0].value = '0';
+    this.formFields[7].value = '';
   }
 
 }
