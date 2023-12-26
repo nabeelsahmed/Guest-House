@@ -17,7 +17,7 @@ import { GuestInfoComponent } from './guest-info/guest-info.component';
 export class GuestBookingComponent implements OnInit {
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
-  index: any = 0;
+  index: any = 2;
 
   cmbRoomType: any = '';
 
@@ -269,5 +269,9 @@ export class GuestBookingComponent implements OnInit {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
     this.guestInfo.resetAll();
+  }
+
+  changeTabHeader(tabNum: any) {
+    this.index = tabNum;
   }
 }

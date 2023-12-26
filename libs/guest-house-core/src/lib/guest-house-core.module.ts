@@ -39,7 +39,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 export const coreRoutes: Route[] = [
   { path: 'guest-booking', component: GuestBookingComponent },
-  //-- { path: 'guest-profile', component: GuestHouseProfileComponent },
+  { path: 'guest-profile', component: GuestHouseProfileComponent },
   { path: 'floor-room-config', component: FloorRoomConfigComponent },
   { path: 'guest-records', component: GuestRecordsComponent },
   { path: 'room-services', component: RoomServicesComponent },

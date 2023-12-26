@@ -1,5 +1,8 @@
 <!--------Personal Information------------->
-<mat-tab-group [tabIndex]="index">
+<mat-tab-group
+  [selectedIndex]="index"
+  (selectedIndexChange)="changeTabHeader($event)"
+>
   <mat-tab label="Room Booking">
     <perfect-scrollbar class="bg-light-grey" style="height: 37em">
       <div class="ms-5 me-5">
@@ -222,7 +225,7 @@
       <general-app-guest-booking-child></general-app-guest-booking-child>
     </perfect-scrollbar>
   </mat-tab>
-  <mat-tab label="Guest Profile">
+  <mat-tab label="All Records">
     <perfect-scrollbar class="bg-light-grey" style="height: 40em">
       <general-app-guest-booking-table></general-app-guest-booking-table>
     </perfect-scrollbar>
