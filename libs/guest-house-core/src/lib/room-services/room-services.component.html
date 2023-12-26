@@ -11,17 +11,17 @@
             </mat-form-field>
             <mat-form-field class="w-100 m-0" appearance="outline">
                 <mat-label>Select Branch Name</mat-label>
-                <mat-select [(ngModel)]="this.formFields[6].value">
-                    <mat-option>
-
+                <mat-select [(ngModel)]="this.formFields[6].value" (ngModelChange)="getTabledata()">
+                    <mat-option *ngFor="let item of branchLists" [value]="item.branch_id">{{item.branch_name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
             <h3 class="fw-bold">Add Room Services</h3>
             <mat-form-field class="w-100 " appearance="outline">
                 <mat-label>Services</mat-label>
-                <mat-select>
-                    <mat-option></mat-option>
+                <mat-select [(ngModel)]="this.formFields[4].value">
+                    <mat-option *ngFor="let item of services" [value]="item.serviceTypeID">{{item.serviceTypeTitle}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="w-100 " appearance="outline">
@@ -34,7 +34,7 @@
                 <mat-label>
                     Servcie Title
                 </mat-label>
-                <input matInput>
+                <input matInput [(ngModel)]="this.formFields[5].value">
             </mat-form-field>
             <mat-card class="bg-transparent border">
                 <!-- <general-app-image-upload></general-app-image-upload> -->
@@ -42,8 +42,8 @@
             </mat-card>
             <mat-form-field class="w-100 mt-3" appearance="outline">
                 <mat-label>Unit</mat-label>
-                <mat-select>
-                    <mat-option></mat-option>
+                <mat-select [(ngModel)]="this.formFields[8].value">
+                    <mat-option *ngFor="let item of measurements"></mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="w-100 " appearance="outline">
@@ -59,6 +59,8 @@
             </div>
 
         </div>
-        <div class="col-8"></div>
+        <div class="col-md-9">
+            <general-app-services-details></general-app-services-details>
+        </div>
     </div>
 </div>

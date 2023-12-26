@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ImageUploadComponent } from 'libs/shared/shared-components/src/lib/image-upload/image-upload.component';
 
@@ -6,6 +6,7 @@ import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers
 import { MyFormField, RoomServicesInterface } from '@general-app/shared/interface';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
+import { ServicesDetailsComponent } from './services-details/services-details.component';
 
 
 
@@ -18,6 +19,7 @@ import { SharedServicesGlobalDataModule } from '@general-app/shared/services/glo
   styleUrls: ['./room-services.component.scss']
 })
 export class RoomServicesComponent implements OnInit {
+  @ViewChild(ServicesDetailsComponent) servicesDetails: any;
 
   pageFields: RoomServicesInterface = {
     serviceID: '0', //0
@@ -106,6 +108,10 @@ export class RoomServicesComponent implements OnInit {
   companyId: number = 0;
   companyList: any[] = [];
   branchLists: any[] = [];
+  services: any[] = [];
+  measurements: any[] = [];
+  parentServices: any[] = [];
+
 
 
 
@@ -151,7 +157,7 @@ export class RoomServicesComponent implements OnInit {
       this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=${this.companyId}`, '').subscribe(
         (response: any[]) => {
           this.branchLists = response
-          console.log(response)
+          // console.log(response)
         },
         (error: any) => {
           console.log(error)
@@ -169,6 +175,7 @@ export class RoomServicesComponent implements OnInit {
     this.dataService.getHttp('guestms-api/Service/getMeasurementUnit', '').subscribe(
       (response: any[]) => {
         // console.log(response)
+        this.measurements = response
       })
 
   }
@@ -176,10 +183,47 @@ export class RoomServicesComponent implements OnInit {
   getServiceType() {
     this.dataService.getHttp('guestms-api/Service/getServiceType', '').subscribe(
       (response: any[]) => {
-        // console.log(response)
+        console.log(response)
+        this.services = response
       })
 
   }
 
+  /////
+
+  onServicesChange() {
+    this.getParentType();
+  }
+  getParentType() {
+    this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=3&serviceTypeID=1`, '').subscribe(
+      (response: any[]) => {
+        console.log(response)
+        this.parentServices = response;
+      })
+
+  }
+
+
+  getTabledata() {
+    this.getBranchServices()
+  }
+  getBranchServices() {
+    this.dataService.getHttp(`guestms-api/Service/getServices?branchID=${this.formFields[6].value}`, '').subscribe(
+      (response: any[]) => {
+        console.log('Branch Services', response)
+        this.servicesDetails.tableList = [];
+
+        for (let i = 0; i < response.length; i++) {
+          this.servicesDetails.tableList.push({
+            serviceID: response[i].serviceID,
+            serviceTypeID: response[i].serviceTypeID,
+            serviceTitle: response[i].serviceTitle,
+            serviceTypeTitle: response[i].serviceTypeTitle,
+          })
+        }
+
+      })
+
+  }
 
 }

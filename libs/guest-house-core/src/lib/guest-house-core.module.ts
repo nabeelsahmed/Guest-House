@@ -25,6 +25,7 @@ import { RoomServicesComponent } from './room-services/room-services.component';
 import { AddRoomModalComponent } from './floor-room-config/add-room-modal/add-room-modal.component';
 import { AddRoomFeaturesComponent } from './floor-room-config/add-room-features/add-room-features.component';
 import { ImageUploadComponent } from 'libs/shared/shared-components/src/lib/image-upload/image-upload.component';
+import { ServicesDetailsComponent } from './room-services/services-details/services-details.component';
 // import { ImageUploadsComponentComponent } from './image-uploads-component/image-uploads-component.component';
 
 import { MenuItemsComponent } from './menu-items/menu-items.component';
@@ -66,6 +67,7 @@ export const coreRoutes: Route[] = [
     RoomServicesComponent,
     AddRoomModalComponent,
     AddRoomFeaturesComponent,
+    ServicesDetailsComponent,
     // ImageUploadsComponentComponent,
 
     MenuItemsComponent,

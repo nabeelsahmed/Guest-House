@@ -56,7 +56,7 @@ export const appRoutes: Route[] = [
   { path: '**', redirectTo: 'auth', pathMatch: 'full' },
 ];
 @NgModule({
-  declarations: [AppComponent, TopSideNavComponent],
+  declarations: [AppComponent, TopSideNavComponent,],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -87,4 +87,4 @@ export const appRoutes: Route[] = [
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

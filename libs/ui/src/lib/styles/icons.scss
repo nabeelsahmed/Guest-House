@@ -861,10 +861,13 @@
 .editBlueIcon {
   background: url(../assets/images/icons/edit-icon.svg);
   width: 3em;
-  height: 2em;
+  height: 1.5em;
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: center;
   background-size: contain;
+  cursor: pointer;
+
+
 }
 
 .tabularPlusIcon {
@@ -938,6 +941,7 @@
   width: 1.5em;
   height: 1.5em;
 }
+
 .welcomeIcon {
   background: url(../assets/images/icons/Welcome.svg);
   width: 10em;
