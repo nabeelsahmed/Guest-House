@@ -148,4 +148,17 @@ export class GuestInfoComponent implements OnInit {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
   }
+
+  resetAll() {
+    this.formFields = this.valid.resetFormFields(this.formFields);
+    this.formFields[0].value = '0';
+
+    this.lblPartyID = 0;
+    this.lblPartyName = '';
+    this.lblPartyEmail = '';
+    this.lblPartyMobile = '';
+    this.lblPartyCNIC = '';
+
+    this.cmbCNIC = '';
+  }
 }

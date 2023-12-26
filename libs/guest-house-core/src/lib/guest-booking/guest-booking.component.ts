@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers/field-validations';
 import { MyFormField, GuestInterface } from '@general-app/shared/interface';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
+import { GuestInfoComponent } from './guest-info/guest-info.component';
 
 @Component({
   selector: 'general-app-guest-booking',
@@ -12,6 +15,8 @@ import { SharedServicesGlobalDataModule } from '@general-app/shared/services/glo
   styleUrls: ['./guest-booking.component.scss'],
 })
 export class GuestBookingComponent implements OnInit {
+  @ViewChild(GuestInfoComponent) guestInfo: any;
+
   cmbRoomType: any = '';
 
   pageFields: GuestInterface = {
@@ -104,7 +109,8 @@ export class GuestBookingComponent implements OnInit {
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
-    private valid: SharedHelpersFieldValidationsModule
+    private valid: SharedHelpersFieldValidationsModule,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -221,15 +227,30 @@ export class GuestBookingComponent implements OnInit {
   }
 
   save() {
+    this.formFields[5].value = this.datePipe.transform(
+      this.formFields[5].value,
+      'yyyy-MM-dd'
+    );
+    this.formFields[6].value = this.datePipe.transform(
+      this.formFields[6].value,
+      'yyyy-MM-dd'
+    );
+
     this.formFields[10].value = 'booked';
 
-    this.formFields[4].value = JSON.stringify(this.tempFloorRoomList);
+    if (this.tempFloorRoomList.length > 0) {
+      this.formFields[4].value = JSON.stringify(this.tempFloorRoomList);
+    }
 
     this.dataService
-      .savetHttp(this.pageFields, this.formFields, 'user-api/User/createUser')
+      .savetHttp(
+        this.pageFields,
+        this.formFields,
+        'guestms-api/RoomBooking/saveRoomBooking'
+      )
       .subscribe(
         (response: any[]) => {
-          if (response[0].includes('Success') == true) {
+          if (response[0].includes('success') == true) {
             this.valid.apiInfoResponse('Guest Added Successfully');
             this.reset();
           } else {
@@ -245,5 +266,6 @@ export class GuestBookingComponent implements OnInit {
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
+    this.guestInfo.resetAll();
   }
 }
