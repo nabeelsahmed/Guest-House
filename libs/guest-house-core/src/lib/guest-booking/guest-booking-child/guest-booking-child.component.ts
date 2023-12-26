@@ -4,28 +4,27 @@ import { MyFormField, GuestInterface } from '@general-app/shared/interface';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 
-
 @Component({
   selector: 'general-app-guest-booking-child',
   templateUrl: './guest-booking-child.component.html',
-  styleUrls: ['./guest-booking-child.component.scss']
+  styleUrls: ['./guest-booking-child.component.scss'],
 })
-
-
 export class GuestBookingChildComponent implements OnInit {
-
   pageFields: GuestInterface = {
-    newUserBranchID: '0', //0
+    roomBookingID: '0', //0
     spType: '', //1
     userID: '', //2
-    roomtype: '', //3
-    date: '', //4
-    time: '', //5
-  }
+    partyID: '', //3
+    roomJson: '', //4
+    checkIn: '', //5
+    checkinTime: '', //6
+    transactionType: '', //7
+    reservationStatus: '', //8
+  };
 
   formFields: MyFormField[] = [
     {
-      value: this.pageFields.newUserBranchID,
+      value: this.pageFields.roomBookingID,
       msg: '',
       type: 'hidden',
       required: false,
@@ -43,33 +42,48 @@ export class GuestBookingChildComponent implements OnInit {
       required: false,
     },
     {
-      value: this.pageFields.roomtype,
-      msg: 'select room type',
-      type: 'selectBox',
+      value: this.pageFields.partyID,
+      msg: 'select cnic',
+      type: 'selectbox',
       required: true,
     },
     {
-      value: this.pageFields.date,
-      msg: 'select date',
-      type: 'selectBox',
+      value: this.pageFields.roomJson,
+      msg: 'select room',
+      type: 'selectbox',
       required: true,
     },
     {
-      value: this.pageFields.time,
-      msg: 'select time',
-      type: 'selectBox',
+      value: this.pageFields.checkIn,
+      msg: 'enter check in date',
+      type: 'hidden',
       required: true,
     },
-  ]
+    {
+      value: this.pageFields.checkinTime,
+      msg: 'enter check in time',
+      type: 'hidden',
+      required: true,
+    },
+    {
+      value: this.pageFields.transactionType,
+      msg: 'enter check out time',
+      type: 'hidden',
+      required: true,
+    },
+    {
+      value: this.pageFields.reservationStatus,
+      msg: 'enter check out time',
+      type: 'hidden',
+      required: true,
+    },
+  ];
 
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {
-
-  }
-
+  ) {}
 
   /////
   firstName: string = '';
@@ -88,24 +102,22 @@ export class GuestBookingChildComponent implements OnInit {
   bankTransfer: string | undefined;
   cardPayment: string | undefined;
 
-
-
-  rooms = [
+  roomList = [
     { name: 'New York', code: 'NY' },
     { name: 'Rome', code: 'RM' },
     { name: 'London', code: 'LDN' },
     { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
+    { name: 'Paris', code: 'PRS' },
   ];
 
+  itemList: any = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+  ];
   ngOnInit(): void {
-    this.global.setHeaderTitle('Room Reservation');
-
     this.formFields[2].value = this.global.getUserId().toString();
   }
 
   save() {
-
     this.dataService
       .savetHttp(this.pageFields, this.formFields, 'user-api/User/createUser')
       .subscribe(
@@ -127,6 +139,4 @@ export class GuestBookingChildComponent implements OnInit {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
   }
-
-
 }

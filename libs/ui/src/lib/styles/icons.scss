@@ -842,8 +842,17 @@
 
 .redBedIcon {
   background: url(../assets/images/icons/redBed.svg);
-  width: 1.5em;
-  height: 2.5em;
+  width: 1.3em;
+  height: 1.3em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.greenBedIcon {
+  background: url(../assets/images/icons/greenBed.svg);
+  width: 1.3em;
+  height: 1.3em;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -856,7 +865,6 @@
   background-repeat: no-repeat;
   background-position: top;
   background-size: contain;
-
 }
 
 .tabularPlusIcon {
@@ -866,7 +874,6 @@
   background-repeat: no-repeat;
   background-position: start;
   background-size: cover;
-
 }
 
 .outlineDelete {
@@ -876,7 +883,6 @@
   background-repeat: no-repeat;
   background-position: start;
   background-size: contain;
-
 }
 
 .dropIcon {
@@ -886,7 +892,6 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-
 }
 
 .upIcon {
@@ -896,7 +901,6 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-
 }
 
 .plusCircle {
@@ -929,11 +933,15 @@
   cursor: pointer;
 }
 
-
 .smallEdit {
   background: url(../assets/images/icons/tbl-edit.svg);
   width: 1.5em;
   height: 1.5em;
+}
+.welcomeIcon {
+  background: url(../assets/images/icons/Welcome.svg);
+  width: 10em;
+  height: 5em;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-md-9">
+    <perfect-scrollbar
+      class="bg-light-grey border-3 border-dark border-end"
+      style="height: 40em"
+    >
+      <mat-tab-group>
+        <div *ngFor="let item of itemList">
+          <mat-tab [label]="item.serviceTypeName">
+            <div class="d-flex flex-wrap">
+              <div *ngFor="let prod of item.itemJson; let i = index">
+                <div class="container ms-4">
+                  <div class="menuBox mt-4 mb-3 ms-2 me-2">
+                    <div class="d-flex flex-column align-items-center">
+                      <img
+                        src="assets/ui/pancakes.png"
+                        height="120px"
+                        width="150px"
+                      />
+                      <label class="fs-4 fw-bold">
+                        {{ prod.serviceTitle }}</label
+                      >
+                      <label class="text-dark">
+                        Rs {{ prod.serviceCharges }}/_</label
+                      >
+                    </div>
+                    <div class="d-flex justify-content-end me-3">
+                      <div class="bgGrey rounded-3 mt-3">
+                        <div class="d-flex">
+                          <div class="addBox">
+                            <span
+                              class="fa fa-minus cursorPointer"
+                              (click)="removeProduct(item, prod, i)"
+                            ></span>
+                          </div>
+                          <label class="fw-bold ms-2 me-2">{{
+                            prod.quantity
+                          }}</label>
+                          <div class="addBox">
+                            <span
+                              class="fa fa-plus cursorPointer"
+                              (click)="addProduct(item, prod, i)"
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </div>
+      </mat-tab-group>
+      <!-- <mat-tab-group class="">
+        <mat-tab label="BreakFast">
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let item of itemList">
+              <div class="container ms-4">
+                <div class="menuBox mt-4 mb-3 ms-2 me-2">
+                  <div class="d-flex flex-column align-items-center">
+                    <img
+                      src="assets/ui/pancakes.png"
+                      height="120px"
+                      width="150px"
+                    />
+                    <label class="fs-4 fw-bold"> Pan Cakes</label>
+                    <label class="text-dark"> Rs 800/_</label>
+                  </div>
+                  <div class="d-flex justify-content-end me-3">
+                    <div class="bgGrey rounded-3 mt-3">
+                      <div class="d-flex">
+                        <div class="addBox">
+                          <span class="fa fa-minus cursorPointer"></span>
+                        </div>
+                        <label class="fw-bold ms-2 me-2">1</label>
+                        <div class="addBox">
+                          <span class="fa fa-plus cursorPointer"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Lunch">
+          <ng-template matTabContent> </ng-template>
+        </mat-tab>
+        <mat-tab label="Dinner">
+          <ng-template matTabContent> </ng-template>
+        </mat-tab>
+        <mat-tab label="Ice-cream">
+          <ng-template matTabContent> </ng-template>
+        </mat-tab>
+        <mat-tab label="Drinks">
+          <ng-template matTabContent> </ng-template>
+        </mat-tab>
+      </mat-tab-group> -->
+    </perfect-scrollbar>
+  </div>
+  <div class="col-md-3 pe-5">
+    <div class="d-flex justify-content-center">
+      <button mat-button class="checkouttBtn mat-elevation-z4 mt-4" mat-button>
+        Checkout
+      </button>
+    </div>
+    <perfect-scrollbar class="bg-light-grey" style="height: 33em">
+      <table class="table table-borderless mt-2">
+        <thead>
+          <tr class="border-bottom-black">
+            <th>Items</th>
+            <th class="text-end">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tableData">
+            <td>
+              {{ item.serviceTitle }}
+              <label *ngIf="item.quantity > 1">x {{ item.quantity }}</label>
+            </td>
+            <td class="text-end">{{ item.serviceCharges }}/_</td>
+          </tr>
+          <tr class="border-top-black">
+            <td></td>
+            <td class="fw-bold text-end">Rs {{ lblTotal }}/_</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+    <div class="d-flex flex-column align-items-end">
+      <button
+        mat-button
+        class="resetBtn mat-elevation-z4 rounded-2 mt-2"
+        mat-button
+      >
+        Proceed
+      </button>
+    </div>
+  </div>
+</div>
