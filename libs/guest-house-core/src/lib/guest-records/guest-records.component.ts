@@ -14,7 +14,7 @@ export class GuestRecordsComponent implements OnInit {
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
-    private valid: SharedHelpersFieldValidationsModule
+    // private valid: SharedHelpersFieldValidationsModule
   ) {
 
   }
@@ -22,6 +22,8 @@ export class GuestRecordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPartyStatus()
+    this.global.setHeaderTitle('Guest Records');
+
   }
 
   partyStatus: any[] = []
