@@ -6,6 +6,7 @@ import { MaterialModule } from '@general-app/material';
 import { SharedInterfaceModule } from '../../../shared/interface/src/lib/shared-interface.module';
 import { TextMaskModule } from 'angular2-text-mask';
 
+import { SharedSharedComponentsModule } from '@general-app/shared/shared-components';
 import { GuestBookingComponent } from './guest-booking/guest-booking.component';
 import { PrimengModule } from '@general-app/primeng';
 import { GuestHouseProfileComponent } from './guest-house-profile/guest-house-profile.component';
@@ -53,6 +54,7 @@ export const coreRoutes: Route[] = [
     PerfectScrollbarModule,
     SharedInterfaceModule,
     TextMaskModule,
+    SharedSharedComponentsModule,
   ],
 
   declarations: [
