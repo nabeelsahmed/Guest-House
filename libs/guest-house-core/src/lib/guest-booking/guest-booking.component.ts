@@ -17,6 +17,8 @@ import { GuestInfoComponent } from './guest-info/guest-info.component';
 export class GuestBookingComponent implements OnInit {
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  index: any = 0;
+
   cmbRoomType: any = '';
 
   pageFields: GuestInterface = {

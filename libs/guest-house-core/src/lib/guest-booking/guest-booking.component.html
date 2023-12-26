@@ -1,5 +1,5 @@
 <!--------Personal Information------------->
-<mat-tab-group>
+<mat-tab-group [tabIndex]="index">
   <mat-tab label="Room Booking">
     <perfect-scrollbar class="bg-light-grey" style="height: 37em">
       <div class="ms-5 me-5">
@@ -220,6 +220,11 @@
   <mat-tab label="Room Reservation">
     <perfect-scrollbar class="bg-light-grey" style="height: 40em">
       <general-app-guest-booking-child></general-app-guest-booking-child>
+    </perfect-scrollbar>
+  </mat-tab>
+  <mat-tab label="Guest Profile">
+    <perfect-scrollbar class="bg-light-grey" style="height: 40em">
+      <general-app-guest-booking-table></general-app-guest-booking-table>
     </perfect-scrollbar>
   </mat-tab>
 </mat-tab-group>

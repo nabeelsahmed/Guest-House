@@ -31,6 +31,7 @@ import { ServicesDetailsComponent } from './room-services/services-details/servi
 
 import { MenuItemsComponent } from './menu-items/menu-items.component';
 import { EditGuestProfileComponent } from './guest-house-profile/edit-guest-profile/edit-guest-profile.component';
+import { GuestBookingTableComponent } from './guest-booking/guest-booking-table/guest-booking-table.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -38,7 +39,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 export const coreRoutes: Route[] = [
   { path: 'guest-booking', component: GuestBookingComponent },
-  { path: 'guest-profile', component: GuestHouseProfileComponent },
+  //-- { path: 'guest-profile', component: GuestHouseProfileComponent },
   { path: 'floor-room-config', component: FloorRoomConfigComponent },
   { path: 'guest-records', component: GuestRecordsComponent },
   { path: 'room-services', component: RoomServicesComponent },
@@ -75,6 +76,7 @@ export const coreRoutes: Route[] = [
 
     MenuItemsComponent,
     EditGuestProfileComponent,
+    GuestBookingTableComponent,
   ],
   providers: [
     {
