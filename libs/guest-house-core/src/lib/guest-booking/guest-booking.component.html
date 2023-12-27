@@ -216,6 +216,15 @@
           >
             Reset
           </button>
+          <button
+            mat-button
+            class="resetBtn bg-warning mat-elevation-z4 rounded-2 me-3"
+            mat-button
+            data-bs-toggle="modal"
+            data-bs-target="#reservedRoomModal"
+          >
+            Reserved Room List
+          </button>
         </div>
       </div>
     </perfect-scrollbar>
@@ -233,3 +242,71 @@
     </perfect-scrollbar>
   </mat-tab>
 </mat-tab-group>
+
+<!-------Modal------->
+<div
+  id="reservedRoomModal"
+  class="modal fade"
+  role="dialog"
+  data-bs-backdrop="false"
+>
+  <div class="modal-dialog modal-lg mat-elevation-z20">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bgSecondary">
+        <h4 class="modal-title text-white">Reserved Room List</h4>
+        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+      </div>
+      <div class="modal-body">
+        <span class="p-input-icon-left text-black me-2">
+          <i class="pi pi-search"></i>
+          <input
+            class="bg-transparent"
+            [(ngModel)]="tblReservedSearch"
+            type="text"
+            pInputText
+            placeholder="Search"
+          />
+        </span>
+
+        <table class="table border-1 border-dark">
+          <thead class="bg-black text-white">
+            <tr>
+              <th>Name</th>
+              <th>CNIC</th>
+              <th>Check-In</th>
+              <th>Check-Out</th>
+              <th>Check-In Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor="
+                let item of reservedRoomList
+                  | search: 'partyFirstName, partyLastName':tblReservedSearch;
+                let i = index
+              "
+            >
+              <td class="col-4">
+                <div class="align-self-center">
+                  {{ item.partyFirstName }} {{ item.partyLastName }}
+                </div>
+              </td>
+              <td>{{ item.partyCNIC }}</td>
+              <td>{{ item.checkIn }}</td>
+              <td>{{ item.checkOut }}</td>
+              <td>{{ item.checkInTime }}</td>
+
+              <td>
+                <div class="editIcon" (click)="editReserved(item)"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

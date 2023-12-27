@@ -20,6 +20,7 @@ export class GuestBookingComponent implements OnInit {
 
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  tblReservedSearch: any = '';
   index: any = 0;
 
   cmbRoomType: any = '';
@@ -107,6 +108,7 @@ export class GuestBookingComponent implements OnInit {
     },
   ];
 
+  reservedRoomList: any = [];
   roomTypeList: any = [];
   tempFloorRoomList: any = [];
   floorRoomList: any = [];
@@ -125,6 +127,7 @@ export class GuestBookingComponent implements OnInit {
 
     this.getRoomType();
     this.getRoomRecords();
+    this.getRoomReservation();
   }
 
   getRoomRecords() {
@@ -149,6 +152,22 @@ export class GuestBookingComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  getRoomReservation() {
+    this.dataService
+      .getHttp(
+        'guestms-api/RoomBooking/getRoomReservationCurrent?branchID=3',
+        ''
+      )
+      .subscribe(
+        (response: any) => {
+          this.reservedRoomList = response;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   getRoomAvailability(item: any) {
@@ -371,6 +390,20 @@ export class GuestBookingComponent implements OnInit {
 
   changeTabHeader(tabNum: any) {
     this.index = tabNum;
+  }
+
+  editReserved(item: any) {
+    this.formFields[0].value = '1';
+    this.formFields[3].value = item.partyID;
+    this.formFields[5].value = new Date(item.checkIn);
+    this.formFields[6].value = new Date(item.checkOut);
+    this.formFields[7].value = item.checkInTime;
+    this.formFields[8].value = item.checkOutTime;
+    this.formFields[9].value = item.transactionType;
+    this.formFields[10].value = 'reserved';
+
+    this.guestInfo.cmbCNIC = item.partyID;
+    this.guestInfo.onCNICChange(item.partyID);
   }
 
   edit(item: any) {
