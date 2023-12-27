@@ -1,79 +1,80 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers/field-validations';
-import { MyFormField, GuestProfileInterface } from '@general-app/shared/interface';
-import { SharedServicesDataModule } from '@general-app/shared/services/data';
-import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
-
+import { SharedHelpersFieldValidationsModule } from "@general-app/shared/helpers/field-validations";
+import {
+  MyFormField,
+  GuestProfileInterface,
+} from "@general-app/shared/interface";
+import { SharedServicesDataModule } from "@general-app/shared/services/data";
+import { SharedServicesGlobalDataModule } from "@general-app/shared/services/global-data";
 
 @Component({
-  selector: 'general-app-guest-house-profile',
-  templateUrl: './guest-house-profile.component.html',
-  styleUrls: ['./guest-house-profile.component.scss']
+  selector: "general-app-guest-house-profile",
+  templateUrl: "./guest-house-profile.component.html",
+  styleUrls: ["./guest-house-profile.component.scss"],
 })
 export class GuestHouseProfileComponent implements OnInit {
-
   pageFields: GuestProfileInterface = {
-    roomServiceID: '0', //0
-    spType: '',  //1
-    userID: '0',  //2
-    roomBookingID: '0', //3
-    serviceID: '0',  //4
-    serviceQuantity: '0',  //5
-  }
+    roomServiceID: "0", //0
+    spType: "", //1
+    userID: "0", //2
+    roomBookingID: "0", //3
+    serviceID: "0", //4
+    serviceQuantity: "0", //5
+  };
 
   formFields: MyFormField[] = [
     {
       value: this.pageFields.roomServiceID,
-      msg: '',
-      type: 'hidden',
+      msg: "",
+      type: "hidden",
       required: false,
     },
     {
       value: this.pageFields.spType,
-      msg: '',
-      type: 'hidden',
+      msg: "",
+      type: "hidden",
       required: false,
     },
     {
       value: this.pageFields.userID,
-      msg: '',
-      type: 'hidden',
+      msg: "",
+      type: "hidden",
       required: false,
     },
     {
       value: this.pageFields.roomBookingID,
-      msg: '',
-      type: 'hidden',
+      msg: "",
+      type: "hidden",
       required: false,
     },
     {
       value: this.pageFields.serviceID,
-      msg: '',
-      type: 'hidden',
+      msg: "",
+      type: "hidden",
       required: false,
     },
     {
       value: this.pageFields.serviceQuantity,
-      msg: '',
-      type: 'hidden',
+      msg: "",
+      type: "hidden",
       required: false,
     },
-  ]
+  ];
 
   //lists & variables
   guestList: any[] = [];
   servicesList: any[] = [];
   serviceTypeList: any[] = [];
-  serviceTypeID: any = '';
+  serviceTypeID: any = "";
 
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {}
   ngOnInit(): void {
-    this.global.setHeaderTitle('Guest Profile');
+    this.global.setHeaderTitle("Guest Profile");
     this.formFields[2].value = this.global.getUserId().toString();
     this.getRoomBooking();
     this.getServiceType();
@@ -82,33 +83,35 @@ export class GuestHouseProfileComponent implements OnInit {
 
   //functions
   getRoomBooking() {
-    this.dataService.getHttp('guestms-api/RoomBooking/getRoomBooking?branchID=3', '').subscribe(
-      (response: any[]) => {
-        // console.log(response)
-        this.guestList = [];
-        // var jsonList: any[] = [];
-        for (var i = 0; i < response.length; i++) {
-          var json = JSON.parse(response[i].services)
-          this.guestList.push({
-            firstName: response[i].partyFirstName,
-            lastName: response[i].partyLastName,
-            cnic: response[i].partyCNIC,
-            mobileNumber: response[i].partyMobile,
-            checkInDate: response[i].checkIn,
-            checkOutDate: response[i].checkOut,
-            checkInTime: response[i].checkInTime,
-            checkOutTime: response[i].checkOutTime,
-            roomNo: response[i].floorRoomNo,
-            roomtitle: response[i].roomtTypeTitle,
-            roomBookingID: response[i].roomBookingID,
-            jsonList: json,
-          })
-
+    this.dataService
+      .getHttp("guestms-api/RoomBooking/getRoomBooking?branchID=3", "")
+      .subscribe(
+        (response: any[]) => {
+          // console.log(response)
+          this.guestList = [];
+          // var jsonList: any[] = [];
+          for (var i = 0; i < response.length; i++) {
+            var json = JSON.parse(response[i].services);
+            this.guestList.push({
+              firstName: response[i].partyFirstName,
+              lastName: response[i].partyLastName,
+              cnic: response[i].partyCNIC,
+              mobileNumber: response[i].partyMobile,
+              checkInDate: response[i].checkIn,
+              checkOutDate: response[i].checkOut,
+              checkInTime: response[i].checkInTime,
+              checkOutTime: response[i].checkOutTime,
+              roomNo: response[i].floorRoomNo,
+              roomtitle: response[i].roomtTypeTitle,
+              roomBookingID: response[i].roomBookingID,
+              jsonList: json,
+            });
+          }
+        },
+        (error: any) => {
+          console.log(error);
         }
-      },
-      (error: any) => {
-        console.log(error)
-      })
+      );
   }
   // {
   //   "partyID": 1,
@@ -130,27 +133,30 @@ export class GuestHouseProfileComponent implements OnInit {
   // }
 
   getServiceType() {
-    this.dataService.getHttp('guestms-api/Service/getServiceType', '').subscribe(
-      (response: any[]) => {
-        // console.log(response)
-        this.serviceTypeList = response
-      },
-      (error: any) => {
-        console.log(error)
-      })
+    this.dataService
+      .getHttp("guestms-api/Service/getServiceType", "")
+      .subscribe(
+        (response: any[]) => {
+          // console.log(response)
+          this.serviceTypeList = response;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
-
 
   // Service/getRoomServices(int roomBookingID)
   getServices(item: any) {
-    this.dataService.getHttp(`guestms-api/Service/getRoomServices?roomBookingID=${item}`, '').subscribe(
-      (response: any) => {
-        console.log(response)
-      },
-      (error: any) => {
-        console.log(error)
-      }
-    )
+    this.dataService
+      .getHttp(`guestms-api/Service/getRoomServices?roomBookingID=${item}`, "")
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
-
 }
