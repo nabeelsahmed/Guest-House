@@ -120,6 +120,7 @@ export class RoomServicesComponent implements OnInit {
 
 
 
+
   //
   constructor(
     private global: SharedServicesGlobalDataModule,
@@ -152,15 +153,10 @@ export class RoomServicesComponent implements OnInit {
     )
   }
 
-  //get-branch-id
-  onCompanySelect() {
-    this.getBranch()
-  }
 
-
-  getBranch() {
+  getBranch(item: any) {
     if (this.companyId > 0) {
-      this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=${this.companyId}`, '').subscribe(
+      this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=` + item, '').subscribe(
         (response: any[]) => {
           this.branchLists = response
           // console.log(response)
@@ -170,7 +166,7 @@ export class RoomServicesComponent implements OnInit {
         }
       )
     } else {
-      console.error('Company ID is not available in formFields[3].value');
+      console.error('Company ID is not available');
     }
 
   }
@@ -198,13 +194,11 @@ export class RoomServicesComponent implements OnInit {
 
 
 
-  onServicesChange() {
-    this.getParentType();
-  }
-  getParentType() {
-    this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=${this.formFields[6].value}&serviceTypeID=${this.formFields[4].value}`, '').subscribe(
+
+  getParentType(item1: any, item2: any) {
+    this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=${item1}&serviceTypeID=${item2}`, '').subscribe(
       (response: any[]) => {
-        console.log(response)
+        // console.log(response)
         this.parentServices = response;
       })
 
@@ -215,13 +209,11 @@ export class RoomServicesComponent implements OnInit {
 
 
 
-  getTabledata() {
-    this.getBranchServices()
-  }
-  getBranchServices() {
-    this.dataService.getHttp(`guestms-api/Service/getServices?branchID=${this.formFields[6].value}`, '').subscribe(
+
+  getBranchServices(item: any) {
+    this.dataService.getHttp(`guestms-api/Service/getServices?branchID=` + item, '').subscribe(
       (response: any[]) => {
-        // console.log('Branch Services', response)
+        console.log('Branch Services', response)
         this.servicesDetails.tableList = response
       })
 
@@ -252,6 +244,7 @@ export class RoomServicesComponent implements OnInit {
                 this.valid.apiInfoResponse('Services Saved');
               }
               this.reset();
+              this.getBranchServices(this.formFields[6].value)
             } else {
               this.valid.apiErrorResponse(response[0]);
             }
@@ -259,12 +252,46 @@ export class RoomServicesComponent implements OnInit {
   }
 
 
+  // {
+  //   "serviceTypeID": 1,
+  //   "serviceDate": null,
+  //   "serviceTypeTitle": "Food",
+  //   "serviceQuantity": 0,
+  //   "serviceID": 1,
+  //   "serviceTitle": "Breakfast",
+  //   "amount": 1000,
+  //   "serviceParentID": 0,
+  //   "serviceParentTitle": null,
+  //   "measurementUnitID": 2,
+  //   "measurementUnitTitle": "Kg",
+  //   "branch_id": 3,
+  //   "branch_name": "H-8",
+  //   "company_id": 1,
+  //   "company_name": "Aims"
+  // }
+
+  //   serviceID: '0', //0
+  //   spType: '', //1
+  //   userID: '', //2
+  //   serviceParentID: '', //3
+  //   serviceTypeID: '', //4
+  //   serviceTitle: '', //5
+  //   branch_id: '',//6
+  //   serviceCharges: '', //7
+  //   measurementUnitID: '', //8
+  //   serviceImagePath: '', //9
+  //   serviceImageExt: '', //10
+
   edit(item: any) {
+    this.getParentType(this.formFields[6].value, this.formFields[4].value)
     this.formFields[0].value = item.serviceID;
+    this.formFields[3].value = item.serviceParentID;
     this.formFields[4].value = item.serviceTypeID;
     this.formFields[5].value = item.serviceTitle;
-    this.formFields[7].value = item.serviceCharges;
+    this.formFields[6].value = item.branch_id;
+    this.formFields[7].value = item.amount;
     this.formFields[8].value = item.measurementUnitID;
+
   }
 
   reset() {

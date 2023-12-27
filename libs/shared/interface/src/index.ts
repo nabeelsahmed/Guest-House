@@ -34,6 +34,8 @@ export * from './lib/core/add-services';
 export * from './lib/core/room-config-modal-interface';
 export * from './lib//core/add-features-interface';
 export * from './lib//core/room-services-interface';
+export * from './lib//core/guest-profile-interface';
+
 
 
 

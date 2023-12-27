@@ -22,6 +22,8 @@ export class FloorRoomConfigComponent implements OnInit {
   @ViewChild(RoomFeaturesComponent) roomFeaturesChild: any;
 
 
+
+
   pageFields: RoomInterface = {
     floorRoomID: '0', //0
     spType: '', //1
@@ -81,6 +83,7 @@ export class FloorRoomConfigComponent implements OnInit {
     },
   ];
 
+
   featureSaved = true;
   selectedBranch: number = 0;
   userInput: number = 0;
@@ -102,7 +105,6 @@ export class FloorRoomConfigComponent implements OnInit {
   roomsNumList: any[] = []
   featuresScreen: boolean = false;
   error: any = '';
-
 
   constructor(
 

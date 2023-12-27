@@ -1,17 +1,18 @@
 <!--main div--->
-<div class="mx-5 mt-3">
+<div class="mx-4 mt-3">
     <div class="row">
         <div class="col-md-3 border-3 border-dark border-end">
             <mat-form-field class="w-100 m-0" appearance="outline">
                 <mat-label>Select Company Name</mat-label>
-                <mat-select [(ngModel)]="companyId" (ngModelChange)="onCompanySelect()">
+                <mat-select [(ngModel)]="companyId" (ngModelChange)="getBranch(companyId)">
                     <mat-option *ngFor="let item of companyList" [value]="item.company_id">{{ item.company_name
                         }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="w-100 m-0" appearance="outline">
                 <mat-label>Select Branch Name</mat-label>
-                <mat-select [(ngModel)]="this.formFields[6].value" (ngModelChange)="getTabledata()">
+                <mat-select [(ngModel)]="this.formFields[6].value"
+                    (ngModelChange)="getBranchServices(this.formFields[6].value)">
                     <mat-option *ngFor="let item of branchLists" [value]="item.branch_id">{{ item.branch_name }}
                     </mat-option>
                 </mat-select>
@@ -19,7 +20,8 @@
             <h3 class="fw-bold">Add Room Services</h3>
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Services</mat-label>
-                <mat-select [(ngModel)]="this.formFields[4].value" (ngModelChange)="getParentType()">
+                <mat-select [(ngModel)]="this.formFields[4].value"
+                    (ngModelChange)="getParentType(this.formFields[6].value,this.formFields[4].value)">
                     <mat-option *ngFor="let item of services" [value]="item.serviceTypeID">{{ item.serviceTypeTitle }}
                     </mat-option>
                 </mat-select>
@@ -49,7 +51,7 @@
             </mat-form-field>
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label> Amount </mat-label>
-                <input matInput [(ngModel)]="this.formFields[7].value" />
+                <input matInput [(ngModel)]="this.formFields[7].value" pattern="[0-9]*" />
             </mat-form-field>
             <div class="d-flex flex-row justify-content-end">
                 <button mat-button class="ms-2 saveBtn fw-bold fs-6 rounded-2 mat-elevation-z1" (click)="save()">

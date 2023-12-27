@@ -1,13 +1,12 @@
 <div class="ms-5 me-5">
     <!---------search-------->
     <div class="mt-3 d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <!-- <div class="backArrow me-3"></div> -->
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input type="text" class="bg-transparent" pInputText />
-            </span>
-        </div>
+        <mat-form-field class="w-25" appearance="outline">
+            <mat-label>
+                <i class="fa fa-search"></i>
+                Search</mat-label>
+            <input matInput placeholder="Search">
+        </mat-form-field>
         <!-- <div class="d-flex align-items-center">
             <button mat-button class="saveBtn mat-elevation-z4 fw-bold fs-6 rounded-2 me-3 mt-2" mat-button>
                 Add Reservation
@@ -17,7 +16,7 @@
     <!---------Table---------->
 
     <div class="mt-3 justify-content-center">
-        <perfect-scrollbar class="w-100">
+        <perfect-scrollbar class="w-100 ">
             <table class="table rounded bg-white border-1 border-dark ">
                 <thead class="bg-dark text-white  ">
                     <tr>
@@ -29,20 +28,13 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider ">
-                    <tr>
-                        <td>Waqar Ali</td>
-                        <td>37405-5199894-4</td>
-                        <td>0304-78901234</td>
-                        <td>waqarali@gmail.com</td>
-                        <td class="bg-danger">Regular</td>
-
-                    </tr>
                     <tr *ngFor="let item of partyStatus">
                         <td>{{item.partyFirstName}}{{item.partyLastName}}</td>
                         <td>{{item.partyCNIC}}</td>
                         <td>{{item.partyMobile}}</td>
                         <td>{{item.partyEmail}}</td>
-                        <td [ngClass]="{'bg-danger': item.status === 'blacklist'}">{{item.status}}</td>
+                        <td [ngClass]="{'bg-danger': item.status === 'blacklist'}" class="text-capitalize">
+                            {{item.status}}</td>
                     </tr>
 
 
