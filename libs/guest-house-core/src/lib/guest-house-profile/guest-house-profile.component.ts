@@ -64,6 +64,8 @@ export class GuestHouseProfileComponent implements OnInit {
   //lists & variables
   guestList: any[] = [];
   servicesList: any[] = [];
+  serviceTypeList: any[] = [];
+  serviceTypeID: any = '';
 
   constructor(
     private global: SharedServicesGlobalDataModule,
@@ -73,33 +75,16 @@ export class GuestHouseProfileComponent implements OnInit {
   ngOnInit(): void {
     this.global.setHeaderTitle('Guest Profile');
     this.formFields[2].value = this.global.getUserId().toString();
-    this.getRoomBooking()
+    this.getRoomBooking();
+    this.getServiceType();
+    // this.getServices();
   }
 
-
-
-
-  // {
-  //   "services": [
-  //     {
-  //       "serviceID": 1,
-  //       "serviceTypeTitle": "Breakfast"
-  //     },
-  //     {
-  //       "serviceID": 2,
-  //       "serviceTypeTitle": "Lunch"
-  //     },
-  //     {
-  //       "serviceID": 1,
-  //       "serviceTypeTitle": "Breakfast"
-  //     }
-  //   ]
-  // }
-
+  //functions
   getRoomBooking() {
     this.dataService.getHttp('guestms-api/RoomBooking/getRoomBooking?branchID=3', '').subscribe(
       (response: any[]) => {
-        console.log(response)
+        // console.log(response)
         this.guestList = [];
         // var jsonList: any[] = [];
         for (var i = 0; i < response.length; i++) {
@@ -115,7 +100,8 @@ export class GuestHouseProfileComponent implements OnInit {
             checkOutTime: response[i].checkOutTime,
             roomNo: response[i].floorRoomNo,
             roomtitle: response[i].roomtTypeTitle,
-            jsonList: json
+            roomBookingID: response[i].roomBookingID,
+            jsonList: json,
           })
 
         }
@@ -143,5 +129,28 @@ export class GuestHouseProfileComponent implements OnInit {
   //   "services": "[{\"serviceID\":1,\"serviceTypeTitle\":\"Breakfast\"}]"
   // }
 
+  getServiceType() {
+    this.dataService.getHttp('guestms-api/Service/getServiceType', '').subscribe(
+      (response: any[]) => {
+        // console.log(response)
+        this.serviceTypeList = response
+      },
+      (error: any) => {
+        console.log(error)
+      })
+  }
+
+
+  // Service/getRoomServices(int roomBookingID)
+  getServices(item: any) {
+    this.dataService.getHttp(`guestms-api/Service/getRoomServices?roomBookingID=${item}`, '').subscribe(
+      (response: any) => {
+        console.log(response)
+      },
+      (error: any) => {
+        console.log(error)
+      }
+    )
+  }
 
 }

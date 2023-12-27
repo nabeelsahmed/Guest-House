@@ -13,40 +13,34 @@
     </button>
   </div>
   <div class="mt-3 rounded-2 pt-3 px-3 pb-3  bg-white" *ngFor="let item of guestList">
-    <table class="table">
-      <tr>
-        <td>
-          <mat-checkbox class="align-items-center">
-        <th>Guest Name</th>
-        </mat-checkbox>
-        <h6>{{item.firstName}} {{item.lastName}}</h6>
-        </td>
-        <td>
-          <h6>Room Type</h6>
-          <h6>{{item.roomtitle}}</h6>
-        </td>
-        <td>
-          <h6>Room Number</h6>
-          <h6>{{item.roomNo}}</h6>
-        </td>
-        <td>
-          <h6>Id Card Number</h6>
-          <h6>{{item.cnic}}</h6>
-        </td>
-        <td>
-          <h6>Mobile Number</h6>
-          <h6>{{item.mobileNumber}}</h6>
-        </td>
-        <td>
-          <h6>Check-In</h6>
-          <h6>{{item.checkInDate}} ({{item.checkInTime}})</h6>
-        </td>
-        <td>
-          <h6>Check-Out</h6>
-          <h6>{{item.checkOutDate}} ({{item.checkOutTime}})</h6>
-        </td>
-      </tr>
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>
+            <mat-checkbox class="fw-bold">Select Detail</mat-checkbox>
+            Guest Name
+          </th>
+          <th>Room Type</th>
+          <th>Room Number</th>
+          <th>Id Card Number</th>
+          <th>Mobile Number</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{item.firstName}} {{item.lastName}}</td>
+          <td>{{item.roomtitle}}</td>
+          <td>{{item.roomNo}}</td>
+          <td>{{item.cnic}}</td>
+          <td>{{item.mobileNumber}}</td>
+          <td>{{item.checkInDate}} ({{item.checkInTime}})</td>
+          <td>{{item.checkOutDate}} ({{item.checkOutTime}})</td>
+        </tr>
+      </tbody>
     </table>
+
 
     <div class="mt-3 row align-top justify-content-between">
       <div class="col">
@@ -60,7 +54,9 @@
               {{obj.serviceTypeTitle}}
             </button>
           </div>
-          <div class="ms-2 plusCircle" data-bs-toggle="modal" data-bs-target="#profileModal"></div>
+          <div class="ms-2 plusCircle" (click)="getServices(item.roomBookingID)" data-bs-toggle="modal"
+            data-bs-target="#profileModal">
+          </div>
         </div>
       </div>
 
@@ -75,7 +71,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bgSecondary">
-        <h4 class="modal-title text-white">Edit Profile</h4>
+        <h4 class="modal-title text-white">Add Room Services</h4>
         <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
         <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
       </div>
@@ -83,8 +79,9 @@
         <div class="d-flex gap-1 align-items-center">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Service Type</mat-label>
-            <mat-select>
-              <mat-option></mat-option>
+            <mat-select [(ngModel)]="serviceTypeID">
+              <mat-option *ngFor="let item of serviceTypeList"
+                [value]="item.serviceTypeID">{{item.serviceTypeTitle}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
