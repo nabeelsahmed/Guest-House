@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'general-app-guest-booking-table',
   templateUrl: './guest-booking-table.component.html',
-  styleUrls: ['./guest-booking-table.component.scss']
+  styleUrls: ['./guest-booking-table.component.scss'],
 })
 export class GuestBookingTableComponent implements OnInit {
+  @Output() eventEmitter = new EventEmitter();
 
-  constructor() { }
+  tblSearch: any = '';
 
-  ngOnInit(): void {
+  tableData: any = [];
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  edit(item: any) {
+    this.eventEmitter.emit(item);
   }
-
 }
