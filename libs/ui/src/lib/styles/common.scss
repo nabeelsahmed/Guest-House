@@ -14,6 +14,7 @@
   --dark: #2a2829;
   --dark-light: #c5c1bb;
   --light: #fcf3d3;
+  --light-primary: #fcf3d3;
   --orange: #f5b121;
   --nha-orange: #1d6340;
   --darktone1: #9fa8a3;
@@ -200,6 +201,10 @@ button {
 
 .bg-light {
   background-color: var(--light);
+}
+
+.bg-light-primary {
+  background-color: var(--light-primary);
 }
 
 .bgWhite {
