@@ -83,10 +83,10 @@ export class FloorRoomConfigComponent implements OnInit {
     },
   ];
 
-
+  //variables and lists
   featureSaved = true;
   selectedBranch: number = 0;
-  userInput: number = 0;
+  userInput: any = '';
   roomList: any = [];
 
 
@@ -106,6 +106,10 @@ export class FloorRoomConfigComponent implements OnInit {
   featuresScreen: boolean = false;
   error: any = '';
 
+  selectedCompany: number = 0;
+
+
+  ////
   constructor(
 
     private global: SharedServicesGlobalDataModule,
@@ -122,6 +126,7 @@ export class FloorRoomConfigComponent implements OnInit {
     // this.getFloorRoomFeatures()
   }
 
+  //functions 
   nextFunc(): void {
     if (this.checksave === false) {
       this.next = false;
@@ -132,10 +137,16 @@ export class FloorRoomConfigComponent implements OnInit {
 
   }
   generateRows() {
-    if (this.userInput === 0) {
-      this.valid.apiInfoResponse('Rooms can not be 0');
+    // if (this.userInput === 0 || '') {
+    //   this.valid.apiInfoResponse('Rooms can not be 0');
+    // }
+    if (this.formFields[3].value === '') {
+      this.valid.apiInfoResponse('Select Branch');
     }
-    if (this.userInput > this.floorRoomSub.roomList.length) {
+    if (this.formFields[4].value === '') {
+      this.valid.apiInfoResponse('Select Floors');
+    }
+    if (this.userInput > this.floorRoomSub.roomList.length && this.formFields[3].value != '' && this.formFields[4].value != '') {
       let j = Math.abs(this.userInput - this.roomList.length)
       for (let i = 0; i < j; i++) {
         this.floorRoomSub.roomList.push({
@@ -144,25 +155,22 @@ export class FloorRoomConfigComponent implements OnInit {
         });
       }
     }
-    else {
-      this.valid.apiErrorResponse('Add Rooms')
-    }
+
   }
+
   getCompanyList() {
     this.dataService.getHttp('cmis-api/Company/getCompanyList', '').subscribe(
       (response: any[]) => {
         this.companyList = response
-        // console.log(this.companyList)
       },
       (error: any) => {
         console.log(error)
       }
     )
   }
-  selectedCompany: number = 0;
-  getBranch() {
-    if (this.selectedCompany > 0) {
-      this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=${this.selectedCompany}`, '').subscribe(
+  getBranch(item: any) {
+    if (item > 0) {
+      this.dataService.getHttp(`cmis-api/Branch/getBranchCompany?companyID=` + item, '').subscribe(
         (response: any[]) => {
           this.branchList = response
           // console.log(this.branchList)
@@ -172,13 +180,9 @@ export class FloorRoomConfigComponent implements OnInit {
         }
       )
     } else {
-      console.error('Company ID is not available in formFields[3].value');
+      this.valid.apiInfoResponse('Company Not Available');
     }
 
-  }
-
-  onCompanyChange() {
-    this.getBranch()
   }
 
   getRoomType() {
@@ -194,12 +198,9 @@ export class FloorRoomConfigComponent implements OnInit {
 
 
   getFloors() {
-    // this.getDbFloors()
     this.dataService.getHttp('guestms-api/FloorRoom/getAllFloor', '').subscribe(
       (response: any[]) => {
         this.floorsList = response
-
-
       },
       (error: any) => {
         console.log(error)
@@ -208,6 +209,52 @@ export class FloorRoomConfigComponent implements OnInit {
   }
 
 
+  getDbFloors(item1: any, item2: any) {
+    if (item1 > 0 && item2 > 0) {
+      this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRooms?branchID=${item1}&floorID=${item2}`, '').subscribe(
+        (response: any[]) => {
+          this.getRooms(item1, item2);
+          var roomList = JSON.parse(response[0].rooms)
+          if (response[0].num > 0) {
+            this.hideField = true
+            this.floorRoomSub.roomList = [];
+            for (let i = 0; i < roomList.length; i++) {
+              this.floorRoomSub.roomList.push({
+                floorRoomNo: roomList[i].floorRoomNO,
+                roomTypeID: roomList[i].roomTypeID,
+              });
+            }
+          }
+        })
+    }
+
+  }
+  getRooms(item1: any, item2: any) {
+    this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRoomsName?branchID=${item1}&floorID=${item2}`, '').subscribe(
+      (response: any[]) => {
+        this.roomsNumList = response
+
+      })
+  }
+  getFloorRoomFeatures() {
+    this.dataService.getHttp(`guestms-api/RoomFeatures/getFloorRoomFeatures`, '').subscribe(
+      (response: any[]) => {
+        this.roomFeaturesChild.roomFeatures = [];
+        for (var i = 0; i < response.length; i++) {
+          var jsonList = [];
+          jsonList = JSON.parse(response[i].roomFeatureSubTitle)
+          this.roomFeaturesChild.roomFeaturesList.push({
+            roomFeatureID: response[i].roomFeatureID,
+            roomFeatureTitle: response[i].roomFeatureTitle,
+            status: 0,
+            roomFeatureJson: jsonList
+          })
+        }
+        // console.log(this.roomFeaturesChild.roomFeatures);
+
+      }
+    );
+  }
 
   save() {
     // this.formFields[4].value = 2
@@ -242,73 +289,6 @@ export class FloorRoomConfigComponent implements OnInit {
     );
   }
 
-  reset() {
-    this.formFields = this.valid.resetFormFields(this.formFields);
-    this.formFields[0].value = '0';
-  }
-
-
-  onDbChange() {
-    this.getDbFloors()
-    this.getRooms()
-  }
-
-  getDbFloors() {
-    this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRooms?branchID=${this.formFields[3].value}&floorID=${this.formFields[4].value}`, '').subscribe(
-      (response: any[]) => {
-        // console.log(response);
-        var roomList = JSON.parse(response[0].rooms)
-        // this.floorRoomSub.roomType = response[0].rooms
-        if (response[0].num > 0) {
-          this.hideField = true
-          this.floorRoomSub.roomList = [];
-          for (let i = 0; i < roomList.length; i++) {
-            this.floorRoomSub.roomList.push({
-              floorRoomNo: roomList[i].floorRoomNO,
-              roomTypeID: roomList[i].roomTypeID,
-            });
-          }
-        }
-      })
-  }
-
-
-
-  getRooms() {
-    this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRoomsName?branchID=${this.formFields[3].value}&floorID=${this.formFields[4].value}`, '').subscribe(
-      (response: any[]) => {
-        // console.log('------', response);
-        this.roomsNumList = response
-
-      })
-  }
-
-  featureChange() {
-    this.getFloorRoomFeatures()
-  }
-
-  getFloorRoomFeatures() {
-    this.dataService.getHttp(`guestms-api/RoomFeatures/getFloorRoomFeatures`, '').subscribe(
-      (response: any[]) => {
-
-        this.roomFeaturesChild.roomFeatures = [];
-
-        for (var i = 0; i < response.length; i++) {
-          var jsonList = [];
-          jsonList = JSON.parse(response[i].roomFeatureSubTitle)
-
-          this.roomFeaturesChild.roomFeaturesList.push({
-            roomFeatureID: response[i].roomFeatureID,
-            roomFeatureTitle: response[i].roomFeatureTitle,
-            status: 0,
-            roomFeatureJson: jsonList
-          })
-        }
-        console.log(this.roomFeaturesChild.roomFeatures);
-
-      }
-    );
-  }
 
   saveFeatures() {
     this.formFields[5].value = JSON.stringify(this.roomFeaturesChild.roomFeaturesList);
@@ -335,6 +315,10 @@ export class FloorRoomConfigComponent implements OnInit {
     );
   }
 
+  reset() {
+    this.formFields = this.valid.resetFormFields(this.formFields);
+    this.formFields[0].value = '0';
+  }
 
 }
 

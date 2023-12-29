@@ -1,10 +1,10 @@
-<div class="mx-5 mt-3">
+<div class="mx-4">
     <div class="row">
         <!---left col dropdowns--->
-        <div class="col-3 px-2 border-end ">
-            <mat-form-field class="w-100 " appearance="outline">
+        <div class="col-md-3 border-3 border-dark border-end">
+            <mat-form-field class="w-100 mt-3" appearance="outline">
                 <mat-label>Select company</mat-label>
-                <mat-select [(ngModel)]="selectedCompany" (ngModelChange)="onCompanyChange()">
+                <mat-select [(ngModel)]="selectedCompany" (ngModelChange)="getBranch(selectedCompany)">
                     <mat-option *ngFor="let item of companyList"
                         [value]="item.company_id">{{item.company_name}}</mat-option>
                 </mat-select>
@@ -16,52 +16,45 @@
                         [value]="item.branch_id">{{item.branch_name}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <div class=" align-items-center">
+            <div>
                 <mat-form-field class="w-50 pe-1 " appearance="outline">
                     <mat-label>Floors</mat-label>
-                    <mat-select [(ngModel)]="this.formFields[4].value" (ngModelChange)="onDbChange()">
+                    <mat-select [(ngModel)]="this.formFields[4].value"
+                        (ngModelChange)="getDbFloors(this.formFields[3].value,this.formFields[4].value)">
                         <mat-option *ngFor="let item of floorsList" [value]="item.floorID">{{item.floorNo}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <!----------->
                 <ng-container *ngIf="next === false">
                     <mat-form-field class="w-50 ps-1 " appearance="outline">
-                        <input matInput [(ngModel)]="userInput">
+                        <input matInput [(ngModel)]="userInput" [disabled]="hideField">
                     </mat-form-field>
                 </ng-container>
                 <!----------->
                 <ng-container *ngIf=" next===true">
-
                     <mat-form-field class="w-50 pe-1 " appearance="outline">
-                        <mat-select [(ngModel)]="this.formFields[0].value" (ngModelChange)="featureChange()">
+                        <mat-select [(ngModel)]="this.formFields[0].value" (ngModelChange)="getFloorRoomFeatures()">
                             <mat-option *ngFor="let item of roomsNumList"
                                 [value]="item.floorRoomID">{{item.floorRoomNo}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </ng-container>
 
-
-
             </div>
 
-            <div class="d-flex flex-row justify-content-end">
-
-                <ng-container *ngIf="hideField===false">
-                    <button mat-button class=" fw-bold fs-6 saveBtn mat-elevation-z4 w-25 fw-bold  rounded-2 me-3 "
-                        mat-button (click)="generateRows()">
-                        Add
-                    </button>
-                </ng-container>
+            <div class="d-flex justify-content-end" *ngIf="hideField===false">
+                <button mat-button class=" saveBtn mat-elevation-z1 w-25 rounded-2  " mat-button
+                    (click)="generateRows()">
+                    Add
+                </button>
             </div>
 
         </div>
 
-
-
         <!---rol col dropdowns--->
-        <div class="col-9">
+        <div class="col-md-9">
             <ng-container>
-                <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-row justify-content-between mt-3">
                     <h3 class=" fw-bold ">Add Room Details</h3>
                     <div>
                         <ng-container *ngIf="next === false">
@@ -73,7 +66,6 @@
                             </button>
                         </ng-container>
                         <ng-container *ngIf="next === true">
-
                             <button mat-button
                                 class="fw-bold fs-6 justify-content-center align-content-center  resetBtn mat-elevation-z3 rounded-2 ms-2"
                                 data-bs-toggle="modal" data-bs-target="#addRoomServices">
@@ -95,7 +87,7 @@
                                 Save
                             </button>
                         </ng-container>
-                        <button mat-button
+                        <button mat-button *ngIf="next === false"
                             class="fw-bold fs-6 justify-content-center align-content-center bg-warning text-dark  saveBtn mat-elevation-z3 rounded-2 ms-2"
                             (click)="nextFunc()">
                             Next

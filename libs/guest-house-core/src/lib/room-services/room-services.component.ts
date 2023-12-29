@@ -251,37 +251,6 @@ export class RoomServicesComponent implements OnInit {
           });
   }
 
-
-  // {
-  //   "serviceTypeID": 1,
-  //   "serviceDate": null,
-  //   "serviceTypeTitle": "Food",
-  //   "serviceQuantity": 0,
-  //   "serviceID": 1,
-  //   "serviceTitle": "Breakfast",
-  //   "amount": 1000,
-  //   "serviceParentID": 0,
-  //   "serviceParentTitle": null,
-  //   "measurementUnitID": 2,
-  //   "measurementUnitTitle": "Kg",
-  //   "branch_id": 3,
-  //   "branch_name": "H-8",
-  //   "company_id": 1,
-  //   "company_name": "Aims"
-  // }
-
-  //   serviceID: '0', //0
-  //   spType: '', //1
-  //   userID: '', //2
-  //   serviceParentID: '', //3
-  //   serviceTypeID: '', //4
-  //   serviceTitle: '', //5
-  //   branch_id: '',//6
-  //   serviceCharges: '', //7
-  //   measurementUnitID: '', //8
-  //   serviceImagePath: '', //9
-  //   serviceImageExt: '', //10
-
   edit(item: any) {
     this.getParentType(this.formFields[6].value, this.formFields[4].value)
     this.formFields[0].value = item.serviceID;

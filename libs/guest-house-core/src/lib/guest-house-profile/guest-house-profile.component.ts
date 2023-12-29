@@ -67,12 +67,14 @@ export class GuestHouseProfileComponent implements OnInit {
   servicesList: any[] = [];
   serviceTypeList: any[] = [];
   serviceTypeID: any = "";
+  roomBookingId: any = "";
+  // roomservicesList: any[] = [];
 
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.global.setHeaderTitle("Guest Profile");
     this.formFields[2].value = this.global.getUserId().toString();
@@ -147,16 +149,48 @@ export class GuestHouseProfileComponent implements OnInit {
   }
 
   // Service/getRoomServices(int roomBookingID)
+
+  // {
+  //   "roomServiceID": 10,
+  //   "roomBookingID": 3,
+  //   "serviceTypeID": 2,
+  //   "serviceType": "Vehicle",
+  //   "serviceID": 7,
+  //   "serviceTitle": "Bike",
+  //   "quantity": 3,
+  //   "amount": 3000
+  // }
+
+
+  // {
+  //   "roomServiceID": 10,
+  //   "roomBookingID": 3,
+  //   "serviceTypeID": 2,
+  //   "serviceType": "Vehicle",
+  //   "serviceID": 7,
+  //   "serviceTitle": "Bike",
+  //   "quantity": 3,
+  //   "amount": 3000
+  // }
+
   getServices(item: any) {
     this.dataService
       .getHttp(`guestms-api/Service/getRoomServices?roomBookingID=${item}`, "")
       .subscribe(
         (response: any) => {
-          console.log(response);
+          this.servicesList = response
+          console.log(response)
         },
         (error: any) => {
           console.log(error);
         }
       );
   }
+
+
+
+
+
+
+
 }
