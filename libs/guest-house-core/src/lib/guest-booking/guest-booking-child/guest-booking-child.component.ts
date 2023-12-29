@@ -23,9 +23,10 @@ export class GuestBookingChildComponent implements OnInit {
     partyID: '', //3
     roomJson: '', //4
     checkIn: '', //5
-    checkinTime: '', //6
-    transactionType: '', //7
-    reservationStatus: '', //8
+    checkOut: '', //6
+    checkinTime: '', //7
+    transactionType: '', //8
+    reservationStatus: '', //9
   };
 
   formFields: MyFormField[] = [
@@ -66,6 +67,12 @@ export class GuestBookingChildComponent implements OnInit {
       required: true,
     },
     {
+      value: this.pageFields.checkOut,
+      msg: 'enter check out date',
+      type: 'hidden',
+      required: true,
+    },
+    {
       value: this.pageFields.checkinTime,
       msg: 'enter check in time',
       type: 'hidden',
@@ -95,11 +102,13 @@ export class GuestBookingChildComponent implements OnInit {
   roomTypeList: any = [];
   tempFloorRoomList: any = [];
   floorRoomList: any = [];
+  featureList: any = [];
 
   ngOnInit(): void {
     this.formFields[2].value = this.global.getUserId().toString();
 
     this.getRoomType();
+    this.getRoomFeatures();
   }
 
   getRoomType() {
@@ -113,63 +122,12 @@ export class GuestBookingChildComponent implements OnInit {
     );
   }
 
-  getRoomAvailability(item: any) {
+  getRoomFeatures() {
     this.dataService
-      .getHttp(
-        'guestms-api/FloorRoom/getRoomAvailability?branchID=3&roomTypeID=' +
-          item,
-        ''
-      )
+      .getHttp('guestms-api/RoomFeatures/getRoomFeatures', '')
       .subscribe(
         (response: any) => {
-          this.floorRoomList = [];
-          for (var i = 0; i < response.length; i++) {
-            var count = 0;
-            var tempList: any = [];
-            for (var j = 0; j < response.length; j++) {
-              if (response[i].floorID == response[j].floorID) {
-                var status = 0;
-                if (this.tempFloorRoomList.length > 0) {
-                  for (var k = 0; k < this.tempFloorRoomList.length; k++) {
-                    if (
-                      response[j].floorRoomID ==
-                      this.tempFloorRoomList[k].floorRoomID
-                    ) {
-                      status = 1;
-                    }
-                  }
-                }
-
-                tempList.push({
-                  floorRoomID: response[j].floorRoomID,
-                  floorRoomNo: response[j].floorRoomNo,
-                  status: status,
-                  availability: response[j].availability,
-                });
-                count++;
-              }
-            }
-            if (this.floorRoomList.length == 0) {
-              this.floorRoomList.push({
-                floorID: response[i].floorID,
-                floorNo: response[i].floorNo,
-                jsonList: tempList,
-                roomCount: count,
-              });
-            } else {
-              var data = this.floorRoomList.filter(
-                (x: any) => x.floorID == response[i].floorID
-              );
-              if (data.length == 0) {
-                this.floorRoomList.push({
-                  floorID: response[i].floorID,
-                  floorNo: response[i].floorNo,
-                  jsonList: tempList,
-                  roomCount: count,
-                });
-              }
-            }
-          }
+          this.featureList = response;
         },
         (error: any) => {
           console.log(error);
@@ -177,12 +135,202 @@ export class GuestBookingChildComponent implements OnInit {
       );
   }
 
+  getRoomAvailability(roomTypeID: any, checkIn: any, checkOut: any) {
+    // if (this.formFields[0].value == '0') {
+    if (roomTypeID != '' && checkIn != '' && checkOut != '') {
+      var jsonList: any = [];
+
+      for (var i = 0; i < this.featureList.length; i++) {
+        if (this.featureList[i].status == 1) {
+          jsonList.push(this.featureList[i].roomFeatureID);
+        }
+      }
+
+      this.dataService
+        .getHttp(
+          'guestms-api/FloorRoom/getRoomAvailability?branchID=3&roomTypeID=' +
+            roomTypeID +
+            '&checkIn=' +
+            this.datePipe.transform(checkIn, 'yyyy-MM-dd') +
+            '&checkOut=' +
+            this.datePipe.transform(checkIn, 'yyyy-MM-dd') +
+            '&jsonFeatures=' +
+            JSON.stringify(jsonList),
+          ''
+        )
+        .subscribe(
+          (response: any) => {
+            console.log(response);
+            this.floorRoomList = [];
+            for (var i = 0; i < response.length; i++) {
+              var count = 0;
+              var tempList: any = [];
+              for (var j = 0; j < response.length; j++) {
+                if (response[i].floorID == response[j].floorID) {
+                  var status = 0;
+                  if (this.tempFloorRoomList.length > 0) {
+                    for (var k = 0; k < this.tempFloorRoomList.length; k++) {
+                      if (
+                        response[j].floorRoomID ==
+                        this.tempFloorRoomList[k].floorRoomID
+                      ) {
+                        status = 1;
+                      }
+                    }
+                  }
+
+                  tempList.push({
+                    floorRoomID: response[j].floorRoomID,
+                    floorRoomNo: response[j].floorRoomNo,
+                    status: status,
+                    availability: response[j].availability,
+                  });
+                  count++;
+                }
+              }
+              if (this.floorRoomList.length == 0) {
+                this.floorRoomList.push({
+                  floorID: response[i].floorID,
+                  floorNo: response[i].floorNo,
+                  jsonList: tempList,
+                  roomCount: count,
+                });
+              } else {
+                var data = this.floorRoomList.filter(
+                  (x: any) => x.floorID == response[i].floorID
+                );
+                if (data.length == 0) {
+                  this.floorRoomList.push({
+                    floorID: response[i].floorID,
+                    floorNo: response[i].floorNo,
+                    jsonList: tempList,
+                    roomCount: count,
+                  });
+                }
+              }
+            }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+    }
+    // } else {
+    //   this.dataService
+    //     .getHttp(
+    //       'guestms-api/RoomBooking/getGuestBookedRooms?partyID=' +
+    //         this.formFields[3].value +
+    //         '&checkIn=' +
+    //         this.datePipe.transform(this.formFields[5].value, 'yyyy-MM-dd') +
+    //         '&checkOut=' +
+    //         this.datePipe.transform(this.formFields[6].value, 'yyyy-MM-dd') +
+    //         '&branchID=3&reservationStatus=' +
+    //         this.formFields[10].value +
+    //         '&roomTypeID=' +
+    //         roomTypeID +
+    //         '&roomBookingID=' +
+    //         this.formFields[0].value,
+    //       ''
+    //     )
+    //     .subscribe(
+    //       (response: any) => {
+    //         this.floorRoomList = [];
+    //         for (var i = 0; i < response.length; i++) {
+    //           var count = 0;
+    //           var tempList: any = [];
+
+    //           for (var j = 0; j < response.length; j++) {
+    //             if (response[i].floorID == response[j].floorID) {
+    //               var status = 0;
+    //               if (response[j].status == 0) {
+    //                 if (this.tempFloorRoomList.length > 0) {
+    //                   for (var k = 0; k < this.tempFloorRoomList.length; k++) {
+    //                     if (
+    //                       response[j].floorRoomID ==
+    //                       this.tempFloorRoomList[k].floorRoomID
+    //                     ) {
+    //                       status = 1;
+    //                     }
+    //                   }
+    //                 }
+    //               } else {
+    //                 status = response[j].status;
+
+    //                 if (this.tempFloorRoomList.length == 0) {
+    //                   this.tempFloorRoomList.push({
+    //                     floorRoomID: response[j].floorRoomID,
+    //                     status: 1,
+    //                   });
+    //                 } else {
+    //                   var found = false;
+
+    //                   for (var m = 0; m < this.tempFloorRoomList.length; m++) {
+    //                     if (
+    //                       this.tempFloorRoomList[m].floorRoomID ==
+    //                       response[j].floorRoomID
+    //                     ) {
+    //                       found = true;
+    //                       m = this.tempFloorRoomList.length + 1;
+    //                     }
+    //                   }
+
+    //                   if (found == false) {
+    //                     this.tempFloorRoomList.push({
+    //                       floorRoomID: response[j].floorRoomID,
+    //                       status: 1,
+    //                     });
+    //                   }
+    //                 }
+    //               }
+
+    //               tempList.push({
+    //                 floorRoomID: response[j].floorRoomID,
+    //                 floorRoomNo: response[j].floorRoomNo,
+    //                 status: status,
+    //                 availability: response[j].availability,
+    //               });
+    //               count++;
+    //             }
+    //           }
+    //           if (this.floorRoomList.length == 0) {
+    //             this.floorRoomList.push({
+    //               floorID: response[i].floorID,
+    //               floorNo: response[i].floorNo,
+    //               jsonList: tempList,
+    //               roomCount: count,
+    //             });
+    //           } else {
+    //             var data = this.floorRoomList.filter(
+    //               (x: any) => x.floorID == response[i].floorID
+    //             );
+    //             if (data.length == 0) {
+    //               this.floorRoomList.push({
+    //                 floorID: response[i].floorID,
+    //                 floorNo: response[i].floorNo,
+    //                 jsonList: tempList,
+    //                 roomCount: count,
+    //               });
+    //             }
+    //           }
+    //         }
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
+    // }
+  }
+
   addRoom(obj: any) {
     if (obj.status == 0) {
       obj.status = 1;
 
+      var data = this.featureList.filter((x: any) => x.status == 1);
+
       this.tempFloorRoomList.push({
         floorRoomID: obj.floorRoomID,
+        floorRoomNo: obj.floorRoomNo,
+        jsonFeatures: data,
         status: 1,
       });
     } else {
@@ -196,7 +344,7 @@ export class GuestBookingChildComponent implements OnInit {
           index = i;
         }
       }
-      if ((found = true)) {
+      if (found == true) {
         this.tempFloorRoomList.splice(index, 1);
       }
     }
@@ -212,7 +360,12 @@ export class GuestBookingChildComponent implements OnInit {
       'yyyy-MM-dd'
     );
 
-    this.formFields[8].value = 'reserved';
+    this.formFields[6].value = this.datePipe.transform(
+      this.formFields[6].value,
+      'yyyy-MM-dd'
+    );
+
+    this.formFields[9].value = 'reserved';
 
     if (this.tempFloorRoomList.length > 0) {
       this.formFields[4].value = JSON.stringify(this.tempFloorRoomList);
@@ -244,5 +397,9 @@ export class GuestBookingChildComponent implements OnInit {
     this.formFields[0].value = '0';
 
     this.guestInfo.resetAll();
+    this.tempFloorRoomList = [];
+    this.cmbRoomType = '';
+    this.floorRoomList = [];
+    this.getRoomFeatures();
   }
 }

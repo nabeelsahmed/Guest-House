@@ -10,4 +10,5 @@ export class GuestInterface {
   checkOut? = '';
   checkinTime? = '';
   checkoutTime? = '';
+  roomBookingDetailID? = '';
 }
