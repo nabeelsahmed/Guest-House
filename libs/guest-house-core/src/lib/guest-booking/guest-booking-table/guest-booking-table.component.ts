@@ -7,6 +7,8 @@ import {
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 
+
+declare var $: any;
 @Component({
   selector: 'general-app-guest-booking-table',
   templateUrl: './guest-booking-table.component.html',
@@ -16,16 +18,15 @@ export class GuestBookingTableComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
 
   cmbServiceType: any = '';
-
   tblSearch: any = '';
 
   pageFields: GuestProfileInterface = {
     roomServiceID: '0', //0
     spType: '', //1
-    userID: '0', //2
-    roomBookingID: '0', //3
-    serviceID: '0', //4
-    serviceQuantity: '0', //5
+    userID: '', //2
+    roomBookingDetailID: '', //3
+    serviceID: '', //4
+    serviceQuantity: '', //5
   };
 
   formFields: MyFormField[] = [
@@ -48,7 +49,7 @@ export class GuestBookingTableComponent implements OnInit {
       required: false,
     },
     {
-      value: this.pageFields.roomBookingID,
+      value: this.pageFields.roomBookingDetailID,
       msg: '',
       type: 'hidden',
       required: false,
@@ -62,37 +63,114 @@ export class GuestBookingTableComponent implements OnInit {
     {
       value: this.pageFields.serviceQuantity,
       msg: '',
-      type: 'hidden',
-      required: false,
+      type: 'textbox',
+      required: true,
     },
   ];
 
   tableData: any = [];
   servicesList: any = [];
-  serviceTypeList: any = [];
+  serviceTitleList: any = [];
 
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formFields[2].value = this.global.getUserId().toString();
+    // this.getServiceType()
+  }
 
-  getServices(item: any) {
+
+
+  getGuestServiceType() {
     this.dataService
-      .getHttp(`guestms-api/Service/getRoomServices?roomBookingID=${item}`, '')
+      .getHttp(`guestms-api/Service/getGuestServiceType`, '')
       .subscribe(
         (response: any) => {
           this.servicesList = response;
-          console.log(response);
+          console.log(this.servicesList);
         },
         (error: any) => {
           console.log(error);
         }
       );
+
   }
 
+
+
+  getServices(item: any) {
+    this.dataService
+      .getHttp(`guestms-api/Service/getServices?branchID=3&serviceTypeID=` + item, '')
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.serviceTitleList = response;
+        })
+  }
+
+
+  save() {
+    this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveRoomServices').subscribe(
+      (response: any[]) => {
+        if (response[0].includes('Success') == true) {
+          if (this.formFields[0].value > 0) {
+            this.valid.apiInfoResponse('Saved Successfully');
+          } else {
+            this.valid.apiInfoResponse('Service Added Successfully');
+          }
+        }
+      })
+  }
+
+  // {
+  //   "serviceTypeID": 0,
+  //   "serviceBookingDate": null,
+  //   "serviceTypeTitle": null,
+  //   "serviceQuantity": 0,
+  //   "serviceID": 7,
+  //   "serviceTitle": "Bike",
+  //   "amount": 1000,
+  //   "serviceParentID": 0,
+  //   "serviceParentTitle": null,
+  //   "measurementUnitID": 1,
+  //   "measurementUnitTitle": "Km",
+  //   "branch_id": 3,
+  //   "branch_name": "H-8",
+  //   "company_id": 1,
+  //   "company_name": "Aims"
+  // }
+
+  // roomServiceID: '0', //0
+  // spType: '', //1
+  // userID: '0', //2
+  // roomBookingDetailID: '0', //3
+  // serviceID: '0', //4
+  // serviceQuantity: '0', //5
+
+  editTable(item: any): void {
+    this.formFields[4].value = item.serviceID
+    this.formFields[5].value = item.serviceQuantity
+  };
+
+
+
+
+  reset() {
+    this.formFields = this.valid.resetFormFields(this.formFields);
+    this.formFields[0].value = '0';
+  }
+
+
+
+
+
+
+
+  //
   edit(item: any) {
     this.eventEmitter.emit(item);
   }

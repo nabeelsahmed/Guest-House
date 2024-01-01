@@ -18,7 +18,7 @@ export class GuestHouseProfileComponent implements OnInit {
     roomServiceID: "0", //0
     spType: "", //1
     userID: "0", //2
-    roomBookingID: "0", //3
+    roomBookingDetailID: "0", //3
     serviceID: "0", //4
     serviceQuantity: "0", //5
   };
@@ -43,7 +43,7 @@ export class GuestHouseProfileComponent implements OnInit {
       required: false,
     },
     {
-      value: this.pageFields.roomBookingID,
+      value: this.pageFields.roomBookingDetailID,
       msg: "",
       type: "hidden",
       required: false,
