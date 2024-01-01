@@ -2,11 +2,15 @@
   <div class="ms-5 me-5">
     <!------Search and Add Guest Field------->
 
-    <div class="d-flex justify-content-between align-items-center mt-2" *ngIf="tableData.length != 0">
+    <div
+      class="d-flex justify-content-between align-items-center mt-2"
+      *ngIf="tableData.length != 0"
+    >
       <mat-form-field class="w-25 h-25" appearance="outline">
         <mat-label>
           <i class="pi pi-search"></i>
-          Search</mat-label>
+          Search</mat-label
+        >
         <input matInput placeholder="Search" />
       </mat-form-field>
 
@@ -16,7 +20,10 @@
     </div>
     <!-------Guest Details-------->
 
-    <div class="mt-3 mb-3 rounded-2 pt-3 px-3 pb-3 bg-white" *ngFor="let item of tableData">
+    <div
+      class="mt-3 mb-3 rounded-2 pt-3 px-3 pb-3 bg-white"
+      *ngFor="let item of tableData"
+    >
       <div class="d-flex justify-content-end">
         <div class="editIcon" (click)="edit(item)"></div>
       </div>
@@ -53,20 +60,28 @@
         <div class="col">
           <div class="d-flex align-items-center">
             <h5 class="mt-2 text-black">Services</h5>
-            <!-- <button
+            <button
               mat-button
-              class="resetBtn rounded-2 border-0 fs-6 ms-2 mat-elevation-z1"
+              class="resetBtn rounded-2 ms-2 mat-elevation-z1"
+              (click)="menuVisible(item)"
             >
               Food
-            </button> -->
+            </button>
             <div *ngFor="let obj of item.jsonList">
-              <button mat-button class="resetBtn rounded-2 border-0 fs-6 ms-2 mat-elevation-z1">
+              <button
+                mat-button
+                class="resetBtn rounded-2 ms-2 mat-elevation-z1"
+              >
                 {{ obj.serviceTypeTitle }}
               </button>
             </div>
-            <div class="ms-2 plusCircle" data-bs-toggle="modal" data-bs-target="#profileModal"
-              (click)="getGuestServiceType()" (click)="this.formFields[3].value = item.roomBookingDetailID">
-            </div>
+            <div
+              class="ms-2 plusCircle"
+              data-bs-toggle="modal"
+              data-bs-target="#profileModal"
+              (click)="getGuestServiceType()"
+              (click)="this.formFields[3].value = item.roomBookingDetailID"
+            ></div>
           </div>
         </div>
       </div>
@@ -74,7 +89,12 @@
   </div>
 
   <!-------Modal------->
-  <div id="profileModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+  <div
+    id="profileModal"
+    class="modal fade"
+    role="dialog"
+    data-bs-backdrop="false"
+  >
     <div class="modal-dialog modal-lg mat-elevation-z20">
       <!-- Modal content-->
       <div class="modal-content">
@@ -87,27 +107,43 @@
           <div class="d-flex gap-1 align-items-center">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Service Type</mat-label>
-              <mat-select [(ngModel)]="cmbServiceType" (ngModelChange)="getServices(cmbServiceType)">
-                <mat-option *ngFor="let item of servicesList" [value]="item.serviceTypeID">{{ item.serviceTypeTitle
-                  }}</mat-option>
+              <mat-select
+                [(ngModel)]="cmbServiceType"
+                (ngModelChange)="getServices(cmbServiceType)"
+              >
+                <mat-option
+                  *ngFor="let item of servicesList"
+                  [value]="item.serviceTypeID"
+                  >{{ item.serviceTypeTitle }}</mat-option
+                >
               </mat-select>
             </mat-form-field>
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Service Title</mat-label>
               <mat-select [(ngModel)]="this.formFields[4].value">
-                <mat-option *ngFor="let item of serviceTitleList" [value]="item.serviceID">{{ item.serviceTitle
-                  }}</mat-option>
+                <mat-option
+                  *ngFor="let item of serviceTitleList"
+                  [value]="item.serviceID"
+                  >{{ item.serviceTitle }}</mat-option
+                >
               </mat-select>
             </mat-form-field>
             <mat-form-field class="w-100" appearance="outline">
               <mat-label> Quantity </mat-label>
               <input matInput [(ngModel)]="this.formFields[5].value" />
             </mat-form-field>
-            <button mat-button class="saveBtn rounded-2 ms-3 mat-elevation-z3" (click)="save()">
+            <button
+              mat-button
+              class="saveBtn rounded-2 ms-3 mat-elevation-z3"
+              (click)="save()"
+            >
               Add
             </button>
           </div>
-          <perfect-scrollbar class="bg-light-grey mb-3" style="height: 12em; max-width: 100%">
+          <perfect-scrollbar
+            class="bg-light-grey mb-3"
+            style="height: 12em; max-width: 100%"
+          >
             <table class="table table-sm border-1 border-dark">
               <thead class="bg-black text-white">
                 <tr>
@@ -121,9 +157,9 @@
               <tbody>
                 <tr *ngFor="let item of serviceTitleList">
                   <!-- <td>{{item.serviceTypeTitle}}</td> -->
-                  <td>{{item.serviceTitle}}</td>
-                  <td>{{item.measurementUnitTitle}}</td>
-                  <td>{{item.amount}}</td>
+                  <td>{{ item.serviceTitle }}</td>
+                  <td>{{ item.measurementUnitTitle }}</td>
+                  <td>{{ item.amount }}</td>
                   <td>
                     <div (click)="editTable(item)" class="editIcon"></div>
                   </td>

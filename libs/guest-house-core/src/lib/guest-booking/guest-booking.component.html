@@ -2,6 +2,7 @@
 <mat-tab-group
   [selectedIndex]="index"
   (selectedIndexChange)="changeTabHeader($event)"
+  *ngIf="visible == false"
 >
   <mat-tab label="Room Booking">
     <perfect-scrollbar class="bg-light-grey" style="height: 39em">
@@ -265,11 +266,13 @@
     <perfect-scrollbar class="bg-light-grey" style="height: 40em">
       <general-app-guest-booking-table
         (eventEmitter)="edit($event)"
+        (eventEmitterMenu)="menuVisible($event)"
       ></general-app-guest-booking-table>
     </perfect-scrollbar>
   </mat-tab>
 </mat-tab-group>
 
+<general-app-menu-items *ngIf="visible == true"></general-app-menu-items>
 <!-------Modal------->
 <div
   id="reservedRoomModal"

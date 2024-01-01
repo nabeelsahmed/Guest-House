@@ -21,6 +21,7 @@ export class GuestBookingComponent implements OnInit {
 
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  visible: any = false;
   chkCheck: any;
   tblReservedSearch: any = '';
   index: any = 0;
@@ -707,5 +708,10 @@ export class GuestBookingComponent implements OnInit {
         this.reservedList.splice(index, 1);
       }
     }
+  }
+
+  menuVisible(item: any) {
+    console.log(item);
+    this.visible = true;
   }
 }

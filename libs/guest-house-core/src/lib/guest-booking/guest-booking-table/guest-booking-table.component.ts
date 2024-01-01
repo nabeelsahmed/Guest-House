@@ -7,7 +7,6 @@ import {
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 
-
 declare var $: any;
 @Component({
   selector: 'general-app-guest-booking-table',
@@ -16,6 +15,7 @@ declare var $: any;
 })
 export class GuestBookingTableComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
+  @Output() eventEmitterMenu = new EventEmitter();
 
   cmbServiceType: any = '';
   tblSearch: any = '';
@@ -76,14 +76,12 @@ export class GuestBookingTableComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formFields[2].value = this.global.getUserId().toString();
     // this.getServiceType()
   }
-
-
 
   getGuestServiceType() {
     this.dataService
@@ -97,25 +95,28 @@ export class GuestBookingTableComponent implements OnInit {
           console.log(error);
         }
       );
-
   }
-
-
 
   getServices(item: any) {
     this.dataService
-      .getHttp(`guestms-api/Service/getServices?branchID=3&serviceTypeID=` + item, '')
-      .subscribe(
-        (response: any) => {
-          console.log(response);
-          this.serviceTitleList = response;
-        })
+      .getHttp(
+        `guestms-api/Service/getServices?branchID=3&serviceTypeID=` + item,
+        ''
+      )
+      .subscribe((response: any) => {
+        console.log(response);
+        this.serviceTitleList = response;
+      });
   }
 
-
   save() {
-    this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveRoomServices').subscribe(
-      (response: any[]) => {
+    this.dataService
+      .savetHttp(
+        this.pageFields,
+        this.formFields,
+        'guestms-api/Service/saveRoomServices'
+      )
+      .subscribe((response: any[]) => {
         if (response[0].includes('Success') == true) {
           if (this.formFields[0].value > 0) {
             this.valid.apiInfoResponse('Saved Successfully');
@@ -123,55 +124,24 @@ export class GuestBookingTableComponent implements OnInit {
             this.valid.apiInfoResponse('Service Added Successfully');
           }
         }
-      })
+      });
   }
 
-  // {
-  //   "serviceTypeID": 0,
-  //   "serviceBookingDate": null,
-  //   "serviceTypeTitle": null,
-  //   "serviceQuantity": 0,
-  //   "serviceID": 7,
-  //   "serviceTitle": "Bike",
-  //   "amount": 1000,
-  //   "serviceParentID": 0,
-  //   "serviceParentTitle": null,
-  //   "measurementUnitID": 1,
-  //   "measurementUnitTitle": "Km",
-  //   "branch_id": 3,
-  //   "branch_name": "H-8",
-  //   "company_id": 1,
-  //   "company_name": "Aims"
-  // }
-
-  // roomServiceID: '0', //0
-  // spType: '', //1
-  // userID: '0', //2
-  // roomBookingDetailID: '0', //3
-  // serviceID: '0', //4
-  // serviceQuantity: '0', //5
-
   editTable(item: any): void {
-    this.formFields[4].value = item.serviceID
-    this.formFields[5].value = item.serviceQuantity
-  };
-
-
-
+    this.formFields[4].value = item.serviceID;
+    this.formFields[5].value = item.serviceQuantity;
+  }
 
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
   }
 
-
-
-
-
-
-
-  //
   edit(item: any) {
     this.eventEmitter.emit(item);
+  }
+
+  menuVisible(item: any) {
+    this.eventEmitterMenu.emit(item);
   }
 }
