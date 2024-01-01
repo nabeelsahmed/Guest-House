@@ -9,6 +9,7 @@ import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 import { GuestInfoComponent } from './guest-info/guest-info.component';
 import { GuestBookingTableComponent } from './guest-booking-table/guest-booking-table.component';
+import { MenuItemsComponent } from '../menu-items/menu-items.component';
 declare var $: any;
 
 @Component({
@@ -711,7 +712,9 @@ export class GuestBookingComponent implements OnInit {
   }
 
   menuVisible(item: any) {
-    console.log(item);
+    // console.log(item);
     this.visible = true;
+
+    this.global.setRoomBookingDetail(item);
   }
 }

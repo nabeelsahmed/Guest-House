@@ -20,6 +20,8 @@ export class SharedServicesGlobalDataModule {
   private _headerTitleSource = new Subject<string>();
   header_title$ = this._headerTitleSource.asObservable();
 
+  private roomBookingDetail$$ = new BehaviorSubject<any>([]);
+
   private isLoading$$ = new BehaviorSubject<boolean>(false);
   isLoading$ = this.isLoading$$.asObservable();
 
@@ -38,9 +40,18 @@ export class SharedServicesGlobalDataModule {
     this._headerTitleSource.next(title);
   }
 
+  setRoomBookingDetail(value: any) {
+    this.roomBookingDetail$$.next(value);
+  }
+
+  getRoomBookingDetail(): Observable<any> {
+    return this.roomBookingDetail$$.asObservable();
+  }
+
   setLoadingIndicator(value: boolean) {
     this.isLoading$$.next(value);
   }
+
   setTransation(value: string) {
     this._freeTransationID.next(value);
   }

@@ -3,6 +3,7 @@ import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 import { MyFormField, MenuItemsInterface } from '@general-app/shared/interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'general-app-menu-items',
@@ -10,8 +11,6 @@ import { MyFormField, MenuItemsInterface } from '@general-app/shared/interface';
   styleUrls: ['./menu-items.component.scss'],
 })
 export class MenuItemsComponent implements OnInit {
-
-
   lblTotal: any = 0;
   itemList: any = [];
   tableData: any = [];
@@ -27,45 +26,56 @@ export class MenuItemsComponent implements OnInit {
 
   formFields: MyFormField[] = [
     {
-      value: this.pageFields.roomServiceID, //0
+      value: this.pageFields.roomServiceID,
       msg: '',
       type: 'hidden',
       required: false,
     },
     {
-      value: this.pageFields.spType, //1
+      value: this.pageFields.spType,
       msg: '',
       type: 'hidden',
       required: false,
     },
     {
-      value: this.pageFields.userID, //2
+      value: this.pageFields.userID,
       msg: '',
       type: 'hidden',
       required: false,
     },
     {
-      value: this.pageFields.roomBookingDetailID, //3
+      value: this.pageFields.roomBookingDetailID,
       msg: '',
       type: 'hidden',
       required: false,
     },
     {
-      value: this.pageFields.json, //4
-      msg: '',
-      type: '',
-      required: false,
+      value: this.pageFields.json,
+      msg: 'select menu items',
+      type: 'json',
+      required: true,
     },
   ];
+
+  clickEventSubscription: Subscription;
 
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {
+    this.clickEventSubscription = this.global
+      .getRoomBookingDetail()
+      .subscribe((data: any) => {
+        console.log(data);
+        this.formFields[3].value = data.roomBookingDetailID;
+      });
+  }
 
   ngOnInit(): void {
     this.getFoodProducts();
+
+    this.formFields[2].value = this.global.getUserId().toString();
   }
 
   getFoodProducts() {
@@ -165,26 +175,33 @@ export class MenuItemsComponent implements OnInit {
     }
   }
 
-
   save() {
+    if (this.tableData.length > 0) {
+      this.formFields[4].value = JSON.stringify(this.tableData);
+    }
 
-    this.formFields[4].value = JSON.stringify(this.tableData);
-    this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveFoodRoomServices').subscribe(
-      (response: any[]) => {
-        if (response[0].includes('Success') == true) {
-          if (this.formFields[0].value > 0) {
-            this.valid.apiInfoResponse('Saved Successfully');
+    this.dataService
+      .savetHttp(
+        this.pageFields,
+        this.formFields,
+        'guestms-api/Service/saveFoodRoomServices'
+      )
+      .subscribe(
+        (response: any[]) => {
+          if (response[0].includes('Success') == true) {
+            if (this.formFields[0].value > 0) {
+              this.valid.apiInfoResponse('Saved Successfully');
+            } else {
+              this.valid.apiInfoResponse('Success');
+            }
           } else {
-            this.valid.apiInfoResponse('Success');
+            this.valid.apiErrorResponse(response[0]);
           }
-        } else {
-          this.valid.apiErrorResponse(response[0]);
+        },
+        (error: any) => {
+          this.error = error;
+          this.valid.apiErrorResponse(this.error);
         }
-      },
-      (error: any) => {
-        this.error = error;
-        this.valid.apiErrorResponse(this.error);
-      }
-    );
+      );
   }
 }
