@@ -286,17 +286,46 @@
         <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
       </div>
       <div class="modal-body">
-        <span class="p-input-icon-left text-black me-2">
-          <i class="pi pi-search"></i>
-          <input
-            class="bg-transparent"
-            [(ngModel)]="tblReservedSearch"
-            type="text"
-            pInputText
-            placeholder="Search"
-          />
-        </span>
+        <div class="d-flex justify-content-between">
+          <span class="p-input-icon-left text-black me-2">
+            <i class="pi pi-search"></i>
+            <input
+              class="bg-transparent"
+              [(ngModel)]="tblReservedSearch"
+              type="text"
+              pInputText
+              placeholder="Search"
+            />
+          </span>
+          <div class="d-flex mt-2" *ngIf="reservedList.length > 0">
+            <h4 class="fw-bold fs-5">Payment Method</h4>
 
+            <mat-radio-group
+              aria-label="Select an option"
+              [(ngModel)]="rdbPayment"
+            >
+              <mat-radio-button class="ms-2" value="Cash">
+                Cash
+              </mat-radio-button>
+              <mat-radio-button class="ms-2" value="Bank">
+                Bank Transfer
+              </mat-radio-button>
+              <mat-radio-button class="ms-2" value="Card">
+                Card Payment
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <button
+            *ngIf="reservedList.length > 0"
+            (click)="saveReserved()"
+            mat-button
+            class="resetBtn mat-elevation-z4 rounded-2 me-3"
+            mat-button
+          >
+            Save
+          </button>
+        </div>
         <table class="table border-1 border-dark mt-2">
           <thead class="bg-black text-white">
             <tr>
@@ -305,7 +334,7 @@
               <th>Check-In</th>
               <th>Check-Out</th>
               <th>Check-In Time</th>
-              <th>Actions</th>
+              <!-- <th>Actions</th> -->
             </tr>
           </thead>
 
@@ -320,8 +349,14 @@
               "
             >
               <td class="col-4">
-                <div class="align-self-center">
-                  {{ item.partyFirstName }} {{ item.partyLastName }}
+                <div class="d-flex">
+                  <mat-checkbox
+                    [(ngModel)]="item.status"
+                    (change)="onReservedCheck(item)"
+                  ></mat-checkbox>
+                  <div class="ms-2 align-self-center">
+                    {{ item.partyFirstName }} {{ item.partyLastName }}
+                  </div>
                 </div>
               </td>
               <td>{{ item.partyCNIC }}</td>
@@ -329,13 +364,33 @@
               <td>{{ item.checkOut }}</td>
               <td>{{ item.checkInTime }}</td>
 
-              <td>
+              <!-- <td>
                 <div class="editIcon" (click)="editReserved(item)"></div>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-------Modal------->
+<div
+  id="confirmBookingModal"
+  class="modal fade"
+  role="dialog"
+  data-bs-backdrop="false"
+>
+  <div class="modal-dialog modal-xl mat-elevation-z20">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bgSecondary">
+        <h4 class="modal-title text-white">Confirm Booking</h4>
+        <div class="cancelIcon cursorPointer" data-bs-dismiss="modal"></div>
+        <mat-icon class="text-white" data-bs-dismiss="modal">close</mat-icon>
+      </div>
+      <div class="modal-body"></div>
     </div>
   </div>
 </div>

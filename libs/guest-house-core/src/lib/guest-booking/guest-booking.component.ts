@@ -21,10 +21,12 @@ export class GuestBookingComponent implements OnInit {
 
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  chkCheck: any;
   tblReservedSearch: any = '';
   index: any = 0;
 
   cmbRoomType: any = '';
+  rdbPayment: any = '';
 
   pageFields: GuestInterface = {
     roomBookingID: '0', //0
@@ -121,6 +123,7 @@ export class GuestBookingComponent implements OnInit {
   tempFloorRoomList: any = [];
   floorRoomList: any = [];
   featureList: any = [];
+  reservedList: any = [];
 
   constructor(
     private global: SharedServicesGlobalDataModule,
@@ -604,5 +607,105 @@ export class GuestBookingComponent implements OnInit {
       new Date(item.checkInDate),
       new Date(item.checkOutDate)
     );
+  }
+
+  saveReserved() {
+    var pageFields = {
+      userID: '0', //0
+      spType: '', //1
+      transactionType: '', //2
+      reservationStatus: '', //3
+      json: '', //4
+    };
+
+    var formFields: MyFormField[] = [
+      {
+        value: pageFields.userID,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      },
+      {
+        value: pageFields.spType,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      },
+      {
+        value: pageFields.transactionType,
+        msg: 'select payment method',
+        type: 'selectbox',
+        required: true,
+      },
+      {
+        value: pageFields.reservationStatus,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      },
+      {
+        value: pageFields.json,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      },
+    ];
+
+    formFields[0].value = this.global.getUserId().toString();
+    formFields[2].value = this.rdbPayment;
+    formFields[3].value = 'booked';
+    formFields[4].value = JSON.stringify(this.reservedList);
+
+    this.dataService
+      .savetHttp(
+        pageFields,
+        formFields,
+        'guestms-api/Service/updateRoomReservation'
+      )
+      .subscribe(
+        (response: any[]) => {
+          console.log(response);
+          if (response[0].includes('success') == true) {
+            this.valid.apiInfoResponse('Booking Confirmed Successfully');
+            this.getRoomReservation();
+            this.getRoomBooking();
+
+            this.resetReserved();
+          } else {
+            this.valid.apiErrorResponse(response[0]);
+          }
+        },
+        (error: any) => {
+          this.valid.apiErrorResponse(error);
+        }
+      );
+  }
+
+  resetReserved() {
+    this.rdbPayment = '';
+    this.reservedList = [];
+  }
+
+  onReservedCheck(item: any) {
+    if (item.status == true) {
+      this.reservedList.push({
+        roomBookingDetailID: item.roomBookingDetailID,
+      });
+    } else {
+      var index = 0;
+      var found = false;
+      for (var i = 0; i < this.reservedList.length; i++) {
+        if (
+          this.reservedList[i].roomBookingDetailID == item.roomBookingDetailID
+        ) {
+          found = true;
+          index = i;
+          i = this.reservedList.length + 1;
+        }
+      }
+      if (found == true) {
+        this.reservedList.splice(index, 1);
+      }
+    }
   }
 }
