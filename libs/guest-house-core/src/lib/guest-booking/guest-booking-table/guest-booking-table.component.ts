@@ -76,9 +76,10 @@ export class GuestBookingTableComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.global.setHeaderTitle('Menu Items');
     this.formFields[2].value = this.global.getUserId().toString();
     // this.getServiceType()
   }

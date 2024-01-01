@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers/field-validations';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
+import { MyFormField, MenuItemsInterface } from '@general-app/shared/interface';
 
 @Component({
   selector: 'general-app-menu-items',
@@ -9,16 +10,59 @@ import { SharedServicesGlobalDataModule } from '@general-app/shared/services/glo
   styleUrls: ['./menu-items.component.scss'],
 })
 export class MenuItemsComponent implements OnInit {
-  lblTotal: any = 0;
 
+
+  lblTotal: any = 0;
   itemList: any = [];
   tableData: any = [];
+  error: any = '';
+
+  pageFields: MenuItemsInterface = {
+    roomServiceID: '0', //0
+    spType: '', //1
+    userID: '0', //2
+    roomBookingDetailID: '', //3
+    json: '', //4
+  };
+
+  formFields: MyFormField[] = [
+    {
+      value: this.pageFields.roomServiceID, //0
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFields.spType, //1
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFields.userID, //2
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFields.roomBookingDetailID, //3
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFields.json, //4
+      msg: '',
+      type: '',
+      required: false,
+    },
+  ];
 
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getFoodProducts();
@@ -119,5 +163,28 @@ export class MenuItemsComponent implements OnInit {
         parseInt(this.tableData[i].serviceCharges) *
         parseInt(this.tableData[i].quantity);
     }
+  }
+
+
+  save() {
+
+    this.formFields[4].value = JSON.stringify(this.tableData);
+    this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveFoodRoomServices').subscribe(
+      (response: any[]) => {
+        if (response[0].includes('Success') == true) {
+          if (this.formFields[0].value > 0) {
+            this.valid.apiInfoResponse('Saved Successfully');
+          } else {
+            this.valid.apiInfoResponse('Success');
+          }
+        } else {
+          this.valid.apiErrorResponse(response[0]);
+        }
+      },
+      (error: any) => {
+        this.error = error;
+        this.valid.apiErrorResponse(this.error);
+      }
+    );
   }
 }
