@@ -16,31 +16,18 @@ export class GuestRecordsComponent implements OnInit {
     private dataService: SharedServicesDataModule,
     // private valid: SharedHelpersFieldValidationsModule
   ) {
-
   }
 
 
   ngOnInit(): void {
-    this.getPartyStatus()
     this.global.setHeaderTitle('Guest Records');
-
+    this.getPartyStatus()
   }
 
-  partyStatus: any[] = []
+  partyStatus: any = []
   txtSearch: any = '';
+  guestList: any = [];
 
-
-
-
-  ///
-  // {
-  //   "partyID": 1,
-  //   "partyFirstName": "Shakeel",
-  //   "partyLastName": "Abbas",
-  //   "partyCNIC": "393402-53533353-9",
-  //   "partyMobile": "03000454535",
-  //   "status": "regular"
-  // }
   getPartyStatus() {
     this.dataService.getHttp(`guestms-api/Party/getPartyStatus`, '').subscribe(
       (response: any[]) => {
@@ -51,6 +38,14 @@ export class GuestRecordsComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  getRoomBooking(item: any) {
+    this.dataService.getHttp(`guestms-api/RoomBooking/getRoomBooking?branchID=3&partyID=` + item, '').subscribe(
+      (response: any[]) => {
+        console.log(response)
+        this.guestList = response;
+      })
   }
 
 }

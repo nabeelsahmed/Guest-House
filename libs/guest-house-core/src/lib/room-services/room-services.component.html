@@ -51,7 +51,8 @@
             </mat-form-field>
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label> Amount </mat-label>
-                <input matInput [(ngModel)]="this.formFields[7].value" pattern="[0-9]*" />
+                <input matInput [(ngModel)]="this.formFields[7].value" maxlength="6"
+                    (keypress)="validateInput($event)" />
             </mat-form-field>
             <div class="d-flex flex-row justify-content-end mb-2">
                 <button mat-button class="ms-2 saveBtn fw-bold fs-6 rounded-2 mat-elevation-z1" (click)="save()">

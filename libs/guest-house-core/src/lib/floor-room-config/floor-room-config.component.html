@@ -27,7 +27,8 @@
                 <!----------->
                 <ng-container *ngIf="next === false">
                     <mat-form-field class="w-50 ps-1 " appearance="outline">
-                        <input matInput [(ngModel)]="userInput" [disabled]="hideField">
+                        <input matInput [(ngModel)]="userInput" [disabled]="hideField" maxlength="2"
+                            (keypress)="validateInput($event)">
                     </mat-form-field>
                 </ng-container>
                 <!----------->
@@ -95,16 +96,16 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="next === false">
-                <!-- *ngIf="featureSaved" -->
+            <!-- <perfect-scrollbar style="height: 44.5em;"> -->
+            <ng-container *ngIf="next == false">
                 <general-app-floor-room-sub></general-app-floor-room-sub>
             </ng-container>
-            <ng-container *ngIf="next === true">
+            <!-- </perfect-scrollbar> -->
+            <ng-container *ngIf="next == true">
                 <general-app-room-features></general-app-room-features>
             </ng-container>
         </div>
     </div>
 </div>
-
 <general-app-add-room-modal></general-app-add-room-modal>
 <general-app-add-room-features></general-app-add-room-features>

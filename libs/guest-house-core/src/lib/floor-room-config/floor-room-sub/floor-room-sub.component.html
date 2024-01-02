@@ -1,26 +1,32 @@
 <div>
-    <div class="col-6">
-        <div class="d-flex flex-row align-items-center" *ngFor="let item of roomList; let i = index">
-            <h5 class="text-black me-2">{{i+1}}</h5>
-            <mat-form-field class="w-100 me-2" appearance="outline">
-                <mat-label>Room Name</mat-label>
-                <input matInput [(ngModel)]="item.floorRoomNo">
-            </mat-form-field>
-            <mat-form-field class="w-100 me-2" appearance="outline">
-                <mat-label>Select branch type</mat-label>
-                <mat-select [(ngModel)]="item.roomTypeID">
-                    <mat-option *ngFor="let item of roomType"
-                        [value]="item.roomTypeID">{{item.roomTypeTitle}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <div class="col-2">
-                <ng-container *ngIf="!(i === roomList.length-1)">
-                    <div class="deleteIcon" (click)="deleteItem(item)"></div>
-                </ng-container>
-                <ng-container *ngIf="(i === roomList.length-1)">
-                    <div class="plusCircle" (click)="addItem(item)"></div>
-                </ng-container>
+    <div class="col-8">
+        <perfect-scrollbar class="w-100" style="height: 44.5em;">
+            <div class="d-flex flex-row align-items-center" *ngFor="let item of roomList; let i = index">
+                <h5 class="text-black me-2">{{i+1}}</h5>
+                <mat-form-field class="w-100 me-2" appearance="outline">
+                    <mat-label>Room Name</mat-label>
+                    <input matInput [(ngModel)]="item.floorRoomNo" maxlength="4">
+                </mat-form-field>
+                <mat-form-field class="w-100 me-2" appearance="outline">
+                    <mat-label>Select type</mat-label>
+                    <mat-select [(ngModel)]="item.roomTypeID">
+                        <mat-option *ngFor="let item of roomType"
+                            [value]="item.roomTypeID">{{item.roomTypeTitle}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-100 me-2" appearance="outline">
+                    <mat-label>Rent</mat-label>
+                    <input matInput [(ngModel)]="item.rentPerNight" (keypress)="validateInput($event)" maxlength="5">
+                </mat-form-field>
+                <div class="col-2">
+                    <ng-container *ngIf="!(i === roomList.length-1)">
+                        <div class="deleteIcon" (click)="deleteItem(item)"></div>
+                    </ng-container>
+                    <ng-container *ngIf="(i === roomList.length-1)">
+                        <div class="plusCircle" (click)="addItem(item)"></div>
+                    </ng-container>
+                </div>
             </div>
-        </div>
+        </perfect-scrollbar>
     </div>
 </div>

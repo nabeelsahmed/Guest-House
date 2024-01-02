@@ -81,10 +81,11 @@ export class GuestBookingTableComponent implements OnInit {
   ngOnInit(): void {
     this.global.setHeaderTitle('Menu Items');
     this.formFields[2].value = this.global.getUserId().toString();
-    // this.getServiceType()
   }
 
   getGuestServiceType() {
+    this.reset()
+    this.serviceTitleList = [];
     this.dataService
       .getHttp(`guestms-api/Service/getGuestServiceType`, '')
       .subscribe(
@@ -98,10 +99,22 @@ export class GuestBookingTableComponent implements OnInit {
       );
   }
 
+  // {
+  //   "roomServiceID": 2,
+  //   "roomBookingDetailID": 2,
+  //   "serviceTypeID": 2,
+  //   "serviceType": null,
+  //   "serviceID": 7,
+  //   "serviceTitle": "Bike",
+  //   "quantity": 2,
+  //   "amount": 2000
+  // }
+
   getServices(item: any) {
+    var bookingID = this.formFields[3].value
     this.dataService
       .getHttp(
-        `guestms-api/Service/getServices?branchID=3&serviceTypeID=` + item,
+        `guestms-api/Service/getRoomServices?&serviceTypeID=` + item + `&roomBookingDetailID=` + bookingID,
         ''
       )
       .subscribe((response: any) => {
@@ -119,6 +132,8 @@ export class GuestBookingTableComponent implements OnInit {
       )
       .subscribe((response: any[]) => {
         if (response[0].includes('Success') == true) {
+          this.reset();
+          // this.getServices();
           if (this.formFields[0].value > 0) {
             this.valid.apiInfoResponse('Saved Successfully');
           } else {
@@ -129,13 +144,16 @@ export class GuestBookingTableComponent implements OnInit {
   }
 
   editTable(item: any): void {
+    this.formFields[0].value = item.roomServiceID
+    // this.formFields[2].value = item.userID
     this.formFields[4].value = item.serviceID;
-    this.formFields[5].value = item.serviceQuantity;
+    this.formFields[5].value = item.quantity;
   }
 
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
+    this.cmbServiceType = ''
   }
 
   edit(item: any) {

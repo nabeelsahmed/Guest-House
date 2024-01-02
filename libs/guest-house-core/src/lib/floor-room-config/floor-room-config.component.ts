@@ -21,6 +21,29 @@ export class FloorRoomConfigComponent implements OnInit {
   @ViewChild(FloorRoomSubComponent) floorRoomSub: any;
   @ViewChild(RoomFeaturesComponent) roomFeaturesChild: any;
 
+  //variables and lists
+  featureSaved = true;
+  selectedBranch: number = 0;
+  userInput: any = '';
+  roomList: any = [];
+
+
+  companyList: any = [];
+  branchList: any = [];
+  floorsList: any = [];
+
+  selectedBranchId: number = 0;
+
+
+  checksave: boolean = false;
+  next: boolean = false;
+  hideField: boolean = false;
+
+  roomsNumList: any[] = []
+  featuresScreen: boolean = false;
+  error: any = '';
+
+  selectedCompany: number = 0;
 
 
 
@@ -83,30 +106,6 @@ export class FloorRoomConfigComponent implements OnInit {
     },
   ];
 
-  //variables and lists
-  featureSaved = true;
-  selectedBranch: number = 0;
-  userInput: any = '';
-  roomList: any = [];
-
-
-  companyList: any = [];
-  branchList: any = [];
-  floorsList: any = [];
-
-  selectedBranchId: number = 0;
-
-
-  checksave: boolean = false;
-  next: boolean = false;
-  hideField: boolean = false;
-
-
-  roomsNumList: any[] = []
-  featuresScreen: boolean = false;
-  error: any = '';
-
-  selectedCompany: number = 0;
 
 
   ////
@@ -128,18 +127,17 @@ export class FloorRoomConfigComponent implements OnInit {
 
   //functions 
   nextFunc(): void {
-    if (this.checksave === false) {
-      this.next = false;
-    } else {
-      this.next = true;
-      this.reset();
-    }
+    // if (this.checksave === false) {
+    //   this.next = false;
+    // } else {
+    //   this.next = true;
+    //   this.reset();
+    // }
+    this.next = true;
+    this.reset();
 
   }
   generateRows() {
-    // if (this.userInput === 0 || '') {
-    //   this.valid.apiInfoResponse('Rooms can not be 0');
-    // }
     if (this.formFields[3].value === '') {
       this.valid.apiInfoResponse('Select Branch');
     }
@@ -213,6 +211,7 @@ export class FloorRoomConfigComponent implements OnInit {
     if (item1 > 0 && item2 > 0) {
       this.dataService.getHttp(`guestms-api/FloorRoom/getFloorRooms?branchID=${item1}&floorID=${item2}`, '').subscribe(
         (response: any[]) => {
+          console.log(response)
           this.getRooms(item1, item2);
           var roomList = JSON.parse(response[0].rooms)
           if (response[0].num > 0) {
@@ -222,6 +221,7 @@ export class FloorRoomConfigComponent implements OnInit {
               this.floorRoomSub.roomList.push({
                 floorRoomNo: roomList[i].floorRoomNO,
                 roomTypeID: roomList[i].roomTypeID,
+                rentPerNight: roomList[i].rentPerNight
               });
             }
           }
@@ -239,7 +239,7 @@ export class FloorRoomConfigComponent implements OnInit {
   getFloorRoomFeatures() {
     this.dataService.getHttp(`guestms-api/RoomFeatures/getFloorRoomFeatures`, '').subscribe(
       (response: any[]) => {
-        this.roomFeaturesChild.roomFeatures = [];
+        this.roomFeaturesChild.roomFeaturesList = [];
         for (var i = 0; i < response.length; i++) {
           var jsonList = [];
           jsonList = JSON.parse(response[i].roomFeatureSubTitle)
@@ -295,11 +295,9 @@ export class FloorRoomConfigComponent implements OnInit {
     this.formFields[1].value = 'insert';
     this.dataService.savetHttp(this.pageFields, this.formFields, 'guestms-api/RoomFeatures/saveFloorRoomFeatures').subscribe(
       (response: any[]) => {
-        console.log('response', response)
         if (response[0].includes('Success') == true) {
           if (this.formFields[0].value > 0) {
             this.valid.apiInfoResponse('Saved Successfully');
-
           } else {
             this.valid.apiInfoResponse('Room Created successfully');
             this.checksave = true;
@@ -318,6 +316,22 @@ export class FloorRoomConfigComponent implements OnInit {
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
+  }
+
+
+
+
+
+  validateInput(event: KeyboardEvent): void {
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!/^\d+$/.test(inputChar) || event.key === 'e') {
+      event.preventDefault();
+    }
+    //prevent minus input
+    if (event.key === '-' || event.key === 'Minus') {
+      event.preventDefault();
+    }
   }
 
 }

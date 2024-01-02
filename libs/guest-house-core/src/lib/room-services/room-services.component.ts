@@ -269,4 +269,16 @@ export class RoomServicesComponent implements OnInit {
     this.formFields[7].value = '';
   }
 
+  validateInput(event: KeyboardEvent): void {
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!/^\d+$/.test(inputChar) || event.key === 'e') {
+      event.preventDefault();
+    }
+    //prevent minus input
+    if (event.key === '-' || event.key === 'Minus') {
+      event.preventDefault();
+    }
+  }
+
+
 }

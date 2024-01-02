@@ -9,21 +9,13 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 export class FloorRoomSubComponent implements OnInit {
 
-
-
-
-
-
-
-  // selectedCity = 'Islamabad';
-
   constructor() { }
-
   roomList: any = []
   roomType: any = [];
 
 
-
+  ngOnInit(): void {
+  }
 
   deleteItem(item: number): void {
     const index = this.roomList.indexOf(item);
@@ -38,11 +30,18 @@ export class FloorRoomSubComponent implements OnInit {
       'Room Type': null
     });
   }
-  ngOnInit(): void {
 
+
+
+  validateInput(event: KeyboardEvent): void {
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!/^\d+$/.test(inputChar) || event.key === 'e') {
+      event.preventDefault();
+    }
+    //prevent minus input
+    if (event.key === '-' || event.key === 'Minus') {
+      event.preventDefault();
+    }
   }
-
-
-
 
 }
