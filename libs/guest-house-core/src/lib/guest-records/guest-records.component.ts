@@ -15,7 +15,8 @@ export class GuestRecordsComponent implements OnInit {
 
   constructor(
     private global: SharedServicesGlobalDataModule,
-    private dataService: SharedServicesDataModule // private valid: SharedHelpersFieldValidationsModule
+    private dataService: SharedServicesDataModule,
+    private valid: SharedHelpersFieldValidationsModule
   ) {}
 
   ngOnInit(): void {
@@ -159,6 +160,10 @@ export class GuestRecordsComponent implements OnInit {
   }
 
   print(id: any) {
-    this.global.printData(id, 'portrait');
+    if (this.printBill.roomList.length == 0) {
+      this.valid.apiInfoResponse('select guest info to print bill');
+    } else {
+      this.global.printData(id, 'portrait');
+    }
   }
 }
