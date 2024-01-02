@@ -509,7 +509,7 @@ export class GuestBookingComponent implements OnInit {
       )
       .subscribe(
         (response: any[]) => {
-          if (response[0].includes('success') == true) {
+          if (response[0].includes('Success') == true) {
             if (this.formFields[0].value > 0) {
               this.valid.apiInfoResponse('Guest Updated Successfully');
             } else {

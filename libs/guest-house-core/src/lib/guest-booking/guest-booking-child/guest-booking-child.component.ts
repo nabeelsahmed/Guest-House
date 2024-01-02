@@ -379,7 +379,7 @@ export class GuestBookingChildComponent implements OnInit {
       )
       .subscribe(
         (response: any[]) => {
-          if (response[0].includes('success') == true) {
+          if (response[0].includes('Success') == true) {
             this.valid.apiInfoResponse('Rooms created successfully');
             this.reset();
           } else {
