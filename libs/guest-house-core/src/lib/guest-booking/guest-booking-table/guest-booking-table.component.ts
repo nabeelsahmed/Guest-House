@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers/field-validations';
 import {
+  CheckoutInterface,
   GuestProfileInterface,
   MyFormField,
 } from '@general-app/shared/interface';
@@ -24,6 +25,7 @@ export class GuestBookingTableComponent implements OnInit {
   @ViewChild(PrintBillComponent) printBill: any;
 
   @Output() eventEmitter = new EventEmitter();
+  @Output() eventEmitterBooking = new EventEmitter();
   @Output() eventEmitterMenu = new EventEmitter();
   @Output() eventEmitterPrint = new EventEmitter();
 
@@ -32,21 +34,6 @@ export class GuestBookingTableComponent implements OnInit {
   tblSearch: any = '';
   divVisible: any = false;
 
-  // {
-  //   "roomBookingID": 0,
-  //   "partyID": 0,
-  //   "checkIn": "string",
-  //   "checkOut": "string",
-  //   "checkInTime": "string",
-  //   "checkOutTime": "string",
-  //   "transactionType": "string",
-  //   "reservationStatus": "checkOut",
-  //   "discount": 30,
-  //   "roomJson": "[{\"roomBookingDetailID\":1}]",
-  //   "userID": 0,
-  //   "spType": "updateCheckOut"
-  // }
-
   pageFields: GuestProfileInterface = {
     roomServiceID: '0', //0
     spType: '', //1
@@ -54,8 +41,6 @@ export class GuestBookingTableComponent implements OnInit {
     roomBookingDetailID: '', //3
     serviceID: '', //4
     serviceQuantity: '', //5
-    discount: '', //6
-    roomJson: '', //7
   };
 
   formFields: MyFormField[] = [
@@ -95,14 +80,36 @@ export class GuestBookingTableComponent implements OnInit {
       type: 'textbox',
       required: true,
     },
+  ];
+
+  pageFieldsCheckout: CheckoutInterface = {
+    discount: '0', //0
+    spType: '', //1
+    userID: '', //2
+    roomJson: '', //3
+  };
+
+  formFieldsCheckout: MyFormField[] = [
     {
-      value: this.pageFields.discount,
+      value: this.pageFieldsCheckout.discount,
       msg: '',
       type: 'hidden',
       required: false,
     },
     {
-      value: this.pageFields.roomJson,
+      value: this.pageFieldsCheckout.spType,
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFieldsCheckout.userID,
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFieldsCheckout.roomJson,
       msg: '',
       type: 'textbox',
       required: true,
@@ -117,15 +124,16 @@ export class GuestBookingTableComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Menu Items');
     this.formFields[2].value = this.global.getUserId().toString();
+    this.formFieldsCheckout[2].value = this.global.getUserId().toString();
   }
 
   getGuestServiceType() {
-    this.reset()
+    this.reset();
     this.serviceTitleList = [];
     this.dataService
       .getHttp(`guestms-api/Service/getGuestServiceType`, '')
@@ -140,10 +148,13 @@ export class GuestBookingTableComponent implements OnInit {
       );
   }
   getServices(item: any) {
-    var bookingID = this.formFields[3].value
+    var bookingID = this.formFields[3].value;
     this.dataService
       .getHttp(
-        `guestms-api/Service/getRoomServices?&serviceTypeID=` + item + `&roomBookingDetailID=` + bookingID,
+        `guestms-api/Service/getRoomServices?&serviceTypeID=` +
+          item +
+          `&roomBookingDetailID=` +
+          bookingID,
         ''
       )
       .subscribe((response: any) => {
@@ -172,9 +183,8 @@ export class GuestBookingTableComponent implements OnInit {
       });
   }
 
-
-  editTable(item: any): void {
-    this.formFields[0].value = item.roomServiceID
+  editServices(item: any): void {
+    this.formFields[0].value = item.roomServiceID;
     // this.formFields[2].value = item.userID
     this.formFields[4].value = item.serviceID;
     this.formFields[5].value = item.quantity;
@@ -183,7 +193,7 @@ export class GuestBookingTableComponent implements OnInit {
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
-    this.cmbServiceType = ''
+    this.cmbServiceType = '';
   }
 
   edit(item: any) {
@@ -205,6 +215,7 @@ export class GuestBookingTableComponent implements OnInit {
       this.printBill.lblRoomBookingID = item.roomBookingID;
 
       this.printBill.roomList.push({
+        roomBookingDetailID: item.roomBookingDetailID,
         floorRoomID: item.floorRoomID,
         roomNo: item.roomNo,
         roomtitle: item.roomtitle,
@@ -309,28 +320,27 @@ export class GuestBookingTableComponent implements OnInit {
     }
   }
 
+  print(id: any) {
+    this.formFieldsCheckout[0].value = this.txtDiscount;
+    this.formFieldsCheckout[1].value = 'updateCheckOut';
+    this.formFieldsCheckout[3].value = JSON.stringify(this.printBill.roomList);
 
-  saveCheckout() {
     this.dataService
-      .savetHttp(
-        this.pageFields,
-        this.formFields,
+      .deleteHttp(
+        this.pageFieldsCheckout,
+        this.formFieldsCheckout,
         'guestms-api/RoomBooking/saveRoomBooking'
       )
       .subscribe((response: any[]) => {
+        console.log(response);
         if (response[0].includes('Success') == true) {
-          this.reset();
-          if (this.formFields[0].value > 0) {
-            this.valid.apiInfoResponse('Saved Successfully');
-          } else {
-            this.valid.apiInfoResponse('Service Added Successfully');
-          }
-        }
-      })
-  }
+          this.valid.apiInfoResponse('Record Checkout Successfully');
+          this.eventEmitterBooking.emit();
+          $('#checkoutModal').modal('hide');
+          this.txtDiscount = '';
 
-  print(id: any) {
-    this.global.printData(id, 'portrait');
-    // this.save()
+          this.global.printData(id, 'portrait');
+        }
+      });
   }
 }

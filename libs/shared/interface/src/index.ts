@@ -36,8 +36,4 @@ export * from './lib//core/add-features-interface';
 export * from './lib//core/room-services-interface';
 export * from './lib//core/guest-profile-interface';
 export * from './lib//core/menu-items-interface';
-
-
-
-
-
+export * from './lib//core/checkout-interface';
