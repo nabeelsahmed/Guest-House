@@ -205,7 +205,6 @@ export class GuestBookingTableComponent implements OnInit {
   }
 
   printGuest(item: any) {
-    console.log(item);
     if (item.status == true) {
       this.printBill.lblGuestName = item.firstName + ' ' + item.lastName;
       this.printBill.lblCNIC = item.cnic;
@@ -293,6 +292,7 @@ export class GuestBookingTableComponent implements OnInit {
 
     this.printBill.lblTotal = 0;
     this.printBill.lblTotalCost = 0;
+    this.printBill.lblTax = 0;
     for (var i = 0; i < this.printBill.roomDetailList.length; i++) {
       var total = 0;
       total =
@@ -301,8 +301,12 @@ export class GuestBookingTableComponent implements OnInit {
       this.printBill.lblTotal += total;
     }
 
+    this.printBill.lblTax = (this.printBill.lblTotal * 11) / 100;
+
     this.printBill.lblTotalCost =
-      this.printBill.lblTotal - this.printBill.lblDiscount;
+      this.printBill.lblTotal +
+      this.printBill.lblTax -
+      this.printBill.lblDiscount;
   }
 
   onDiscountChange() {

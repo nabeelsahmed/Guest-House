@@ -51,7 +51,6 @@ export class GuestRecordsComponent implements OnInit {
 
   onStatusChange(item: any) {
     var billJson: any = [];
-
     if (item.services != null) {
       billJson = JSON.parse(item.services);
     }
@@ -151,8 +150,12 @@ export class GuestRecordsComponent implements OnInit {
       this.printBill.lblTotal += total;
     }
 
+    this.printBill.lblTax = (this.printBill.lblTotal * 11) / 100;
+
     this.printBill.lblTotalCost =
-      this.printBill.lblTotal - this.printBill.lblDiscount;
+      this.printBill.lblTotal +
+      this.printBill.lblTax -
+      this.printBill.lblDiscount;
   }
 
   print(id: any) {

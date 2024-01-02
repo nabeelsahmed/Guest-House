@@ -4,7 +4,8 @@
     <mat-form-field class="w-25" appearance="outline">
       <mat-label>
         <i class="pi pi-search"></i>
-        Search</mat-label>
+        Search</mat-label
+      >
       <input matInput placeholder="Search" [(ngModel)]="txtSearch" />
     </mat-form-field>
     <!-- <button mat-button class="saveBtn mat-elevation-z1 bg-warning text-black me-3 mt-2" mat-button>
@@ -27,17 +28,31 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor="let item of partyList |search:'partyFirstName,partyCNIC,partyMobile,partyEmail':txtSearch ">
+          <tr
+            *ngFor="
+              let item of partyList
+                | search
+                  : 'partyFirstName,partyCNIC,partyMobile,partyEmail'
+                  : txtSearch
+            "
+          >
             <td>{{ item.partyFirstName }} {{ item.partyLastName }}</td>
             <td>{{ item.partyCNIC }}</td>
             <td>{{ item.partyMobile }}</td>
             <td>{{ item.partyEmail }}</td>
-            <td [ngClass]="{ 'bg-danger': item.status === 'blacklist' }" class="text-capitalize">
+            <td
+              [ngClass]="{ 'bg-danger': item.status === 'blacklist' }"
+              class="text-capitalize"
+            >
               {{ item.status }}
             </td>
             <td>
-              <div (click)="getRoomBooking(item.partyID)" class="guestDetailICons" data-bs-toggle="modal"
-                data-bs-target="#guestRecordModal"></div>
+              <mat-icon
+                (click)="getRoomBooking(item.partyID)"
+                data-bs-toggle="modal"
+                data-bs-target="#guestRecordModal"
+                >list_alt</mat-icon
+              >
             </td>
           </tr>
         </tbody>
@@ -46,7 +61,12 @@
   </div>
 </div>
 
-<div id="guestRecordModal" class="modal fade" role="dialog" data-bs-backdrop="false">
+<div
+  id="guestRecordModal"
+  class="modal fade"
+  role="dialog"
+  data-bs-backdrop="false"
+>
   <div class="modal-dialog modal-xl mat-elevation-z20">
     <!-- Modal content-->
     <div class="modal-content">
@@ -58,12 +78,19 @@
       <!-- [(ngModel)]="this.formFields[3].value" -->
       <div class="modal-body">
         <div class="d-flex justify-content-end">
-          <button mat-button class="resetBtn bg-warning mat-elevation-z3 rounded-2 mb-2" (click)="print('#printData')">
+          <button
+            mat-button
+            class="resetBtn bg-warning mat-elevation-z3 rounded-2 mb-2"
+            (click)="print('#printData')"
+          >
             Print Bill
           </button>
         </div>
         <div class="">
-          <perfect-scrollbar class="bg-light-grey mb-3" style="height: 10em; max-width: 100%">
+          <perfect-scrollbar
+            class="bg-light-grey mb-3"
+            style="height: 10em; max-width: 100%"
+          >
             <table class="table table-md" *ngIf="guestList.length !== 0">
               <thead class="bg-black text-white">
                 <tr>
@@ -77,7 +104,10 @@
               <tbody>
                 <tr *ngFor="let item of guestList">
                   <td>
-                    <mat-checkbox [(ngModel)]="item.status" (change)="onStatusChange(item)">
+                    <mat-checkbox
+                      [(ngModel)]="item.status"
+                      (change)="onStatusChange(item)"
+                    >
                       {{ item.floorNo }}
                     </mat-checkbox>
                   </td>
@@ -90,7 +120,10 @@
             </table>
           </perfect-scrollbar>
 
-          <general-app-print-bill class="d-none" id="printData"></general-app-print-bill>
+          <general-app-print-bill
+            class="d-none"
+            id="printData"
+          ></general-app-print-bill>
         </div>
       </div>
     </div>
