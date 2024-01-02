@@ -25,7 +25,7 @@ export class GuestBookingComponent implements OnInit {
   visible: any = false;
   chkCheck: any;
   tblReservedSearch: any = '';
-  index: any = 2;
+  index: any = 0;
 
   cmbRoomType: any = '';
   rdbPayment: any = '';
