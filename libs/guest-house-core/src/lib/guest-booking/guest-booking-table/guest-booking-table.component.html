@@ -17,7 +17,7 @@
     <!-------Guest Details-------->
 
     <div class="mt-3 mb-3 rounded-2 pt-3 px-3 pb-3 bg-white"
-      *ngFor="let item of tableData | search:'firstName,lastName':tblSearch">
+      *ngFor="let item of tableData | search:'firstName,lastName,cnic,mobileNumber,roomNo':tblSearch">
       <div class="d-flex justify-content-between">
         <mat-checkbox [(ngModel)]="item.status" (change)="printGuest(item)"></mat-checkbox>
         <div class="editIcon" (click)="edit(item)"></div>
