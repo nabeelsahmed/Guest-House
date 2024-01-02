@@ -400,6 +400,14 @@
   background-size: cover;
 }
 
+.mainLogoIcon {
+  background: url(../assets/images/login/Logo.svg);
+  height: 8em;
+  width: 10em;
+  background-position: center;
+  background-size: cover;
+}
+
 .challanLogoIcon {
   background: url(../assets/images/icons/Logo.svg);
   height: 4em;
@@ -961,7 +969,6 @@
   cursor: pointer;
 }
 
-
 .guestDetailICons {
   background: url(../assets/images/icons/guest-detail.svg);
   width: 5em;
@@ -969,5 +976,24 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  cursor: pointer;
+}
+.menuItemIcon {
+  background: url(../assets/images/icons/menuItems.svg);
+  width: 14em;
+  height: 9.14em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.thankyouIcon {
+  background: url(../assets/images/icons/ThankYou..svg);
+  width: 50em;
+  height: 50em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   cursor: pointer;
 }

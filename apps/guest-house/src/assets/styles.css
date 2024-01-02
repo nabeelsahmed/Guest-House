@@ -1,6 +1,12 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import './assets/fonts/fonts.scss';
 
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+}
+
 body {
   background-color: #efefef !important;
   /* margin: 0mm 0mm 0mm 0mm; */
@@ -437,7 +443,9 @@ table {
   /* padding: 0.75rem; */
   vertical-align: top;
   line-height: 0em !important;
-  font-size: 0.5em !important;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+  font-size: 1em !important;
 }
 
 th {
@@ -9723,8 +9731,10 @@ fieldset:disabled .btn {
 }
 
 .bg-dark {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  /* --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important; */
+
+  background-color: #2a2a2a !important;
 }
 
 .bg-black {
@@ -9735,6 +9745,14 @@ fieldset:disabled .btn {
 .bg-white {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bgOrange {
+  background-color: #c5b786 !important;
+}
+
+.bg-light-primary {
+  background-color: #fcf3d3 !important;
 }
 
 .bg-body {

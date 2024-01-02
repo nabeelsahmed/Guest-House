@@ -16,6 +16,9 @@ import {
   PerfectScrollbarConfigInterface,
   PerfectScrollbarModule,
 } from 'ngx-perfect-scrollbar';
+
+import { NgxPrintModule } from 'ngx-print';
+
 import { FloorRoomConfigComponent } from './floor-room-config/floor-room-config.component';
 import { FloorRoomSubComponent } from './floor-room-config/floor-room-sub/floor-room-sub.component';
 import { RoomFeaturesComponent } from './floor-room-config/room-features/room-features.component';
@@ -31,6 +34,7 @@ import { ServicesDetailsComponent } from './room-services/services-details/servi
 
 import { MenuItemsComponent } from './menu-items/menu-items.component';
 import { GuestBookingTableComponent } from './guest-booking/guest-booking-table/guest-booking-table.component';
+import { PrintBillComponent } from './guest-booking/guest-booking-table/print-bill/print-bill.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -56,6 +60,7 @@ export const coreRoutes: Route[] = [
     SharedInterfaceModule,
     TextMaskModule,
     SharedSharedComponentsModule,
+    NgxPrintModule,
   ],
 
   declarations: [
@@ -75,6 +80,7 @@ export const coreRoutes: Route[] = [
 
     MenuItemsComponent,
     GuestBookingTableComponent,
+    PrintBillComponent,
   ],
   providers: [
     {

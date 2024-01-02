@@ -189,11 +189,7 @@ export class MenuItemsComponent implements OnInit {
       .subscribe(
         (response: any[]) => {
           if (response[0].includes('Success') == true) {
-            if (this.formFields[0].value > 0) {
-              this.valid.apiInfoResponse('Saved Successfully');
-            } else {
-              this.valid.apiInfoResponse('Success');
-            }
+            this.valid.apiInfoResponse('Order Placed Successfully');
           } else {
             this.valid.apiErrorResponse(response[0]);
           }

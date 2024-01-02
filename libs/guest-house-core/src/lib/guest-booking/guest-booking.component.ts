@@ -9,7 +9,6 @@ import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
 import { GuestInfoComponent } from './guest-info/guest-info.component';
 import { GuestBookingTableComponent } from './guest-booking-table/guest-booking-table.component';
-import { MenuItemsComponent } from '../menu-items/menu-items.component';
 declare var $: any;
 
 @Component({
@@ -22,10 +21,11 @@ export class GuestBookingComponent implements OnInit {
 
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  hideDiv: any = false;
   visible: any = false;
   chkCheck: any;
   tblReservedSearch: any = '';
-  index: any = 0;
+  index: any = 2;
 
   cmbRoomType: any = '';
   rdbPayment: any = '';
@@ -201,12 +201,14 @@ export class GuestBookingComponent implements OnInit {
       .getHttp('guestms-api/RoomBooking/getRoomBooking?branchID=3', '')
       .subscribe(
         (response: any) => {
+          console.log(response);
           this.guestTable.tableData = [];
           // this.guestList = [];
 
           for (var i = 0; i < response.length; i++) {
             var jsonServices = JSON.parse(response[i].services);
             var jsonFeature = JSON.parse(response[i].features);
+            var billJson = JSON.parse(response[i].serviceJson);
 
             this.guestTable.tableData.push({
               firstName: response[i].partyFirstName,
@@ -222,6 +224,7 @@ export class GuestBookingComponent implements OnInit {
               roomBookingID: response[i].roomBookingID,
               featuresJson: jsonFeature,
               jsonList: jsonServices,
+              billJson: billJson,
               partyID: response[i].partyID,
               roomBookingDetailID: response[i].roomBookingDetailID,
               reservationStatus: response[i].reservationStatus,

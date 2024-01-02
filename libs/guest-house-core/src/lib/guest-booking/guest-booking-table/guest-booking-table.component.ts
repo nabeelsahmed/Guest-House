@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers/field-validations';
 import {
   GuestProfileInterface,
@@ -6,6 +12,7 @@ import {
 } from '@general-app/shared/interface';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
+import { PrintBillComponent } from './print-bill/print-bill.component';
 
 declare var $: any;
 @Component({
@@ -14,11 +21,16 @@ declare var $: any;
   styleUrls: ['./guest-booking-table.component.scss'],
 })
 export class GuestBookingTableComponent implements OnInit {
+  @ViewChild(PrintBillComponent) printBill: any;
+
   @Output() eventEmitter = new EventEmitter();
   @Output() eventEmitterMenu = new EventEmitter();
+  @Output() eventEmitterPrint = new EventEmitter();
 
+  txtDiscount: any = 0;
   cmbServiceType: any = '';
   tblSearch: any = '';
+  divVisible: any = false;
 
   pageFields: GuestProfileInterface = {
     roomServiceID: '0', //0
@@ -76,7 +88,7 @@ export class GuestBookingTableComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Menu Items');
@@ -162,5 +174,124 @@ export class GuestBookingTableComponent implements OnInit {
 
   menuVisible(item: any) {
     this.eventEmitterMenu.emit(item);
+  }
+
+  printGuest(item: any) {
+    console.log(item);
+    if (item.status == true) {
+      this.printBill.lblGuestName = item.firstName + ' ' + item.lastName;
+      this.printBill.lblCNIC = item.cnic;
+      this.printBill.lblMobile = item.mobileNumber;
+      this.printBill.lblCheckIn = item.checkInDate;
+      this.printBill.lblCheckOut = item.checkOutDate;
+      this.printBill.lblRoomBookingID = item.roomBookingID;
+
+      this.printBill.roomList.push({
+        floorRoomID: item.floorRoomID,
+        roomNo: item.roomNo,
+        roomtitle: item.roomtitle,
+        floorNo: item.floorNo,
+      });
+
+      for (var i = 0; i < item.billJson.length; i++) {
+        if (this.printBill.roomDetailList.length == 0) {
+          this.printBill.roomDetailList.push({
+            floorRoomID: item.floorRoomID,
+            serviceID: item.billJson[i].serviceID,
+            title: item.billJson[i].serviceTitle,
+            amount: item.billJson[i].serviceAmount,
+            quantity: item.billJson[i].serviceQuantity,
+          });
+        } else {
+          var roomFound = false;
+          var roomIndex = 0;
+
+          for (var j = 0; j < this.printBill.roomDetailList.length; j++) {
+            if (
+              this.printBill.roomDetailList[j].serviceID ==
+              item.billJson[i].serviceID
+            ) {
+              roomFound = true;
+              j = this.printBill.roomDetailList.length + 1;
+            }
+          }
+
+          if (roomFound == true) {
+            this.printBill.roomDetailList[roomIndex].quantity +=
+              item.billJson[i].serviceQuantity;
+          } else {
+            this.printBill.roomDetailList.push({
+              floorRoomID: item.floorRoomID,
+              serviceID: item.billJson[i].serviceID,
+              title: item.billJson[i].serviceTitle,
+              amount: item.billJson[i].serviceAmount,
+              quantity: item.billJson[i].serviceQuantity,
+            });
+          }
+        }
+      }
+    } else {
+      var found = false;
+      var index = 0;
+
+      for (var i = 0; i < this.printBill.roomList.length; i++) {
+        if (this.printBill.roomList[i].floorRoomID == item.floorRoomID) {
+          found = true;
+          index = i;
+          i = this.printBill.roomList.length + 1;
+        }
+      }
+
+      for (var i = 0; i < item.billJson.length; i++) {
+        for (var j = 0; j < this.printBill.roomDetailList.length; j++) {
+          if (
+            this.printBill.roomDetailList[j].serviceID ==
+            item.billJson[i].serviceID
+          ) {
+            this.printBill.roomDetailList[j].quantity -=
+              item.billJson[i].serviceQuantity;
+          }
+          if (this.printBill.roomDetailList[j].quantity == 0) {
+            this.printBill.roomDetailList.splice(j, 1);
+          }
+        }
+      }
+
+      if (found == true) {
+        this.printBill.roomList.splice(index, 1);
+      }
+    }
+
+    this.printBill.lblTotal = 0;
+    this.printBill.lblTotalCost = 0;
+    for (var i = 0; i < this.printBill.roomDetailList.length; i++) {
+      var total = 0;
+      total =
+        this.printBill.roomDetailList[i].quantity *
+        this.printBill.roomDetailList[i].amount;
+      this.printBill.lblTotal += total;
+    }
+
+    this.printBill.lblTotalCost =
+      this.printBill.lblTotal - this.printBill.lblDiscount;
+  }
+
+  onDiscountChange() {
+    this.printBill.lblDiscount = this.txtDiscount;
+
+    this.printBill.lblTotalCost =
+      parseInt(this.printBill.lblTotal) - parseInt(this.txtDiscount);
+  }
+
+  checkout() {
+    if (this.printBill.roomList == 0) {
+      this.valid.apiInfoResponse('select guest to checkout');
+    } else {
+      $('#checkoutModal').modal('show');
+    }
+  }
+
+  print(id: any) {
+    this.global.printData(id, 'portrait');
   }
 }
