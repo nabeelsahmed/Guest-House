@@ -32,6 +32,21 @@ export class GuestBookingTableComponent implements OnInit {
   tblSearch: any = '';
   divVisible: any = false;
 
+  // {
+  //   "roomBookingID": 0,
+  //   "partyID": 0,
+  //   "checkIn": "string",
+  //   "checkOut": "string",
+  //   "checkInTime": "string",
+  //   "checkOutTime": "string",
+  //   "transactionType": "string",
+  //   "reservationStatus": "checkOut",
+  //   "discount": 30,
+  //   "roomJson": "[{\"roomBookingDetailID\":1}]",
+  //   "userID": 0,
+  //   "spType": "updateCheckOut"
+  // }
+
   pageFields: GuestProfileInterface = {
     roomServiceID: '0', //0
     spType: '', //1
@@ -39,6 +54,8 @@ export class GuestBookingTableComponent implements OnInit {
     roomBookingDetailID: '', //3
     serviceID: '', //4
     serviceQuantity: '', //5
+    discount: '', //6
+    roomJson: '', //7
   };
 
   formFields: MyFormField[] = [
@@ -78,6 +95,18 @@ export class GuestBookingTableComponent implements OnInit {
       type: 'textbox',
       required: true,
     },
+    {
+      value: this.pageFields.discount,
+      msg: '',
+      type: 'hidden',
+      required: false,
+    },
+    {
+      value: this.pageFields.roomJson,
+      msg: '',
+      type: 'textbox',
+      required: true,
+    },
   ];
 
   tableData: any = [];
@@ -88,7 +117,7 @@ export class GuestBookingTableComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Menu Items');
@@ -110,18 +139,6 @@ export class GuestBookingTableComponent implements OnInit {
         }
       );
   }
-
-  // {
-  //   "roomServiceID": 2,
-  //   "roomBookingDetailID": 2,
-  //   "serviceTypeID": 2,
-  //   "serviceType": null,
-  //   "serviceID": 7,
-  //   "serviceTitle": "Bike",
-  //   "quantity": 2,
-  //   "amount": 2000
-  // }
-
   getServices(item: any) {
     var bookingID = this.formFields[3].value
     this.dataService
@@ -154,6 +171,7 @@ export class GuestBookingTableComponent implements OnInit {
         }
       });
   }
+
 
   editTable(item: any): void {
     this.formFields[0].value = item.roomServiceID
@@ -291,7 +309,28 @@ export class GuestBookingTableComponent implements OnInit {
     }
   }
 
+
+  saveCheckout() {
+    this.dataService
+      .savetHttp(
+        this.pageFields,
+        this.formFields,
+        'guestms-api/RoomBooking/saveRoomBooking'
+      )
+      .subscribe((response: any[]) => {
+        if (response[0].includes('Success') == true) {
+          this.reset();
+          if (this.formFields[0].value > 0) {
+            this.valid.apiInfoResponse('Saved Successfully');
+          } else {
+            this.valid.apiInfoResponse('Service Added Successfully');
+          }
+        }
+      })
+  }
+
   print(id: any) {
     this.global.printData(id, 'portrait');
+    // this.save()
   }
 }

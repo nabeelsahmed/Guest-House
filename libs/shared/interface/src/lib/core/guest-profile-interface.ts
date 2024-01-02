@@ -5,4 +5,6 @@ export class GuestProfileInterface {
     roomBookingDetailID = '0';
     serviceID = '0';
     serviceQuantity = '0';
+    discount? = '';
+    roomJson? = '';
 }
