@@ -13,6 +13,7 @@ import { PrintBillComponent } from '../guest-booking/guest-booking-table/print-b
 export class GuestRecordsComponent implements OnInit {
   @ViewChild(PrintBillComponent) printBill: any;
 
+  branchID: any = 0;
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
@@ -22,6 +23,12 @@ export class GuestRecordsComponent implements OnInit {
   ngOnInit(): void {
     this.global.setHeaderTitle('Guest Records');
     this.getPartyStatus();
+
+    if (this.global.getBranchID() == 0) {
+      this.branchID = 3;
+    } else {
+      this.branchID = this.global.getBranchID();
+    }
   }
 
   partyList: any = [];
@@ -42,7 +49,10 @@ export class GuestRecordsComponent implements OnInit {
   getRoomBooking(item: any) {
     this.dataService
       .getHttp(
-        `guestms-api/RoomBooking/getRoomBooking?branchID=3&partyID=` + item,
+        'guestms-api/RoomBooking/getRoomBooking?branchID=' +
+          this.branchID +
+          '&partyID=' +
+          item,
         ''
       )
       .subscribe((response: any[]) => {

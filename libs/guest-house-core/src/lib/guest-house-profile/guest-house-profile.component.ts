@@ -14,6 +14,8 @@ import { SharedServicesGlobalDataModule } from "@general-app/shared/services/glo
   styleUrls: ["./guest-house-profile.component.scss"],
 })
 export class GuestHouseProfileComponent implements OnInit {
+  branchID: any = 0;
+
   pageFields: GuestProfileInterface = {
     roomServiceID: "0", //0
     spType: "", //1
@@ -74,10 +76,17 @@ export class GuestHouseProfileComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.global.setHeaderTitle("Guest Profile");
     this.formFields[2].value = this.global.getUserId().toString();
+
+    if (this.global.getBranchID() == 0) {
+      this.branchID = 3;
+    } else {
+      this.branchID = this.global.getBranchID();
+    }
+
     this.getRoomBooking();
     this.getServiceType();
     // this.getServices();
@@ -86,7 +95,10 @@ export class GuestHouseProfileComponent implements OnInit {
   //functions
   getRoomBooking() {
     this.dataService
-      .getHttp("guestms-api/RoomBooking/getRoomBooking?branchID=3", "")
+      .getHttp(
+        "guestms-api/RoomBooking/getRoomBooking?branchID=" + this.branchID,
+        ""
+      )
       .subscribe(
         (response: any[]) => {
           // console.log(response)
@@ -161,7 +173,6 @@ export class GuestHouseProfileComponent implements OnInit {
   //   "amount": 3000
   // }
 
-
   // {
   //   "roomServiceID": 10,
   //   "roomBookingID": 3,
@@ -178,19 +189,12 @@ export class GuestHouseProfileComponent implements OnInit {
       .getHttp(`guestms-api/Service/getRoomServices?roomBookingID=${item}`, "")
       .subscribe(
         (response: any) => {
-          this.servicesList = response
-          console.log(response)
+          this.servicesList = response;
+          console.log(response);
         },
         (error: any) => {
           console.log(error);
         }
       );
   }
-
-
-
-
-
-
-
 }

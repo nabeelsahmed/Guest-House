@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   envName: 'prod',
-  imageUrl: 'C:/inetpub/wwwroot/SchoolProject/guest-house/assets/ui/',
-  apiUrl: 'http://135.181.62.34:8040/',
-  productUrl: 'http://135.181.62.34:8070/',
+  imageUrl: 'C:/inetpub/wwwroot/GuestHouseProject/guest-house/assets/ui/',
+  apiUrl: 'http://95.217.205.57:5050/',
+  productUrl: 'http://95.217.205.57:5060/',
 };

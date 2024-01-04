@@ -18,9 +18,11 @@ declare var $: any;
 export class UserCreationComponent implements OnInit {
   @ViewChild(UserCreationTableComponent) userTable: any;
 
+  lblUserCount: any = 0;
   txtSearch: any = '';
   txtConfirmPw: any = '';
-  lblUserCount: any = 0;
+  cmbCompany: any = '';
+
   hide = true;
   hidecp = true;
 
@@ -33,6 +35,7 @@ export class UserCreationComponent implements OnInit {
     roleID: '', //5
     password: '', //6
     userCNIC: '', //7
+    branch_id: '', //8
   };
 
   formFields: MyFormField[] = [
@@ -84,11 +87,19 @@ export class UserCreationComponent implements OnInit {
       type: 'hidden',
       required: false,
     },
+    {
+      value: this.pageFields.branch_id,
+      msg: 'select branch',
+      type: 'selectbox',
+      required: true,
+    },
   ];
 
   teacherList: any = [];
   tempTableList: any = [];
   roleList: any = [];
+  branchList: any = [];
+  companyList: any = [];
 
   error: any;
 
@@ -98,18 +109,43 @@ export class UserCreationComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.global.setHeaderTitle('User Creation');
     this.getRoles();
     this.getUser();
+    this.getCompany();
+  }
+
+  getCompany() {
+    this.dataService.getHttp('cmis-api/Company/getCompanyList', '').subscribe(
+      (response: any) => {
+        this.companyList = response;
+        this.cmbCompany = 1;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getBranch(item: any) {
+    this.dataService
+      .getHttp('cmis-api/Branch/getBranchCompany?companyID=' + item, '')
+      .subscribe(
+        (response: any) => {
+          this.branchList = response;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   getUser() {
     this.dataService.getHttp('user-api/User/getAllUser', '').subscribe(
       (response: any) => {
-        console.log(response);
         this.tempTableList = response;
         this.userTable.tableData = response;
         this.lblUserCount = response.length;
@@ -173,6 +209,9 @@ export class UserCreationComponent implements OnInit {
     this.formFields[0].value = '0';
     this.formFields[7].value = '';
     this.txtConfirmPw = '';
+    this.cmbCompany = 1;
+
+    this.branchList = [];
   }
 
   edit(item: any) {
@@ -183,10 +222,14 @@ export class UserCreationComponent implements OnInit {
     this.formFields[4].value = item.email;
     this.formFields[5].value = item.roleId;
     this.formFields[7].value = item.userCNIC;
+
+    this.getBranch(this.cmbCompany);
+
+    this.formFields[8].value = item.branch_id;
   }
+
   delete(item: any) {
     this.reset();
     setTimeout(() => this.getUser(), 200);
   }
 }
-

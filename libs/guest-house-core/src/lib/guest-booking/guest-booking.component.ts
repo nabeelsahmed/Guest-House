@@ -21,6 +21,7 @@ export class GuestBookingComponent implements OnInit {
 
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  branchID: any = 0;
   hideDiv: any = false;
   visible: any = false;
   chkCheck: any;
@@ -139,6 +140,12 @@ export class GuestBookingComponent implements OnInit {
 
     this.formFields[2].value = this.global.getUserId().toString();
 
+    if (this.global.getBranchID() == 0) {
+      this.branchID = 3;
+    } else {
+      this.branchID = this.global.getBranchID();
+    }
+
     this.getRoomType();
     // this.getRoomRecords();
     this.getRoomFeatures();
@@ -148,7 +155,7 @@ export class GuestBookingComponent implements OnInit {
 
   // getRoomRecords() {
   //   this.dataService
-  //     .getHttp('guestms-api/RoomBooking/getGuestBookedRecord??branchID=3', '')
+  //     .getHttp('guestms-api/RoomBooking/getGuestBookedRecord??branchID='+this.branchID, '')
   //     .subscribe(
   //       (response: any) => {
   //         this.guestTable.tableData = response;
@@ -198,7 +205,10 @@ export class GuestBookingComponent implements OnInit {
 
   getRoomBooking() {
     this.dataService
-      .getHttp('guestms-api/RoomBooking/getRoomBooking?branchID=3', '')
+      .getHttp(
+        'guestms-api/RoomBooking/getRoomBooking?branchID=' + this.branchID,
+        ''
+      )
       .subscribe(
         (response: any) => {
           console.log(response);
@@ -256,7 +266,9 @@ export class GuestBookingComponent implements OnInit {
 
       this.dataService
         .getHttp(
-          'guestms-api/FloorRoom/getRoomAvailability?branchID=3&roomTypeID=' +
+          'guestms-api/FloorRoom/getRoomAvailability?branchID=' +
+            this.branchID +
+            '&roomTypeID=' +
             roomTypeID +
             '&checkIn=' +
             this.datePipe.transform(checkIn, 'yyyy-MM-dd') +
@@ -332,7 +344,7 @@ export class GuestBookingComponent implements OnInit {
     //         this.datePipe.transform(this.formFields[5].value, 'yyyy-MM-dd') +
     //         '&checkOut=' +
     //         this.datePipe.transform(this.formFields[6].value, 'yyyy-MM-dd') +
-    //         '&branchID=3&reservationStatus=' +
+    //         '&branchID='+this.branchID+'&reservationStatus=' +
     //         this.formFields[10].value +
     //         '&roomTypeID=' +
     //         roomTypeID +

@@ -65,6 +65,15 @@ export class SharedServicesGlobalDataModule {
     }
   }
 
+  getBranchID(): number {
+    this.currentUser = this.authService.currentUserValue;
+    if (this.currentUser) {
+      return this.currentUser.branch_id;
+    } else {
+      return 0;
+    }
+  }
+
   getTeacherID(): number {
     this.currentUser = this.authService.currentUserValue;
     if (this.currentUser) {

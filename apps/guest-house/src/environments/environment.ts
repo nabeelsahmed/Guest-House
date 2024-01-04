@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   envName: 'prod',
-  apiUrl: 'http://localhost:5050/',
-  // apiUrl: 'http://135.181.62.34:8040/',
-  imageUrl: 'C:/inetpub/wwwroot/SchoolProject/guest-house/assets/ui/',
-  productUrl: 'http://135.181.62.34:8070/',
+  // apiUrl: 'http://localhost:5050/',
+  apiUrl: 'http://95.217.205.57:5050/',
+  imageUrl: 'C:/inetpub/wwwroot/GuestHouseProject/guest-house/assets/ui/',
+  productUrl: 'http://95.217.205.57:5060/',
 };
 
 /*

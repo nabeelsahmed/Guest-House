@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./menu-items.component.scss'],
 })
 export class MenuItemsComponent implements OnInit {
+  branchID: any = 0;
+
   lblTotal: any = 0;
   itemList: any = [];
   tableData: any = [];
@@ -75,12 +77,21 @@ export class MenuItemsComponent implements OnInit {
   ngOnInit(): void {
     this.getFoodProducts();
 
+    if (this.global.getBranchID() == 0) {
+      this.branchID = 3;
+    } else {
+      this.branchID = this.global.getBranchID();
+    }
+
     this.formFields[2].value = this.global.getUserId().toString();
   }
 
   getFoodProducts() {
     this.dataService
-      .getHttp('guestms-api/Service/getFoodProduct?branchID=3', '')
+      .getHttp(
+        'guestms-api/Service/getFoodProduct?branchID=' + this.branchID,
+        ''
+      )
       .subscribe(
         (response: any) => {
           this.itemList = [];

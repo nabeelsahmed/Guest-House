@@ -14,6 +14,7 @@ import { GuestInfoComponent } from '../guest-info/guest-info.component';
 export class GuestBookingChildComponent implements OnInit {
   @ViewChild(GuestInfoComponent) guestInfo: any;
 
+  branchID: any = 0;
   cmbRoomType: any = '';
 
   pageFields: GuestInterface = {
@@ -107,6 +108,12 @@ export class GuestBookingChildComponent implements OnInit {
   ngOnInit(): void {
     this.formFields[2].value = this.global.getUserId().toString();
 
+    if (this.global.getBranchID() == 0) {
+      this.branchID = 3;
+    } else {
+      this.branchID = this.global.getBranchID();
+    }
+
     this.getRoomType();
     this.getRoomFeatures();
   }
@@ -148,7 +155,9 @@ export class GuestBookingChildComponent implements OnInit {
 
       this.dataService
         .getHttp(
-          'guestms-api/FloorRoom/getRoomAvailability?branchID=3&roomTypeID=' +
+          'guestms-api/FloorRoom/getRoomAvailability?branchID=' +
+            this.branchID +
+            '&roomTypeID=' +
             roomTypeID +
             '&checkIn=' +
             this.datePipe.transform(checkIn, 'yyyy-MM-dd') +
@@ -224,7 +233,7 @@ export class GuestBookingChildComponent implements OnInit {
     //         this.datePipe.transform(this.formFields[5].value, 'yyyy-MM-dd') +
     //         '&checkOut=' +
     //         this.datePipe.transform(this.formFields[6].value, 'yyyy-MM-dd') +
-    //         '&branchID=3&reservationStatus=' +
+    //         '&branchID='+this.branchID+'&reservationStatus=' +
     //         this.formFields[10].value +
     //         '&roomTypeID=' +
     //         roomTypeID +

@@ -7,4 +7,5 @@ export class UserCreateInterface {
   password = '';
   roleID = '';
   userCNIC = '';
+  branch_id = '';
 }

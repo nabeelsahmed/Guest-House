@@ -8,4 +8,5 @@ export interface UserInterface {
   teacherID: number;
   token?: string;
   roleTitle: string;
+  branch_id: number;
 }
