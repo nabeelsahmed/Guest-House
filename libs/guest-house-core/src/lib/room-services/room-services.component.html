@@ -55,7 +55,10 @@
                     (keypress)="validateInput($event)" />
             </mat-form-field>
             <div class="d-flex flex-row justify-content-end mb-2">
-                <button mat-button class="ms-2 saveBtn fw-bold fs-6 rounded-2 mat-elevation-z1" (click)="save()">
+                <button mat-button class="ms-2 saveBtn rounded-2   mat-elevation-z1" (click)="reset()">
+                    Reset
+                </button>
+                <button mat-button class="ms-2 saveBtn  rounded-2 mat-elevation-z1" (click)="save()">
                     Save
                 </button>
             </div>

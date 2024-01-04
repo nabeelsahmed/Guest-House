@@ -110,7 +110,7 @@ export class RoomServicesComponent implements OnInit {
   ]
 
   //variables
-  companyId: number = 0;
+  companyId: any = '';
   companyList: any[] = [];
   branchLists: any[] = [];
   services: any[] = [];
@@ -263,10 +263,32 @@ export class RoomServicesComponent implements OnInit {
 
   }
 
+  // serviceID: '0', //0
+  //   spType: '', //1
+  //   userID: '', //2
+  //   serviceParentID: '', //3
+  //   serviceTypeID: '', //4
+  //   serviceTitle: '', //5
+  //   branch_id: '',//6
+  //   serviceCharges: '', //7
+  //   measurementUnitID: '', //8
+  //   serviceImagePath: '', //9
+  //   serviceImageExt: '', //10
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
+    this.formFields[3].value = '';
+    this.formFields[4].value = '';
+    this.formFields[5].value = '';
+    this.formFields[6].value = '';
     this.formFields[7].value = '';
+    this.formFields[8].value = '';
+    this.formFields[9].value = '';
+    this.formFields[10].value = '';
+    // this.companyId = ''
+
+
+
   }
 
   validateInput(event: KeyboardEvent): void {
