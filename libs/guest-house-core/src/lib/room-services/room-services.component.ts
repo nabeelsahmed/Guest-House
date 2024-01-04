@@ -228,7 +228,7 @@ export class RoomServicesComponent implements OnInit {
       this.formFields[9].value != undefined &&
       this.formFields[10].value != ''
     ) {
-      this.formFields[10].value = environment.imageUrl + 'companyPictures';
+      this.formFields[10].value = environment.imageUrl + 'servicePicture';
     }
 
     if (this.formFields[10].value != undefined)
