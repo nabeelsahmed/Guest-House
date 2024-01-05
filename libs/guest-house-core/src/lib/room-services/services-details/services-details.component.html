@@ -1,4 +1,10 @@
-<perfect-scrollbar class="bg-light-grey mt-4" style="height: 30em; max-width: 100%">
+<div class="d-flex justify-content-end mt-3">
+    <mat-form-field class="w-25" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search" [(ngModel)]="serviceSearch">
+    </mat-form-field>
+</div>
+<perfect-scrollbar class="bg-light-grey mt-4" style="height: 35em; max-width: 100%">
     <table class="table border-1 border-dark text-md-center" *ngIf="tableList.length != 0">
         <thead class="bg-black text-white">
             <tr>
@@ -10,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of tableList">
+            <tr *ngFor="let item of tableList | search: 'serviceTitle,amount' :serviceSearch;">
                 <td>{{item.serviceTypeTitle}}</td>
                 <td>{{item.serviceTitle}}</td>
                 <td>{{item.measurementUnitTitle}}</td>
@@ -19,9 +25,10 @@
                 <td>
                     <div class="d-flex flex-row justify-content-center">
                         <div class="editBlueIcon" (click)="edit(item)"></div>
+                        <div class="deleteIcon" (click)="delete(item)"></div>
                     </div>
                 </td>
-                <!--editBlueIcon-->
+                <!--deleteIcon-->
             </tr>
         </tbody>
     </table>

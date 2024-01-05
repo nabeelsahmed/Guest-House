@@ -8,6 +8,8 @@ export class RoomServicesInterface {
     branch_id = '0';
     serviceCharges = '0';
     measurementUnitID = '0';
-    serviceImagePath = '';
-    serviceImageExt = '';
+    service_picture_path = '';
+    service_picture = '';
+    service_picture_extension = '';
+
 }

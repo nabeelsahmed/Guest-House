@@ -36,8 +36,9 @@ export class RoomServicesComponent implements OnInit {
     branch_id: '',//6
     serviceCharges: '', //7
     measurementUnitID: '', //8
-    serviceImagePath: '', //9
-    serviceImageExt: '', //10
+    service_picture_path: '', //9
+    service_picture_extension: '', //10
+    service_picture: '', //11
   };
 
   formFields: MyFormField[] = [
@@ -96,13 +97,19 @@ export class RoomServicesComponent implements OnInit {
       required: false,
     },
     {
-      value: this.pageFields.serviceImagePath, //9
+      value: this.pageFields.service_picture_path, //9
       msg: 'select image path',
       type: 'hidden',
       required: true,
     },
     {
-      value: this.pageFields.serviceImageExt, //10
+      value: this.pageFields.service_picture_extension, //10
+      msg: 'select correct image type',
+      type: 'hidden',
+      required: true,
+    },
+    {
+      value: this.pageFields.service_picture, //10
       msg: 'select correct image type',
       type: 'hidden',
       required: true,
@@ -116,7 +123,11 @@ export class RoomServicesComponent implements OnInit {
   services: any[] = [];
   measurements: any[] = [];
   parentServices: any[] = [];
-
+  servicePicture: any;
+  tbldata: any = '';
+  error: any;
+  parentID: any;
+  branchID: any;
 
 
 
@@ -171,8 +182,6 @@ export class RoomServicesComponent implements OnInit {
 
   }
 
-
-
   getMeasurementUnit() {
     this.dataService.getHttp('guestms-api/Service/getMeasurementUnit', '').subscribe(
       (response: any[]) => {
@@ -191,68 +200,71 @@ export class RoomServicesComponent implements OnInit {
 
   }
 
-
-
-
-
   getParentType(item1: any, item2: any) {
-    this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=${item1}&serviceTypeID=${item2}`, '').subscribe(
-      (response: any[]) => {
-        // console.log(response)
-        this.parentServices = response;
-      })
+    if (item2 != '') {
+      this.parentID = item2
+      this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=${item1}&serviceTypeID=${item2}`, '').subscribe(
+        (response: any[]) => {
+          // console.log(response)
+          this.parentServices = response;
+        })
+    }
+
 
   }
 
-
-
-
-
-
-
   getBranchServices(item: any) {
-    this.dataService.getHttp(`guestms-api/Service/getServices?branchID=` + item, '').subscribe(
-      (response: any[]) => {
-        console.log('Branch Services', response)
-        this.servicesDetails.tableList = response
-      })
+    if (item != '') {
+      this.branchID = item
+
+      this.dataService.getHttp(`guestms-api/Service/getServices?branchID=` + item, '').subscribe(
+        (response: any[]) => {
+          console.log('Branch Services', response)
+          this.servicesDetails.tableList = response
+        })
+    }
+
 
   }
 
 
   save() {
-    this.formFields[9].value = this.imageUpload.image;
+    this.formFields[11].value = this.imageUpload.image;
     this.formFields[10].value = this.imageUpload.imageExt;
-
     if (
-      this.formFields[9].value != undefined &&
+      this.formFields[11].value != undefined &&
       this.formFields[10].value != ''
     ) {
-      this.formFields[10].value = environment.imageUrl + 'servicePicture';
+      this.formFields[9].value = environment.imageUrl + 'servicePicture';
     }
 
-    if (this.formFields[10].value != undefined)
 
-      this.dataService
-        .savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveServices')
-        .subscribe(
-          (response: any[]) => {
-            if (response[0].includes('Success') == true) {
-              if (this.formFields[0].value > 0) {
-                this.valid.apiInfoResponse('Services saved successfully');
-              } else {
-                this.valid.apiInfoResponse('Services Saved');
-              }
-              this.reset();
-              this.getBranchServices(this.formFields[6].value)
+    this.dataService
+      .savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveServices')
+      .subscribe(
+        (response: any[]) => {
+          console.log(response)
+          if (response[0].includes('Success') == true) {
+            if (this.formFields[0].value > 0) {
+              this.reset()
+              this.getBranchServices(this.branchID)
+              this.valid.apiInfoResponse('Services saved successfully');
             } else {
-              this.valid.apiErrorResponse(response[0]);
+              this.valid.apiInfoResponse('Services Saved');
             }
-          });
+            this.reset();
+            this.getBranchServices(this.formFields[6].value)
+          } else {
+            this.valid.apiErrorResponse(response[0]);
+          }
+        });
   }
 
+  // service_picture_path: '', //9
+  //   service_picture_extension: '', //10
+  //   service_picture: '', //11
   edit(item: any) {
-    this.getParentType(this.formFields[6].value, this.formFields[4].value)
+    this.getParentType(this.branchID, this.formFields[4].value)
     this.formFields[0].value = item.serviceID;
     this.formFields[3].value = item.serviceParentID;
     this.formFields[4].value = item.serviceTypeID;
@@ -260,20 +272,12 @@ export class RoomServicesComponent implements OnInit {
     this.formFields[6].value = item.branch_id;
     this.formFields[7].value = item.amount;
     this.formFields[8].value = item.measurementUnitID;
+    this.formFields[9].value = item.service_picture_path;
+    this.formFields[10].value = item.service_picture_extension;
+    this.formFields[11].value = item.service_picture;
+
 
   }
-
-  // serviceID: '0', //0
-  //   spType: '', //1
-  //   userID: '', //2
-  //   serviceParentID: '', //3
-  //   serviceTypeID: '', //4
-  //   serviceTitle: '', //5
-  //   branch_id: '',//6
-  //   serviceCharges: '', //7
-  //   measurementUnitID: '', //8
-  //   serviceImagePath: '', //9
-  //   serviceImageExt: '', //10
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
@@ -285,11 +289,61 @@ export class RoomServicesComponent implements OnInit {
     this.formFields[8].value = '';
     this.formFields[9].value = '';
     this.formFields[10].value = '';
-    // this.companyId = ''
-
-
-
+    this.formFields[11].value = '';
   }
+
+  delete(item: any) {
+    var pageFields = {
+      serviceID: '0', //0
+      spType: '', //1
+      userID: '0', //2
+    };
+
+    var formFields: MyFormField[] = [
+      {
+        value: pageFields.serviceID,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      },
+      {
+        value: pageFields.spType,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      }, {
+        value: pageFields.userID,
+        msg: '',
+        type: 'hidden',
+        required: false,
+      }
+    ];
+
+    formFields[0].value = item.serviceID;
+    formFields[1].value = 'delete';
+    formFields[2].value = this.global.getUserId().toString();
+
+    this.dataService
+      .deleteHttp(pageFields, formFields, 'guestms-api/Service/saveServices')
+      .subscribe(
+        (response: any) => {
+          // console.log(response);
+          if (response == 'Success') {
+            this.reset();
+            this.getBranchServices(this.branchID)
+            this.valid.apiInfoResponse('Record deleted successfully');
+          } else {
+            this.valid.apiErrorResponse(response[0]);
+          }
+        },
+        (error: any) => {
+          this.error = error;
+          this.valid.apiErrorResponse(this.error);
+        }
+      );
+  }
+
+
 
   validateInput(event: KeyboardEvent): void {
     const inputChar = String.fromCharCode(event.charCode);

@@ -33,6 +33,8 @@ export class GuestBookingTableComponent implements OnInit {
   cmbServiceType: any = '';
   tblSearch: any = '';
   divVisible: any = false;
+  servicesTbl: any = [];
+  error: any;
 
   pageFields: GuestProfileInterface = {
     roomServiceID: '0', //0
@@ -124,7 +126,7 @@ export class GuestBookingTableComponent implements OnInit {
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
     private valid: SharedHelpersFieldValidationsModule
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Menu Items');
@@ -140,26 +142,48 @@ export class GuestBookingTableComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.servicesList = response;
-          console.log(this.servicesList);
+          // console.log(this.servicesList);
+          this.getRoomServices()
+
         },
         (error: any) => {
           console.log(error);
         }
       );
   }
+
   getServices(item: any) {
+    this.dataService
+      .getHttp(
+        `guestms-api/Service/getServices?branchID=3&serviceTypeID=` +
+        item,
+        ''
+      )
+      .subscribe((response: any) => {
+        this.serviceTitleList = response;
+      });
+  }
+
+  // {
+  //   "roomServiceID": 38,
+  //   "roomBookingDetailID": 14,
+  //   "serviceTypeID": 2,
+  //   "serviceTypeTitle": "Vehicle",
+  //   "serviceID": 7,
+  //   "serviceTitle": "Bike",
+  //   "quantity": 3,
+  //   "amount": 3000
+  // }
+  getRoomServices() {
     var bookingID = this.formFields[3].value;
     this.dataService
       .getHttp(
-        `guestms-api/Service/getRoomServices?&serviceTypeID=` +
-          item +
-          `&roomBookingDetailID=` +
-          bookingID,
+        `guestms-api/Service/getRoomServices?roomBookingDetailID=` + bookingID,
         ''
       )
       .subscribe((response: any) => {
         console.log(response);
-        this.serviceTitleList = response;
+        this.servicesTbl = response
       });
   }
 
@@ -173,7 +197,7 @@ export class GuestBookingTableComponent implements OnInit {
       .subscribe((response: any[]) => {
         if (response[0].includes('Success') == true) {
           this.reset();
-          // this.getServices();
+          this.getRoomServices()
           if (this.formFields[0].value > 0) {
             this.valid.apiInfoResponse('Saved Successfully');
           } else {
@@ -182,6 +206,9 @@ export class GuestBookingTableComponent implements OnInit {
         }
       });
   }
+
+
+
 
   editServices(item: any): void {
     this.formFields[0].value = item.roomServiceID;
@@ -193,7 +220,7 @@ export class GuestBookingTableComponent implements OnInit {
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
-    this.cmbServiceType = '';
+    // this.cmbServiceType = '';
   }
 
   edit(item: any) {

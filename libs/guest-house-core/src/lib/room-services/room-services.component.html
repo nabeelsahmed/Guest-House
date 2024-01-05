@@ -34,13 +34,11 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="w-100" appearance="outline">
-                <mat-label> Servcie Title </mat-label>
+                <mat-label> Service Title </mat-label>
                 <input matInput [(ngModel)]="this.formFields[5].value" />
             </mat-form-field>
             <mat-card class="text-center border">
-                <general-app-image-upload></general-app-image-upload>
-                <!-- <general-app-image-upload></general-app-image-upload> -->
-                <!-- <general-app-image-uploads-component></general-app-image-uploads-component> -->
+                <general-app-image-upload [imageUrl]="servicePicture"></general-app-image-upload>
             </mat-card>
             <mat-form-field class="w-100 mt-3" appearance="outline">
                 <mat-label>Unit</mat-label>
@@ -64,7 +62,8 @@
             </div>
         </div>
         <div class="col-md-9">
-            <general-app-services-details (eventEmitterEdit)="edit($event)"></general-app-services-details>
+            <general-app-services-details (eventEmitterEdit)="edit($event)"
+                (eventEmitterDelete)="delete($event)"></general-app-services-details>
         </div>
     </div>
 </div>
