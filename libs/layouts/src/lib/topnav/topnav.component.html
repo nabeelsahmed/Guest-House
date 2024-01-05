@@ -19,15 +19,15 @@
     >
       <mat-icon><div class="iconimg3"></div></mat-icon>
     </button>
-    <mat-menu #userMenu="matMenu">
-      <button mat-menu-item>
+    <mat-menu class="mat-menu" #userMenu="matMenu">
+      <!-- <button mat-menu-item>
         <mat-icon>settings</mat-icon>
         <span>Change Password</span>
-      </button>
+      </button> -->
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
-        <mat-icon>power_settings_new</mat-icon>
-        <span>Log out</span>
+        <mat-icon class="text-white">power_settings_new</mat-icon>
+        <span class="text-white">Log out</span>
       </button>
     </mat-menu>
     <button
@@ -38,13 +38,15 @@
     >
       <mat-icon><div class="iconimg1"></div></mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
+    <mat-menu class="mat-menu" #menu="matMenu">
       <div *ngFor="let item of applicationModulesList">
         <button mat-menu-item (click)="setSidebarMenu(item)">
           <!-- <mat-icon>{{ item.moduleIcon }}</mat-icon> -->
           <div class="d-flex align-items-center">
             <div [class]="item.moduleIcon"></div>
-            <span class="ms-2">{{ item.applicationModuleTitle }}</span>
+            <span class="ms-2 text-white">{{
+              item.applicationModuleTitle
+            }}</span>
           </div>
         </button>
       </div>

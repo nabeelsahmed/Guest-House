@@ -130,11 +130,7 @@
           <div class="col-md-6">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Company</mat-label>
-              <mat-select
-                [(ngModel)]="cmbCompany"
-                (ngModelChange)="getBranch(cmbCompany)"
-                disabled="true"
-              >
+              <mat-select [(ngModel)]="cmbCompany" disabled="true">
                 <mat-option
                   *ngFor="let item of companyList"
                   [value]="item.company_id"

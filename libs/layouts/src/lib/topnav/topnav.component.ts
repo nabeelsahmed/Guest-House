@@ -2,16 +2,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedServicesAuthModule } from '@general-app/shared/services/auth';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
-import { ApplicationModuleInterface, UserInterface } from '@general-app/shared/interface';
+import {
+  ApplicationModuleInterface,
+  UserInterface,
+} from '@general-app/shared/interface';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 
 @Component({
   selector: 'general-app-topnav',
   templateUrl: './topnav.component.html',
-  styleUrls: ['./topnav.component.scss']
+  styleUrls: ['./topnav.component.scss'],
 })
 export class TopnavComponent implements OnInit {
-
   @Output() public drawerToggle = new EventEmitter();
 
   applicationModulesList: ApplicationModuleInterface[] = [];
@@ -35,7 +37,7 @@ export class TopnavComponent implements OnInit {
     this.globalService.header_title$.subscribe((str: string) => {
       this.title = str;
     });
-    
+
     this.currentUser = this.authService.currentUserValue;
     this.userName = 'Hi, ' + this.currentUser.fullName;
     this.roleId = this.currentUser.roleId;
@@ -84,5 +86,4 @@ export class TopnavComponent implements OnInit {
     await this.authService.logout();
     this.router.navigate(['auth/login']);
   }
-
 }

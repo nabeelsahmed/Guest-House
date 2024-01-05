@@ -732,4 +732,8 @@ export class GuestBookingComponent implements OnInit {
 
     this.global.setRoomBookingDetail(item);
   }
+  back() {
+    this.getRoomBooking();
+    this.visible = false;
+  }
 }

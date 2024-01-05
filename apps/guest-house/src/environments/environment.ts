@@ -8,7 +8,7 @@ export const environment = {
   // apiUrl: 'http://localhost:5050/',
   apiUrl: 'http://95.217.205.57:5050/',
   imageUrl: 'C:/inetpub/wwwroot/GuestHouseProject/guest-house/assets/ui/',
-  productUrl: 'http://95.217.205.57:5060/',
+  productUrl: 'http://95.217.205.57:6060/',
 };
 
 /*

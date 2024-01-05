@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SharedHelpersFieldValidationsModule } from '@general-app/shared/helpers/field-validations';
 import { SharedServicesDataModule } from '@general-app/shared/services/data';
 import { SharedServicesGlobalDataModule } from '@general-app/shared/services/global-data';
@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./menu-items.component.scss'],
 })
 export class MenuItemsComponent implements OnInit {
+  @Output() eventEmitter = new EventEmitter();
+
   branchID: any = 0;
 
   lblTotal: any = 0;
@@ -94,6 +96,7 @@ export class MenuItemsComponent implements OnInit {
       )
       .subscribe(
         (response: any) => {
+          console.log(response);
           this.itemList = [];
           for (var i = 0; i < response.length; i++) {
             var jsonList = [];
@@ -201,6 +204,8 @@ export class MenuItemsComponent implements OnInit {
         (response: any[]) => {
           if (response[0].includes('Success') == true) {
             this.valid.apiInfoResponse('Order Placed Successfully');
+
+            this.eventEmitter.emit();
           } else {
             this.valid.apiErrorResponse(response[0]);
           }
@@ -210,5 +215,9 @@ export class MenuItemsComponent implements OnInit {
           this.valid.apiErrorResponse(this.error);
         }
       );
+  }
+
+  back() {
+    this.eventEmitter.emit();
   }
 }

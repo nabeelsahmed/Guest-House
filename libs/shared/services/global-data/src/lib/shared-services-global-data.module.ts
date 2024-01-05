@@ -250,6 +250,26 @@ export class SharedServicesGlobalDataModule {
     return [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/];
   }
 
+  strnMask(): any {
+    return [
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+    ];
+  }
   bpsMask(): any {
     return [/\d/, /\d/];
   }

@@ -632,6 +632,18 @@ button.mat-raised-button.uploadbtn {
   border: none;
 }
 
+.backBtn {
+  // position: fixed;
+  right: 0;
+  height: 2em !important;
+  // width: 4em;
+  min-width: 2.5em !important;
+  max-width: 2.5em !important;
+  background-color: var(--body-primary) !important;
+  color: black;
+  border: none;
+}
+
 .emptyBtn {
   // position: fixed;
   right: 0;

@@ -7,6 +7,7 @@ import { ContactInfoComponent } from 'libs/shared/shared-components/src/lib/cont
 import { ImageUploadComponent } from 'libs/shared/shared-components/src/lib/image-upload/image-upload.component';
 import { CompanyListTableComponent } from './company-list-table/company-list-table.component';
 import { environment } from 'apps/guest-house/src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 declare var $: any;
 @Component({
@@ -20,20 +21,20 @@ export class CompanyProfileComponent implements OnInit {
   @ViewChild(ImageUploadComponent) imageUpload: any;
 
   pageFields: CompanyInterface = {
-    new_company_id: '0',
-    spType: '',
-    userID: '0',
-    company_name: '',
-    company_short_name: '',
-    company_registeration_no: '',
-    company_registeration_date: '',
-    company_ntn: '',
-    company_strn: '',
-    company_type_id: '',
-    company_picture_path: '',
-    company_picture: '',
-    company_picture_extension: '',
-    json: [],
+    new_company_id: '0', //0
+    spType: '', //1
+    userID: '0', //2
+    company_name: '', //3
+    company_short_name: '', //4
+    company_registeration_no: '', //5
+    company_registeration_date: '', //6
+    company_ntn: '', //7
+    company_strn: '', //8
+    company_type_id: '', //9
+    company_picture_path: '', //10
+    company_picture: '', //11
+    company_picture_extension: '', //12
+    json: [], //13
   };
 
   formFields: MyFormField[] = [
@@ -95,7 +96,7 @@ export class CompanyProfileComponent implements OnInit {
       value: this.pageFields.company_type_id,
       msg: 'select company type',
       type: 'selectbox',
-      required: true,
+      required: false,
     },
     {
       value: this.pageFields.company_picture_path,
@@ -123,6 +124,9 @@ export class CompanyProfileComponent implements OnInit {
     },
   ];
 
+  ntnMask = this.global.ntnMask();
+  strnMask = this.global.strnMask();
+
   companyTypeList: any = [];
 
   productPic: any;
@@ -132,7 +136,8 @@ export class CompanyProfileComponent implements OnInit {
   constructor(
     private global: SharedServicesGlobalDataModule,
     private dataService: SharedServicesDataModule,
-    private valid: SharedHelpersFieldValidationsModule
+    private valid: SharedHelpersFieldValidationsModule,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -190,8 +195,13 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   save() {
+    this.formFields[9].value = '0';
     this.formFields[11].value = this.imageUpload.image;
     this.formFields[12].value = this.imageUpload.imageExt;
+    this.formFields[6].value = this.datePipe.transform(
+      this.formFields[6].value,
+      'yyyy-MM-dd'
+    );
 
     if (
       this.formFields[11].value != undefined &&
@@ -241,6 +251,7 @@ export class CompanyProfileComponent implements OnInit {
     this.formFields[11].value = '';
     this.formFields[12].value = '';
     this.formFields[10].value = '';
+    this.formFields[9].value = '0';
 
     this.contactInfo.contactDataList = [];
   }

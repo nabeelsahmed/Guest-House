@@ -60,11 +60,19 @@
       </mat-form-field>
       <mat-form-field class="w-50 pe-2" appearance="outline">
         <mat-label>Enter NTN no.</mat-label>
-        <input matInput [(ngModel)]="formFields[7].value" />
+        <input
+          matInput
+          [(ngModel)]="formFields[7].value"
+          [textMask]="{ mask: ntnMask }"
+        />
       </mat-form-field>
       <mat-form-field class="w-50 ps-2" appearance="outline">
         <mat-label>Enter STRN no.</mat-label>
-        <input matInput [(ngModel)]="formFields[8].value" />
+        <input
+          matInput
+          [(ngModel)]="formFields[8].value"
+          [textMask]="{ mask: strnMask }"
+        />
       </mat-form-field>
       <perfect-scrollbar
         class="bg-light-grey mb-3"

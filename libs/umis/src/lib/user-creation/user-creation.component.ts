@@ -123,6 +123,7 @@ export class UserCreationComponent implements OnInit {
       (response: any) => {
         this.companyList = response;
         this.cmbCompany = 1;
+        this.getBranch(this.cmbCompany);
       },
       (error: any) => {
         console.log(error);
@@ -131,11 +132,13 @@ export class UserCreationComponent implements OnInit {
   }
 
   getBranch(item: any) {
+    this.branchList = [];
     this.dataService
       .getHttp('cmis-api/Branch/getBranchCompany?companyID=' + item, '')
       .subscribe(
         (response: any) => {
           this.branchList = response;
+          console.log(this.branchList);
         },
         (error: any) => {
           console.log(error);
@@ -211,7 +214,7 @@ export class UserCreationComponent implements OnInit {
     this.txtConfirmPw = '';
     this.cmbCompany = 1;
 
-    this.branchList = [];
+    this.getBranch(1);
   }
 
   edit(item: any) {

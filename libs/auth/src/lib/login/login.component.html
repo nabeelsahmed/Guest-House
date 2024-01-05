@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8"></div>
     <div class="col-md-4 mt-5 text-center">
-      <div class="d-flex flex-column card pt-4 pb-4 light-bg">
+      <div class="d-flex flex-column card pt-2 pb-4 light-bg">
         <div>
           <div class="text-center">
             <img id="logoImg" [src]="logoImg" />
@@ -10,9 +10,28 @@
           <p class="font-style mb-1">Login to your account</p>
           <small> Enter your credentials to enter account </small>
         </div>
-        <div class="text-center mt-3">
+        <div class="text-center mt-2">
           <form #loginForm="ngForm">
-            <div class="d-flex flex-column gap-2 text-start">
+            <mat-form-field appearance="outline" class="w-100 ps-3 pe-3">
+              <mat-label>Enter Email</mat-label>
+              <input matInput [(ngModel)]="email" name="email" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100 ps-3 pe-3">
+              <mat-label>Enter Password</mat-label>
+              <input
+                matInput
+                [(ngModel)]="txtPassword"
+                name="password"
+                [type]="hide ? 'password' : 'text'"
+              />
+              <mat-icon
+                class="cursorPointer"
+                matSuffix
+                (click)="hide = !hide"
+                >{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon
+              >
+            </mat-form-field>
+            <!-- <div class="d-flex flex-column gap-2 text-start">
               <label htmlFor="email">Email</label>
               <input
                 class="p-inputtext-sm bg-transparent border border-dark"
@@ -33,10 +52,10 @@
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="txtPassword"
               />
-            </div>
+            </div> -->
             <button
               mat-raised-button
-              class="mt-3 savebtn Loginbtn rounded-pill"
+              class="savebtn Loginbtn rounded-pill"
               (click)="login()"
             >
               Login
