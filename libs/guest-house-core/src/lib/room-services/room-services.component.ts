@@ -75,7 +75,7 @@ export class RoomServicesComponent implements OnInit {
     {
       value: this.pageFields.serviceTitle, //5
       msg: 'enter service title',
-      type: 'selectbox',
+      type: 'input',
       required: true,
     },
     {
@@ -116,6 +116,8 @@ export class RoomServicesComponent implements OnInit {
     },
   ]
 
+
+  servicePic: any;
   //variables
   companyId: any = '';
   companyList: any[] = [];
@@ -123,14 +125,9 @@ export class RoomServicesComponent implements OnInit {
   services: any[] = [];
   measurements: any[] = [];
   parentServices: any[] = [];
-  servicePicture: any;
   tbldata: any = '';
   error: any;
-  parentID: any;
-  branchID: any;
-
-
-
+  cmbranchID: any;
 
   //
   constructor(
@@ -142,12 +139,12 @@ export class RoomServicesComponent implements OnInit {
   ngOnInit(): void {
     this.global.setHeaderTitle('Room Services');
     this.formFields[2].value = this.global.getUserId().toString();
+    this.servicePic = 'https://www.w3schools.com/images/picture.jpg';
 
     //functions
     this.getMeasurementUnit()
     this.getServiceType()
     this.getCompanyLists()
-    // this.getBranchServices()
   }
 
 
@@ -202,7 +199,6 @@ export class RoomServicesComponent implements OnInit {
 
   getParentType(item1: any, item2: any) {
     if (item2 != '') {
-      this.parentID = item2
       this.dataService.getHttp(`guestms-api/Service/getParentService?branchID=${item1}&serviceTypeID=${item2}`, '').subscribe(
         (response: any[]) => {
           // console.log(response)
@@ -215,7 +211,7 @@ export class RoomServicesComponent implements OnInit {
 
   getBranchServices(item: any) {
     if (item != '') {
-      this.branchID = item
+      this.cmbranchID = item
 
       this.dataService.getHttp(`guestms-api/Service/getServices?branchID=` + item, '').subscribe(
         (response: any[]) => {
@@ -238,7 +234,6 @@ export class RoomServicesComponent implements OnInit {
       this.formFields[9].value = environment.imageUrl + 'servicePicture';
     }
 
-
     this.dataService
       .savetHttp(this.pageFields, this.formFields, 'guestms-api/Service/saveServices')
       .subscribe(
@@ -247,7 +242,7 @@ export class RoomServicesComponent implements OnInit {
           if (response[0].includes('Success') == true) {
             if (this.formFields[0].value > 0) {
               this.reset()
-              this.getBranchServices(this.branchID)
+              this.getBranchServices(this.cmbranchID)
               this.valid.apiInfoResponse('Services saved successfully');
             } else {
               this.valid.apiInfoResponse('Services Saved');
@@ -260,36 +255,31 @@ export class RoomServicesComponent implements OnInit {
         });
   }
 
-  // service_picture_path: '', //9
-  //   service_picture_extension: '', //10
-  //   service_picture: '', //11
+
   edit(item: any) {
-    this.getParentType(this.branchID, this.formFields[4].value)
+    console.log(item);
     this.formFields[0].value = item.serviceID;
     this.formFields[3].value = item.serviceParentID;
     this.formFields[4].value = item.serviceTypeID;
     this.formFields[5].value = item.serviceTitle;
     this.formFields[6].value = item.branch_id;
+    this.getParentType(item.branch_id, item.serviceTypeID)
     this.formFields[7].value = item.amount;
     this.formFields[8].value = item.measurementUnitID;
-    this.formFields[9].value = item.service_picture_path;
-    this.formFields[10].value = item.service_picture_extension;
-    this.formFields[11].value = item.service_picture;
+    this.formFields[9].value = item.serviceImagePath;
+    this.formFields[10].value = item.serviceImageExt;
 
+    // this.formFields[11].value = item.service_picture;
+    if (item.serviceImageExt != null) {
+      this.servicePic = 'http://95.217.205.57:6060/assets/ui/servicePicture/' + item.serviceImageExt;
+    }
 
   }
   reset() {
     this.formFields = this.valid.resetFormFields(this.formFields);
     this.formFields[0].value = '0';
-    this.formFields[3].value = '';
-    this.formFields[4].value = '';
-    this.formFields[5].value = '';
-    this.formFields[6].value = '';
-    this.formFields[7].value = '';
-    this.formFields[8].value = '';
-    this.formFields[9].value = '';
-    this.formFields[10].value = '';
-    this.formFields[11].value = '';
+    this.servicePic = 'https://www.w3schools.com/images/picture.jpg';
+
   }
 
   delete(item: any) {
@@ -330,7 +320,7 @@ export class RoomServicesComponent implements OnInit {
           // console.log(response);
           if (response == 'Success') {
             this.reset();
-            this.getBranchServices(this.branchID)
+            this.getBranchServices(this.cmbranchID)
             this.valid.apiInfoResponse('Record deleted successfully');
           } else {
             this.valid.apiErrorResponse(response[0]);

@@ -203,14 +203,25 @@
 
 .deleteIcon:hover {
   background: url(../assets/images/icons/deleteRed.svg);
-  height: 1.5em;
-  width: 1.2em;
+  height: 1.2em;
+  width: 1em;
   background-position: center;
   background-size: cover;
   cursor: pointer;
-  transform: scale(1.2);
-  transition: transform 0.5s ease;
+  // transform: scale(1.2);
+  // transition: transform 0.5s ease;
 }
+
+// .deleteIcon:hover {
+//   background: url(../assets/images/icons/deleteRed.svg);
+//   height: 1.5em;
+//   width: 1.2em;
+//   background-position: center;
+//   background-size: cover;
+//   cursor: pointer;
+//   transform: scale(1.2);
+//   transition: transform 0.5s ease;
+// }
 
 .filterIcon {
   background: url(../assets/images/icons/filter.svg);
@@ -942,6 +953,7 @@
   background-size: contain;
   cursor: pointer;
 }
+
 .backArrowIcon {
   background: url(../assets/images/icons/backArrow.svg);
   width: 1.5em;
@@ -987,6 +999,7 @@
   background-size: cover;
   cursor: pointer;
 }
+
 .menuItemIcon {
   background: url(../assets/images/icons/menuItems.svg);
   width: 14em;
